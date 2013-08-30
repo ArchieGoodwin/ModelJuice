@@ -13,7 +13,7 @@
 
 
 
--(void)loginMe:(NSString *)login pwd:(NSString *)pwd completeBlock:(RCCompleteBlockWithBoolResult)completeBlock
+-(void)loginMe:(NSString *)login pwd:(NSString *)pwd completeBlock:(RCCompleteBlockWithPersonResult)completeBlock
 {
     NSString *urlString = [NSString stringWithFormat:@"http://modeljuice.blueforcedev.com/Api/Person/ValidateLogon?PersonEmail=%@&PersonPassword=%@",  login, pwd];
     
@@ -26,19 +26,32 @@
   
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"[loginMe responseData]: %@", [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
-
+        NSDictionary *answer = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:nil];
         NSLog(@"loginMe success");
         
         if(completeBlock)
         {
-            completeBlock(YES, nil);
+            
+            Person *person = [Person createEntityInContext];
+            person.firstName = [[[answer objectForKey:@"ReturnValue"] objectForKey:@"Person"] objectForKey:@"FirstName"];
+            person.lastName = [[[answer objectForKey:@"ReturnValue"] objectForKey:@"Person"] objectForKey:@"LastName"];
+            person.personId = [[[answer objectForKey:@"ReturnValue"] objectForKey:@"Person"] objectForKey:@"PersonID"];
+            person.personLogin = login;
+            person.personPwd = pwd;
+            person.personType = [NSNumber numberWithInteger:0];
+            [Person saveDefaultContext];
+            
+            [[NSUserDefaults standardUserDefaults] setObject:[[[answer objectForKey:@"ReturnValue"] objectForKey:@"Person"] objectForKey:@"PersonID"] forKey:@"PersonID"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
+            completeBlock(person, nil);
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"loginMe error %@", error.description);
         if(completeBlock)
         {
-            completeBlock(NO, error);
+            completeBlock(nil, error);
 
         }
             
@@ -49,6 +62,45 @@
 }
 
 
+-(void)getBookingsForPerson:(Person *)person completeBlock:(RCCompleteBlockWithBoolResult)completeBlock
+{
+    NSString *urlString = [NSString stringWithFormat:@"http://modeljuice.blueforcedev.com/Api/Booking/GetBookings"];
+    
+    NSLog(@"getBookingsForPerson url %@", urlString);
+    
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    AFJSONRequestOperation *operation = [[AFJSONRequestOperation alloc] initWithRequest:request];
+    
+   
+
+    
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"[getBookingsForPerson responseData]: %@", [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
+        NSDictionary *answer = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:nil];
+        NSLog(@"getBookingsForPerson success");
+        
+        if(completeBlock)
+        {
+            
+            
+            completeBlock(YES, nil);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"getBookingsForPerson error %@", error.description);
+        if(completeBlock)
+        {
+            completeBlock(NO, error);
+            
+        }
+        
+    }];
+    
+    [operation start];
+}
 
 
 - (id)init {

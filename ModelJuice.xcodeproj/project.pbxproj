@@ -37,6 +37,11 @@
 		DC5E971B17CF9D3E00D820AE /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DC5E971917CF9D3E00D820AE /* Model.xcdatamodeld */; };
 		DC5E971E17CF9DA000D820AE /* NSManagedObject+NWCoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = DC5E971D17CF9DA000D820AE /* NSManagedObject+NWCoreDataHelper.m */; };
 		DC5E972017CF9E4A00D820AE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC5E971F17CF9E4A00D820AE /* CoreData.framework */; };
+		DC5E972417D074B100D820AE /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = DC5E972317D074B100D820AE /* Person.m */; };
+		DC5E972817D07DD500D820AE /* DKAScheduleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DC5E972717D07DD500D820AE /* DKAScheduleVC.m */; };
+		DC5E972B17D07E9400D820AE /* DKAScheduleNavigateVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DC5E972A17D07E9400D820AE /* DKAScheduleNavigateVC.m */; };
+		DC5E972E17D0A9FE00D820AE /* DKAHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = DC5E972D17D0A9FE00D820AE /* DKAHTTPClient.m */; };
+		DC5E973217D0B3E000D820AE /* Booking.m in Sources */ = {isa = PBXBuildFile; fileRef = DC5E973117D0B3E000D820AE /* Booking.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +104,17 @@
 		DC5E971C17CF9DA000D820AE /* NSManagedObject+NWCoreDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+NWCoreDataHelper.h"; sourceTree = "<group>"; };
 		DC5E971D17CF9DA000D820AE /* NSManagedObject+NWCoreDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+NWCoreDataHelper.m"; sourceTree = "<group>"; };
 		DC5E971F17CF9E4A00D820AE /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		DC5E972217D074B100D820AE /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
+		DC5E972317D074B100D820AE /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
+		DC5E972617D07DD500D820AE /* DKAScheduleVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKAScheduleVC.h; sourceTree = "<group>"; };
+		DC5E972717D07DD500D820AE /* DKAScheduleVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKAScheduleVC.m; sourceTree = "<group>"; };
+		DC5E972917D07E9400D820AE /* DKAScheduleNavigateVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKAScheduleNavigateVC.h; sourceTree = "<group>"; };
+		DC5E972A17D07E9400D820AE /* DKAScheduleNavigateVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKAScheduleNavigateVC.m; sourceTree = "<group>"; };
+		DC5E972C17D0A9FE00D820AE /* DKAHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKAHTTPClient.h; sourceTree = "<group>"; };
+		DC5E972D17D0A9FE00D820AE /* DKAHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKAHTTPClient.m; sourceTree = "<group>"; };
+		DC5E972F17D0B34F00D820AE /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
+		DC5E973017D0B3E000D820AE /* Booking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Booking.h; sourceTree = "<group>"; };
+		DC5E973117D0B3E000D820AE /* Booking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Booking.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +178,8 @@
 		DC5E96B717CE262700D820AE /* ModelJuice */ = {
 			isa = PBXGroup;
 			children = (
+				DC5E972517D07DB100D820AE /* Schedule */,
+				DC5E972117D074A000D820AE /* Model */,
 				DC5E96F817CF4E0200D820AE /* Helpers */,
 				DC5E96F717CF4DDC00D820AE /* Login */,
 				DC5E96C017CE262700D820AE /* DKAAppDelegate.h */,
@@ -224,6 +242,8 @@
 				DC5E96F917CF4E7F00D820AE /* AFNetworking */,
 				DC5E971617CF4EBB00D820AE /* DKANetworkHelper.h */,
 				DC5E971717CF4EBB00D820AE /* DKANetworkHelper.m */,
+				DC5E972C17D0A9FE00D820AE /* DKAHTTPClient.h */,
+				DC5E972D17D0A9FE00D820AE /* DKAHTTPClient.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -252,6 +272,28 @@
 				DC5E970C17CF4E7F00D820AE /* UIImageView+AFNetworking.m */,
 			);
 			path = AFNetworking;
+			sourceTree = "<group>";
+		};
+		DC5E972117D074A000D820AE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DC5E973017D0B3E000D820AE /* Booking.h */,
+				DC5E973117D0B3E000D820AE /* Booking.m */,
+				DC5E972217D074B100D820AE /* Person.h */,
+				DC5E972317D074B100D820AE /* Person.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		DC5E972517D07DB100D820AE /* Schedule */ = {
+			isa = PBXGroup;
+			children = (
+				DC5E972617D07DD500D820AE /* DKAScheduleVC.h */,
+				DC5E972717D07DD500D820AE /* DKAScheduleVC.m */,
+				DC5E972917D07E9400D820AE /* DKAScheduleNavigateVC.h */,
+				DC5E972A17D07E9400D820AE /* DKAScheduleNavigateVC.m */,
+			);
+			name = Schedule;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -361,15 +403,20 @@
 				DC5E971417CF4E7F00D820AE /* AFXMLRequestOperation.m in Sources */,
 				DC5E96C217CE262700D820AE /* DKAAppDelegate.m in Sources */,
 				DC5E971517CF4E7F00D820AE /* UIImageView+AFNetworking.m in Sources */,
+				DC5E972417D074B100D820AE /* Person.m in Sources */,
 				DC5E971317CF4E7F00D820AE /* AFURLConnectionOperation.m in Sources */,
 				DC5E971117CF4E7F00D820AE /* AFNetworkActivityIndicatorManager.m in Sources */,
+				DC5E973217D0B3E000D820AE /* Booking.m in Sources */,
 				DC5E96C817CE262700D820AE /* DKAFirstViewController.m in Sources */,
 				DC5E971017CF4E7F00D820AE /* AFJSONRequestOperation.m in Sources */,
+				DC5E972B17D07E9400D820AE /* DKAScheduleNavigateVC.m in Sources */,
 				DC5E96CB17CE262700D820AE /* DKASecondViewController.m in Sources */,
+				DC5E972817D07DD500D820AE /* DKAScheduleVC.m in Sources */,
 				DC5E971B17CF9D3E00D820AE /* Model.xcdatamodeld in Sources */,
 				DC5E971E17CF9DA000D820AE /* NSManagedObject+NWCoreDataHelper.m in Sources */,
 				DC5E971217CF4E7F00D820AE /* AFPropertyListRequestOperation.m in Sources */,
 				DC5E970D17CF4E7F00D820AE /* AFHTTPClient.m in Sources */,
+				DC5E972E17D0A9FE00D820AE /* DKAHTTPClient.m in Sources */,
 				DC5E970E17CF4E7F00D820AE /* AFHTTPRequestOperation.m in Sources */,
 				DC5E971817CF4EBB00D820AE /* DKANetworkHelper.m in Sources */,
 			);
@@ -593,9 +640,10 @@
 		DC5E971917CF9D3E00D820AE /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				DC5E972F17D0B34F00D820AE /* Model 2.xcdatamodel */,
 				DC5E971A17CF9D3E00D820AE /* Model.xcdatamodel */,
 			);
-			currentVersion = DC5E971A17CF9D3E00D820AE /* Model.xcdatamodel */;
+			currentVersion = DC5E972F17D0B34F00D820AE /* Model 2.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

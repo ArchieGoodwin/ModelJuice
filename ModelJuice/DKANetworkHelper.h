@@ -7,12 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Person.h"
 typedef void (^RCCompleteBlockWithBoolResult)  (BOOL result, NSError *error);
+typedef void (^RCCompleteBlockWithPersonResult)  (Person *result, NSError *error);
 
 
 
 @interface DKANetworkHelper : NSObject
 +(id)sharedInstance;
 
--(void)loginMe:(NSString *)login pwd:(NSString *)pwd completeBlock:(RCCompleteBlockWithBoolResult)completeBlock;
+-(void)loginMe:(NSString *)login pwd:(NSString *)pwd completeBlock:(RCCompleteBlockWithPersonResult)completeBlock;
+-(void)getBookingsForPerson:(Person *)person completeBlock:(RCCompleteBlockWithBoolResult)completeBlock;
 @end

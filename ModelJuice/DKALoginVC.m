@@ -9,6 +9,8 @@
 #import "DKALoginVC.h"
 #import <QuartzCore/QuartzCore.h>
 #import "DKANetworkHelper.h"
+#import "NSManagedObject+NWCoreDataHelper.h"
+#import "Person.h"
 @interface DKALoginVC ()
 {
     UITextField *loginTxt;
@@ -27,8 +29,16 @@
 {
     [super viewDidLoad];
 
+    self.navigationController.navigationBarHidden = YES;
     [self preferredStatusBarStyle];
+
     
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"PersonID"] != nil)
+    {
+        [self performSegueWithIdentifier:@"startMe" sender:nil];
+
+    }
+
     //_btnRegister.layer.cornerRadius = 3;
     
     
@@ -74,9 +84,18 @@
         if(loginTxt.text.length > 0 && pwdTxt.text.length > 0)
         {
             
-            [[DKANetworkHelper sharedInstance] loginMe:loginTxt.text pwd:pwdTxt.text completeBlock:^(BOOL result, NSError *error) {
-                
-                NSLog(@"success login");
+            [[DKANetworkHelper sharedInstance] loginMe:loginTxt.text pwd:pwdTxt.text completeBlock:^(Person *result, NSError *error) {
+                if(!error)
+                {
+                    NSLog(@"success login");
+
+                    [self performSegueWithIdentifier:@"startMe" sender:nil];
+                }
+                else
+                {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error!" message:error.description delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                    [alert show];
+                }
             }];
             
             return;
