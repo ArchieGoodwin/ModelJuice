@@ -12,10 +12,19 @@
 #import "DKANetworkHelper.h"
 #import "DKAHTTPClient.h"
 #import "Booking.h"
-@interface DKAScheduleVC ()
+#import "CKCalendarView.h"
+#import "DKADefines.h"
+@interface DKAScheduleVC () <CKCalendarDelegate>
 {
     NSMutableArray *bookings;
+    CGRect tableFrame;
+    BOOL calendarShown;
 }
+
+@property(nonatomic, weak) CKCalendarView *calendar;
+@property(nonatomic, strong) NSDateFormatter *dateFormatter;
+@property(nonatomic, strong) NSDate *minimumDate;
+
 @end
 
 @implementation DKAScheduleVC
@@ -38,12 +47,106 @@
 {
     [super viewDidLoad];
     
+    tableFrame = self.table.frame;
+    
+    calendarShown = NO;
+    
+    [self showBookings];
+    
+    [self createCalendar];
+    
     [self refreshSchedule];
+    
+    //[self showCalendar];
     
     [self preferredStatusBarStyle];
 	// Do any additional setup after loading the view.
 }
 
+
+-(void)createCalendar
+{
+    CKCalendarView *calendar = [[CKCalendarView alloc] initWithStartDay:startMonday];
+    self.calendar = calendar;
+    calendar.delegate = self;
+    
+    self.dateFormatter = [[NSDateFormatter alloc] init];
+    [self.dateFormatter setDateFormat:@"dd/MM/yyyy"];
+    self.minimumDate = [self.dateFormatter dateFromString:@"20/09/2012"];
+    
+    /*self.disabledDates = @[
+     [self.dateFormatter dateFromString:@"05/01/2013"],
+     [self.dateFormatter dateFromString:@"06/01/2013"],
+     [self.dateFormatter dateFromString:@"07/01/2013"]
+     ];*/
+    
+    calendar.onlyShowCurrentMonth = NO;
+    calendar.adaptHeightToNumberOfWeeksInMonth = NO;
+    
+    calendar.frame = CGRectMake(0, -257, 320, 217);
+    
+    [self.view addSubview:calendar];
+}
+
+-(IBAction)showCalendar:(id)sender
+{
+    if(calendarShown)
+    {
+        
+        calendarShown = NO;
+        
+        [UIView animateWithDuration:0.4 animations:^{
+            
+            self.table.frame = tableFrame;
+
+            self.calendar.frame = CGRectMake(0, -257, 320, 217);
+
+        }];
+
+    }
+    else
+    {
+        
+        
+        
+        [UIView animateWithDuration:0.4 animations:^{
+            
+            
+            
+            calendarShown = YES;
+            
+            self.calendar.frame = CGRectMake(0, 0, 320, 217);
+
+            
+            CGRect frame = self.table.frame;
+            frame.origin.y = 235;
+            frame.size.height = frame.size.height - 235;
+            self.table.frame = frame;
+        }];
+    }
+    
+    
+    
+    
+    
+   
+   
+}
+
+-(void)hideCalendar
+{
+       
+   
+}
+
+
+-(void)showBookings
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"personId = %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"PersonID"]];
+    bookings = [Booking getFilteredRecordsWithSortedPredicate:predicate key:@"startDate" ascending:NO];
+    
+    [self.table reloadData];
+}
 
 -(void)refreshSchedule
 {
@@ -72,7 +175,7 @@
                 
                 NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
                 [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-                [dateFormat setDateFormat:@"yyyy-MM-ddTHH:mm:ss"];
+                [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
                 NSDate *startDate = [dateFormat dateFromString:[[booking objectForKey:@"Booking"] objectForKey:@"StartDateTime"]];
                 
                 book.startDate = startDate;
@@ -84,10 +187,7 @@
         }
         [Booking saveDefaultContext];
         
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"personId = %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"PersonID"]];
-        bookings = [Booking getFilteredRecordsWithSortedPredicate:predicate key:@"startDate" ascending:NO];
-        
-        [self.table reloadData];
+        [self showBookings];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error!" message:error.description delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
@@ -135,5 +235,62 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - CKCalendarDelegate
+
+- (void)calendar:(CKCalendarView *)calendar configureDateItem:(CKDateItem *)dateItem forDate:(NSDate *)date {
+    // TODO: play with the coloring if we want to...
+    /*if ([self dateIsDisabled:date]) {
+        dateItem.backgroundColor = [UIColor redColor];
+        dateItem.textColor = [UIColor whiteColor];
+    }*/
+    
+    for(Booking *book in bookings)
+    {
+        if([self.calendar date:date isSameDayAsDate:book.startDate])
+        {
+            dateItem.backgroundColor = MAIN_BACK_COLOR;
+            dateItem.textColor = [UIColor darkTextColor];
+        }
+    }
+    
+}
+
+- (BOOL)calendar:(CKCalendarView *)calendar willSelectDate:(NSDate *)date {
+    return YES;
+}
+
+- (void)calendar:(CKCalendarView *)calendar didSelectDate:(NSDate *)date {
+    //self.dateLabel.text = [self.dateFormatter stringFromDate:date];
+    
+    int i = 0;
+    for(Booking *book in bookings)
+    {
+        if([self.calendar date:date isSameDayAsDate:book.startDate])
+        {
+            [self.table reloadData];
+            [self.table scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+            return;
+        }
+        i++;
+    }
+    
+    
+}
+
+- (BOOL)calendar:(CKCalendarView *)calendar willChangeToMonth:(NSDate *)date {
+    if ([date laterDate:self.minimumDate] == date) {
+        self.calendar.backgroundColor = MAIN_BACK_COLOR;
+        return YES;
+    } else {
+        self.calendar.backgroundColor = MAIN_BACK_COLOR;
+        return NO;
+    }
+}
+
+- (void)calendar:(CKCalendarView *)calendar didLayoutInRect:(CGRect)frame {
+    NSLog(@"calendar layout: %@", NSStringFromCGRect(frame));
+}
+
 
 @end

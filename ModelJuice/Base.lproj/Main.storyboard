@@ -41,8 +41,8 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="oHB-t0-VjQ">
-                                <rect key="frame" x="0.0" y="220" width="320" height="235"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="oHB-t0-VjQ">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -79,13 +79,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="oHB-t0-VjQ" firstAttribute="top" secondItem="Vmk-9s-Z62" secondAttribute="bottom" constant="220" id="5bA-5w-zIf"/>
-                            <constraint firstAttribute="bottom" secondItem="oHB-t0-VjQ" secondAttribute="bottom" id="HZQ-fx-P5R"/>
-                            <constraint firstItem="oHB-t0-VjQ" firstAttribute="leading" secondItem="EZy-pW-Zfl" secondAttribute="leading" id="o3p-dn-W3I"/>
-                            <constraint firstAttribute="trailing" secondItem="oHB-t0-VjQ" secondAttribute="trailing" id="pm8-Nd-vY6"/>
+                            <constraint firstItem="9bn-29-Zfc" firstAttribute="top" secondItem="oHB-t0-VjQ" secondAttribute="bottom" id="agb-et-hQJ"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Schedule" id="imN-my-R4d"/>
+                    <navigationItem key="navigationItem" title="Schedule" id="imN-my-R4d">
+                        <barButtonItem key="leftBarButtonItem" title="Calendar" id="zWE-N4-S6N">
+                            <connections>
+                                <action selector="showCalendar:" destination="1t2-KO-t4g" id="jQh-Kb-nBl"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
                         <outlet property="table" destination="oHB-t0-VjQ" id="GSu-4e-TiC"/>
