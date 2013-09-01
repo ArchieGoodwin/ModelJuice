@@ -14,6 +14,10 @@
 #import "Booking.h"
 #import "CKCalendarView.h"
 #import "DKADefines.h"
+
+#define CELL_HEIGHT 44
+
+
 @interface DKAScheduleVC () <CKCalendarDelegate>
 {
     NSMutableArray *bookings;
@@ -57,7 +61,7 @@
     
     [self refreshSchedule];
     
-    //[self showCalendar];
+    self.table.separatorColor = MAIN_BACK_COLOR;
     
     [self preferredStatusBarStyle];
 	// Do any additional setup after loading the view.
@@ -225,7 +229,18 @@
     
     ((UILabel *)[cell.contentView viewWithTag:101]).text = book.desc;
     
-    // Configure the cell...
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    [dateFormat setDateFormat:@"EEEE, MMM dd"];
+
+    NSString *str = [dateFormat stringFromDate:book.startDate];
+    ((UILabel *)[cell.contentView viewWithTag:103]).text = str;
+    
+    [dateFormat setDateFormat:@"hh:mma"];
+    NSString *strHS = [dateFormat stringFromDate:book.startDate];
+    NSString *strHE = [dateFormat stringFromDate:book.endDate];
+    
+    ((UILabel *)[cell.contentView viewWithTag:104]).text = [NSString stringWithFormat:@"%@ - %@", strHS, strHE];
     return cell;
 }
 
@@ -239,11 +254,7 @@
 #pragma mark - CKCalendarDelegate
 
 - (void)calendar:(CKCalendarView *)calendar configureDateItem:(CKDateItem *)dateItem forDate:(NSDate *)date {
-    // TODO: play with the coloring if we want to...
-    /*if ([self dateIsDisabled:date]) {
-        dateItem.backgroundColor = [UIColor redColor];
-        dateItem.textColor = [UIColor whiteColor];
-    }*/
+
     
     for(Booking *book in bookings)
     {
@@ -268,8 +279,10 @@
     {
         if([self.calendar date:date isSameDayAsDate:book.startDate])
         {
-            [self.table reloadData];
-            [self.table scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+            
+            CGPoint offset = CGPointMake(0, CELL_HEIGHT * i);
+            [self.table setContentOffset:offset animated:YES];
+            
             return;
         }
         i++;
