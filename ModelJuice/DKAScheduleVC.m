@@ -14,7 +14,7 @@
 #import "Booking.h"
 #import "CKCalendarView.h"
 #import "DKADefines.h"
-
+#import "DKADetailsVC.h"
 #define CELL_HEIGHT 44
 
 
@@ -55,8 +55,6 @@
     
     calendarShown = NO;
     
-    [self showBookings];
-    
     [self createCalendar];
     
     [self refreshSchedule];
@@ -67,6 +65,22 @@
 	// Do any additional setup after loading the view.
 }
 
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    if(calendarShown)
+    {
+        [self showCalendar:nil];
+    }
+
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+
+}
 
 -(void)createCalendar
 {
@@ -137,12 +151,6 @@
    
 }
 
--(void)hideCalendar
-{
-       
-   
-}
-
 
 -(void)showBookings
 {
@@ -150,6 +158,9 @@
     bookings = [Booking getFilteredRecordsWithSortedPredicate:predicate key:@"startDate" ascending:NO];
     
     [self.table reloadData];
+    
+   
+    
 }
 
 -(void)refreshSchedule
@@ -249,6 +260,24 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Booking *book = [bookings objectAtIndex:indexPath.row];
+
+    [self performSegueWithIdentifier:@"PushDetail" sender:book];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if([segue.identifier isEqualToString:@"PushDetail"])
+    {
+        DKADetailsVC *detail = (DKADetailsVC *)segue.destinationViewController;
+        
+        detail.booking = sender;
+    }
 }
 
 #pragma mark - CKCalendarDelegate

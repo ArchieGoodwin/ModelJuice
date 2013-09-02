@@ -14,5 +14,7 @@
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (strong, nonatomic) UIWindow *window;
+@property (nonatomic, strong) UIStoryboard *initalStoryboard;
 
+- (void)resetWindowToInitialView;
 @end

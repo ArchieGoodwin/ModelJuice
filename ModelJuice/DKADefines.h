@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DKAAppDelegate.h"
+#define appDelegate ((DKAAppDelegate *)[UIApplication sharedApplication].delegate)
 
 #define MAIN_BACK_COLOR [UIColor colorWithRed:255.0 / 255 green:235.0 / 255 blue:211.0 / 255 alpha:1]
 #define TITLE_COLOR [UIColor colorWithRed:169.0 / 255 green:89.0 / 255 blue:0.0 / 255 alpha:1]
