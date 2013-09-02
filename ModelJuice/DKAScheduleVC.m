@@ -70,7 +70,13 @@
     [super viewWillDisappear:animated];
     if(calendarShown)
     {
-        [self showCalendar:nil];
+        calendarShown = NO;
+        
+        
+        self.table.frame = tableFrame;
+        
+        self.calendar.frame = CGRectMake(0, -257, 320, 217);
+            
     }
 
 }

@@ -20,6 +20,17 @@
 @implementation DKADetailsVC
 
 
+-(void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if(![self isIphone5])
+    {
+       // self.table.frame = CGRectMake(0, 44, 320, 280);
+    }
+
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -104,6 +115,32 @@
         
     
 
+}
+
+-(BOOL)isIphone5
+{
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+        if ([[UIScreen mainScreen] respondsToSelector: @selector(scale)]) {
+            CGSize result = [[UIScreen mainScreen] bounds].size;
+            CGFloat scale = [UIScreen mainScreen].scale;
+            result = CGSizeMake(result.width * scale, result.height * scale);
+            
+            if(result.height == 960) {
+                //NSLog(@"iPhone 4 Resolution");
+                return NO;
+            }
+            if(result.height == 1136) {
+                //NSLog(@"iPhone 5 Resolution");
+                //[[UIScreen mainScreen] bounds].size =result;
+                return YES;
+            }
+        }
+        else{
+            // NSLog(@"Standard Resolution");
+            return NO;
+        }
+    }
+    return NO;
 }
 
 - (void)didReceiveMemoryWarning

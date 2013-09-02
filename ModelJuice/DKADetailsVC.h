@@ -13,7 +13,7 @@
 
 @property (strong, nonatomic) Booking *booking;
 @property (strong, nonatomic) BookingDetails *bookingDetail;
-@property (weak, nonatomic) IBOutlet UITableView *table;
+@property (strong, nonatomic) IBOutlet UITableView *table;
 
 
 @end

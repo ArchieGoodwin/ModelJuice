@@ -7,6 +7,7 @@
 //
 
 #import "DKAAppDelegate.h"
+#import "TestFlight.h"
 
 @implementation DKAAppDelegate
 
@@ -18,7 +19,7 @@
 {
     // Override point for customization after application launch.
     
-    
+     [TestFlight takeOff:@"07b0b1c5-0cbd-4440-a9b3-af8a151a50aa"];
     _initalStoryboard = self.window.rootViewController.storyboard;
 
     return YES;
