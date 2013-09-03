@@ -75,13 +75,23 @@
             NSDate *endDate = [dateFormat dateFromString:[res objectForKey:@"EndDateTime"]];
             book.endDateTime = endDate;
             book.agencyID = [res objectForKey:@"AgencyID"] == [NSNull null] ? [NSNumber numberWithInt:0] : [res objectForKey:@"AgencyID"];
+            book.agencyName = [res objectForKey:@"AgencyName"] == [NSNull null] ? @"" : [res objectForKey:@"AgencyName"];
+
             book.bookingTypeID = [res objectForKey:@"BookingTypeID"] == [NSNull null] ? [NSNumber numberWithInt:0] : [res objectForKey:@"BookingTypeID"];
+            book.bookingTypeName = [res objectForKey:@"BookingTypeName"] == [NSNull null] ? @"" : [res objectForKey:@"BookingTypeName"];
+
             book.clientContactID = [res objectForKey:@"ClientContactID"] == [NSNull null] ? [NSNumber numberWithInt:0] : [res objectForKey:@"ClientContactID"];
+            book.clientContactName = [res objectForKey:@"ClientContactName"] == [NSNull null] ? @"" : [res objectForKey:@"ClientContactName"];
+
             book.clientID = [res objectForKey:@"ClientID"] == [NSNull null] ? [NSNumber numberWithInt:0] : [res objectForKey:@"ClientID"];
+            book.clientName = [res objectForKey:@"ClientName"] == [NSNull null] ? @"" : [res objectForKey:@"ClientName"];
+
             book.hair = [res objectForKey:@"Hair"] == [NSNull null] ? @"" : [res objectForKey:@"Hair"];
             book.hourlyRate = [res objectForKey:@"HourlyRate"] == [NSNull null] ? [NSNumber numberWithFloat:0.0] : [res objectForKey:@"HourlyRate"];
             book.makeup = [res objectForKey:@"Makeup"] == [NSNull null] ? @"" : [res objectForKey:@"Makeup"];
             book.modelID = [res objectForKey:@"ModelID"] == [NSNull null] ? [NSNumber numberWithInt:0] : [res objectForKey:@"ModelID"];
+            book.modelName = [res objectForKey:@"ModelName"] == [NSNull null] ? @"" : [res objectForKey:@"ModelName"];
+
             book.notes =  [res objectForKey:@"Notes"] == [NSNull null] ? @"" : [res objectForKey:@"Notes"];
             book.orHours = [res objectForKey:@"ORHours"] == [NSNull null] ? [NSNumber numberWithFloat:0.0] : [res objectForKey:@"ORHours"];
             book.otRate = [res objectForKey:@"OTRate"] == [NSNull null] ? [NSNumber numberWithFloat:0.0] : [res objectForKey:@"OTRate"];
@@ -207,6 +217,14 @@
         ((UILabel *)[container viewWithTag:205]).text = [NSString stringWithFormat:@"from %@ to %@", strHS, strHE];
         
         
+        ((UILabel *)[container viewWithTag:201]).text = _bookingDetail.agencyName;
+        ((UILabel *)[container viewWithTag:202]).text = _bookingDetail.bookingTypeName;
+        ((UILabel *)[container viewWithTag:209]).text = _bookingDetail.clientContactName;
+        ((UILabel *)[container viewWithTag:212]).text = _bookingDetail.team;
+        ((UILabel *)[container viewWithTag:213]).text = _bookingDetail.hair;
+        ((UILabel *)[container viewWithTag:214]).text = _bookingDetail.stylist;
+        ((UILabel *)[container viewWithTag:215]).text = [NSString stringWithFormat:@"$%@ per hour", _bookingDetail.hourlyRate];
+
         return cell;
         
     }

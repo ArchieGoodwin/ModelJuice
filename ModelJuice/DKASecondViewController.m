@@ -27,7 +27,8 @@
 - (IBAction)btnSignOut:(id)sender {
     
     [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"PersonID"];
-    
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"rememberMe"];
+
     for(Booking *book in [Booking getAllRecords])
     {
         [Booking deleteInContext:book];

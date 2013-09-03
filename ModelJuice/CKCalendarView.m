@@ -171,14 +171,14 @@
 
     UIButton *prevButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [prevButton setImage:[UIImage imageNamed:@"arrow_left.png"] forState:UIControlStateNormal];
-    //prevButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleRightMargin;
+    prevButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleRightMargin;
     [prevButton addTarget:self action:@selector(_moveCalendarToPreviousMonth) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:prevButton];
     self.prevButton = prevButton;
 
     UIButton *nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [nextButton setImage:[UIImage imageNamed:@"arrow_right.png"] forState:UIControlStateNormal];
-    //nextButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
+    nextButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
     [nextButton addTarget:self action:@selector(_moveCalendarToNextMonth) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:nextButton];
     self.nextButton = nextButton;
@@ -268,8 +268,8 @@
 
     self.titleLabel.text = [self.dateFormatter stringFromDate:_monthShowing];
     self.titleLabel.frame = CGRectMake(0, 0, self.bounds.size.width, TOP_HEIGHT);
-    self.prevButton.frame = CGRectMake(BUTTON_MARGIN + 12, BUTTON_MARGIN + 8, 10, 19);
-    self.nextButton.frame = CGRectMake(self.bounds.size.width - 24 - BUTTON_MARGIN, BUTTON_MARGIN + 8, 10, 19);
+    self.prevButton.frame = CGRectMake(BUTTON_MARGIN + 12, BUTTON_MARGIN, 19, 37);
+    self.nextButton.frame = CGRectMake(self.bounds.size.width - 32 - BUTTON_MARGIN, BUTTON_MARGIN, 19, 37);
 
     self.calendarContainer.frame = CGRectMake(CALENDAR_MARGIN, CGRectGetMaxY(self.titleLabel.frame), containerWidth, containerHeight);
     self.daysHeader.frame = CGRectMake(0, 0, self.calendarContainer.frame.size.width, DAYS_HEADER_HEIGHT);

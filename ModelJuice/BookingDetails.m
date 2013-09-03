@@ -2,7 +2,7 @@
 //  BookingDetails.m
 //  ModelJuice
 //
-//  Created by Nero Wolfe on 9/2/13.
+//  Created by Nero Wolfe on 9/3/13.
 //  Copyright (c) 2013 Sergey Dikarev. All rights reserved.
 //
 
@@ -15,8 +15,8 @@
 @dynamic bookingID;
 @dynamic bookingTypeID;
 @dynamic clientContactID;
-@dynamic desc;
 @dynamic clientID;
+@dynamic desc;
 @dynamic endDateTime;
 @dynamic hair;
 @dynamic hourlyRate;
@@ -29,5 +29,10 @@
 @dynamic startDateTime;
 @dynamic stylist;
 @dynamic team;
+@dynamic agencyName;
+@dynamic bookingTypeName;
+@dynamic clientContactName;
+@dynamic clientName;
+@dynamic modelName;
 
 @end

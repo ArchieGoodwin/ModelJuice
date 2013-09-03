@@ -11,10 +11,13 @@
 #import "DKANetworkHelper.h"
 #import "NSManagedObject+NWCoreDataHelper.h"
 #import "Person.h"
+#import "Booking.h"
+#import "BookingDetails.h"
 @interface DKALoginVC ()
 {
     UITextField *loginTxt;
     UITextField *pwdTxt;
+    BOOL rememberMe;
 }
 @end
 
@@ -29,13 +32,18 @@
 {
     [super viewDidLoad];
 
+    rememberMe = NO;
+    
     self.navigationController.navigationBarHidden = YES;
     [self preferredStatusBarStyle];
 
     
-    if([[NSUserDefaults standardUserDefaults] objectForKey:@"PersonID"] != nil)
+    if([[[NSUserDefaults standardUserDefaults] objectForKey:@"rememberMe"] isEqualToString:@"YES"] && [[NSUserDefaults standardUserDefaults] objectForKey:@"PersonID"] != nil)
     {
+
         [self performSegueWithIdentifier:@"startMe" sender:nil];
+
+
 
     }
 
@@ -84,6 +92,24 @@
         if(loginTxt.text.length > 0 && pwdTxt.text.length > 0)
         {
             
+            [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"PersonID"];
+            
+            for(Booking *book in [Booking getAllRecords])
+            {
+                [Booking deleteInContext:book];
+            }
+            for(BookingDetails *book in [BookingDetails getAllRecords])
+            {
+                [BookingDetails deleteInContext:book];
+            }
+            for(Person *book in [Person getAllRecords])
+            {
+                [Person deleteInContext:book];
+            }
+            
+            
+            [Booking saveDefaultContext];
+            
             [[DKANetworkHelper sharedInstance] loginMe:loginTxt.text pwd:pwdTxt.text completeBlock:^(Person *result, NSError *error) {
                 if(!error)
                 {
@@ -103,6 +129,29 @@
     }
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning!" message:@"You should enter username and password to continue" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alert show];
+}
+
+-(IBAction)changeState:(id)sender
+{
+    UIButton *btn = (UIButton *)sender;
+
+    if(!rememberMe)
+    {
+        
+        [btn setImage:[UIImage imageNamed:@"CheckBox_Checked.png"] forState:UIControlStateNormal];
+        [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"rememberMe"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+    }
+    else
+    {
+        [btn setImage:[UIImage imageNamed:@"CheckBox.png"] forState:UIControlStateNormal];
+        [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"rememberMe"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
+    
+    rememberMe = !rememberMe;
 }
 
 #pragma mark - Table view data source
@@ -169,6 +218,10 @@
     if(indexPath.row == 3)
     {
         UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"LoginRemember"];
+        
+        UIButton *btn = (UIButton *)cell.contentView.subviews[1];
+        
+        [btn addTarget:self action:@selector(changeState:) forControlEvents:UIControlEventTouchUpInside];
         
         return cell;
         

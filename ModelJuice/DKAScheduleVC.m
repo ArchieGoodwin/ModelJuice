@@ -23,6 +23,8 @@
     NSMutableArray *bookings;
     CGRect tableFrame;
     BOOL calendarShown;
+    UIRefreshControl *refreshControl;
+
 }
 
 @property(nonatomic, weak) CKCalendarView *calendar;
@@ -51,13 +53,28 @@
 {
     [super viewDidLoad];
     
+    refreshControl = [[UIRefreshControl alloc]   init];
+    refreshControl.tintColor = MAIN_ORANGE;
+    
+    [refreshControl addTarget:self action:@selector(refreshSchedule) forControlEvents:UIControlEventValueChanged];
+    
+    [self.table addSubview:refreshControl];
+
+    
+    
     tableFrame = self.table.frame;
     
     calendarShown = NO;
     
     [self createCalendar];
     
-    [self refreshSchedule];
+    [self showBookings];
+    
+    if(bookings.count == 0)
+    {
+        [self refreshSchedule];
+
+    }
     
     self.table.separatorColor = MAIN_BACK_COLOR;
     
@@ -203,6 +220,13 @@
                 NSDate *endDate = [dateFormat dateFromString:[[booking objectForKey:@"Booking"] objectForKey:@"EndDateTime"]];
                 book.endDate = endDate;
                 book.personId = person.personId;
+                book.bookingType = [[booking objectForKey:@"Booking"] objectForKey:@"BookingTypeID"] == [NSNull null] ? [NSNumber numberWithInt:0] :[[booking objectForKey:@"Booking"] objectForKey:@"BookingTypeID"];
+                book.bookingTypeName = [[booking objectForKey:@"Booking"] objectForKey:@"BookingTypeName"] == [NSNull null] ? @"" :[[booking objectForKey:@"Booking"] objectForKey:@"BookingTypeName"];
+                book.clientID = [[booking objectForKey:@"Booking"] objectForKey:@"ClientID"] == [NSNull null] ? [NSNumber numberWithInt:0] :[[booking objectForKey:@"Booking"] objectForKey:@"ClientID"];
+                book.clientName = [[booking objectForKey:@"Booking"] objectForKey:@"ClientName"] == [NSNull null] ? @"" :[[booking objectForKey:@"Booking"] objectForKey:@"ClientName"];
+
+
+
 
             }
         }
@@ -210,9 +234,13 @@
         
         [self showBookings];
         
+         [refreshControl endRefreshing];
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error!" message:error.description delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alert show];
+        
+         [refreshControl endRefreshing];
     }];
     
     
@@ -244,8 +272,9 @@
     
     Booking *book = [bookings objectAtIndex:indexPath.row];
     
-    ((UILabel *)[cell.contentView viewWithTag:101]).text = book.desc;
-    
+    ((UILabel *)[cell.contentView viewWithTag:101]).text = book.clientName;
+    ((UILabel *)[cell.contentView viewWithTag:102]).text = book.bookingTypeName;
+
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     [dateFormat setDateFormat:@"EEEE, MMM dd"];
