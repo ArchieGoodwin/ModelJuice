@@ -13,6 +13,8 @@
 #import "Person.h"
 #import "Booking.h"
 #import "BookingDetails.h"
+#import "Client.h"
+#import "ClientContactPerson.h"
 @interface DKALoginVC ()
 {
     UITextField *loginTxt;
@@ -106,7 +108,14 @@
             {
                 [Person deleteInContext:book];
             }
-            
+            for(Client *book in [Client getAllRecords])
+            {
+                [Client deleteInContext:book];
+            }
+            for(ClientContactPerson *book in [ClientContactPerson getAllRecords])
+            {
+                [ClientContactPerson deleteInContext:book];
+            }
             
             [Booking saveDefaultContext];
             

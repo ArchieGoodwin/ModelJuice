@@ -9,10 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "Booking.h"
 #import "BookingDetails.h"
+#import "Client.h"
 @interface DKADetailsVC : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) Booking *booking;
 @property (strong, nonatomic) BookingDetails *bookingDetail;
+@property (strong, nonatomic) Client *currentClient;
+
 @property (strong, nonatomic) IBOutlet UITableView *table;
 
 

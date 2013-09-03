@@ -13,8 +13,13 @@
 #import "DKAHTTPClient.h"
 #import "Booking.h"
 #import "BookingDetails.h"
+#import "Client.h"
+#import "ClientContactPerson.h"
+#import <MapKit/MapKit.h>
 @interface DKADetailsVC ()
-
+{
+    int callTag;
+}
 @end
 
 @implementation DKADetailsVC
@@ -35,6 +40,24 @@
 {
     [super viewDidLoad];
 
+    UIButton *btnLense = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btnLense.frame = CGRectMake(0, 3, 16, 17);
+    [btnLense setImage:[UIImage imageNamed:@"search.png"] forState:UIControlStateNormal];
+    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithCustomView:btnLense];
+    
+    
+    UIButton *btnPlus = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btnPlus.frame = CGRectMake(0, 0, 16, 16);
+    [btnPlus setImage:[UIImage imageNamed:@"plus.png"] forState:UIControlStateNormal];
+    UIBarButtonItem *plusButton = [[UIBarButtonItem alloc] initWithCustomView:btnPlus];
+    
+    UIBarButtonItem *flexItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                                                              target:nil
+                                                                              action:nil];
+    flexItem.width = 35;
+    
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:plusButton, flexItem, searchButton, nil];
+    
     
     [self getDetails];
     // Uncomment the following line to preserve selection between presentations.
@@ -43,7 +66,97 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
+- (IBAction)btnMap:(id)sender {
+    
+    _currentClient.city = @"New York";
+    _currentClient.addressLine1 = @"Central Park";
+    Class mapItemClass = [MKMapItem class];
+    if (mapItemClass && [mapItemClass respondsToSelector:@selector(openMapsWithItems:launchOptions:)])
+    {
+        CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+        
+        
+        NSString *address = [NSString stringWithFormat:@"%@ %@ %@", _currentClient.city,  _currentClient.addressLine1,  _currentClient.addressLine2];
+       
+        
+        [geocoder geocodeAddressString:address
+                     completionHandler:^(NSArray *placemarks, NSError *error) {
+                         
+                         // Convert the CLPlacemark to an MKPlacemark
+                         // Note: There's no error checking for a failed geocode
+                         CLPlacemark *geocodedPlacemark = [placemarks objectAtIndex:0];
+                         MKPlacemark *placemark = [[MKPlacemark alloc]
+                                                   initWithCoordinate:geocodedPlacemark.location.coordinate
+                                                   addressDictionary:geocodedPlacemark.addressDictionary];
+                         
+                         // Create a map item for the geocoded address to pass to Maps app
+                         MKMapItem *mapItem = [[MKMapItem alloc] initWithPlacemark:placemark];
+                         [mapItem setName:geocodedPlacemark.name];
+                         
+                         // Set the directions mode to "Driving"
+                         // Can use MKLaunchOptionsDirectionsModeWalking instead
+                         NSDictionary *launchOptions = @{MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving};
+                         
+                         // Get the "Current User Location" MKMapItem
+                         MKMapItem *currentLocationMapItem = [MKMapItem mapItemForCurrentLocation];
+                         
+                         // Pass the current location and destination map items to the Maps app
+                         // Set the direction mode in the launchOptions dictionary
+                         [MKMapItem openMapsWithItems:@[currentLocationMapItem, mapItem] launchOptions:launchOptions];
+                         
+                     }];
+    }
+    
+}
 
+- (IBAction)btnCall:(id)sender {
+    UIButton *btn = (UIButton *)sender;
+    _currentClient.phone = @"1111111";
+    if(btn.tag == 230 && ![_currentClient.phone isEqualToString:@""])
+    {
+        callTag = 230;
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Confirm" message:[NSString stringWithFormat:@"Do you want to call to %@", _currentClient.phone] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Call", nil];
+        [alert show];
+        return;
+    }
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"clientID = %@", _currentClient.clientID];
+    ClientContactPerson *clientPerson = [ClientContactPerson getSingleObjectByPredicate:predicate];
+    clientPerson.workPhone = @"33333";
+    if(clientPerson != nil)
+    {
+        if(btn.tag == 231 && ![clientPerson.workPhone isEqualToString:@""])
+        {
+            callTag = 231;
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Confirm" message:[NSString stringWithFormat:@"Do you want to call to %@", clientPerson.workPhone] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Call", nil];
+            [alert show];
+        }
+    }
+   
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1)
+    {
+        if(callTag == 230)
+        {
+            NSLog(@"CALL PHONE %@", _currentClient.phone);
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", _currentClient.phone]];
+            [[UIApplication sharedApplication] openURL:url];
+            return;
+        }
+        if(callTag == 231)
+        {
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"clientID = %@", _currentClient.clientID];
+            ClientContactPerson *clientPerson = [ClientContactPerson getSingleObjectByPredicate:predicate];
+            NSLog(@"CALL PHONE %@", clientPerson.workPhone);
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", clientPerson.workPhone]];
+            [[UIApplication sharedApplication] openURL:url];
+            return;
+        }
+       
+    }
+}
 
 -(void)getDetails
 {
@@ -63,7 +176,7 @@
             NSDictionary *res = [[responseObject objectForKey:@"ReturnValue"] objectForKey:@"BookingDetails"];
             
 
-            //NSLog(@"%@", res);
+            NSLog(@"%@", [res objectForKey:@"ClientID"]);
             BookingDetails *book = [BookingDetails createEntityInContext];
             book.bookingID = [res objectForKey:@"BookingID"];
             book.desc = [res objectForKey:@"Description"];
@@ -100,12 +213,15 @@
             book.stylist = [res objectForKey:@"Stylist"] == [NSNull null] ? @"" : [res objectForKey:@"Stylist"];
             book.team = [res objectForKey:@"Team"] == [NSNull null] ? @"" : [res objectForKey:@"Team"];
 
+            NSLog(@"%@", book.clientID);
 
             [BookingDetails saveDefaultContext];
 
             _bookingDetail = book;
             
             [self.table reloadData];
+            
+            [self getClient];
             
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -116,16 +232,82 @@
     else
     {
         _bookingDetail = bd;
+        NSLog(@"%@", _bookingDetail.clientID);
+
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"clientID = %@", _bookingDetail.clientID];
+        _currentClient = [Client getSingleObjectByPredicate:predicate];
+        
+        [self.table reloadData];
+    }
+
+}
+
+-(void)getClient
+{
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"clientID = %@", _bookingDetail.clientID];
+    Client *client = [Client getSingleObjectByPredicate:predicate];
+
+    if(client == nil)
+    {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"personId = %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"PersonID"]];
+        Person *person = [Person getSingleObjectByPredicate:predicate];
+        [[DKAHTTPClient sharedManager] setUsername:person.personLogin andPassword:person.personPwd];
+        [[DKAHTTPClient sharedManager] getPath:@"/api/Client/GetClientDetails" parameters:@{@"Id": _booking.clientID} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"success");
+            NSLog(@"[getClient responseData]: %@",responseObject);
+            
+            NSDictionary *res = [[responseObject objectForKey:@"ReturnValue"] objectForKey:@"ClientDetails"];
+            
+            
+            //NSLog(@"%@", res);
+            Client *cli = [Client createEntityInContext];
+            cli.clientID = [res objectForKey:@"ClientID"];
+            cli.companyName = [res objectForKey:@"CompanyName"] == [NSNull null] ? @"" : [res objectForKey:@"CompanyName"];
+            cli.phone = [res objectForKey:@"Phone"] == [NSNull null] ? @"" : [res objectForKey:@"Phone"];
+            cli.addressLine1 = [res objectForKey:@"AddressLine1"] == [NSNull null] ? @"" : [res objectForKey:@"AddressLine1"];
+            cli.addressLine2 = [res objectForKey:@"AddressLine2"] == [NSNull null] ? @"" : [res objectForKey:@"AddressLine2"];
+            cli.city = [res objectForKey:@"City"] == [NSNull null] || [res objectForKey:@"City"] == nil ? @"11" : [res objectForKey:@"City"];
+            cli.stateID = [res objectForKey:@"StateID"] == [NSNull null] ? [NSNumber numberWithInteger:0] : [res objectForKey:@"StateID"];
+            cli.zipcode = [res objectForKey:@"Zipcode"] == [NSNull null] ? @"" : [res objectForKey:@"Zipcode"];
+            NSLog(@"%@", cli.city);
+            for(NSDictionary *det in [res objectForKey:@"ClientContacts"])
+            {
+                ClientContactPerson *cliPerson = [ClientContactPerson createEntityInContext];
+                cliPerson.personID = [[det objectForKey:@"ClientContactPerson"] objectForKey:@"PersonID"];
+                cliPerson.personFullName =  [[det objectForKey:@"ClientContactPerson"] objectForKey:@"PersonFullName"] == [NSNull null] ? @"" :  [[det objectForKey:@"ClientContactPerson"] objectForKey:@"PersonFullName"];
+                cliPerson.workPhone =  [[det objectForKey:@"ClientContactPerson"] objectForKey:@"WorkPhone"] == [NSNull null] ? @"" :  [[det objectForKey:@"ClientContactPerson"] objectForKey:@"WorkPhone"];
+                cliPerson.clientID = cli.clientID;
+
+            }
+            
+            [Client saveDefaultContext];
+            
+            _currentClient = cli;
+            
+            [self.table reloadData];
+            
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error!" message:error.description delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alert show];
+        }];
+        
+    }
+    else
+    {
+        _currentClient = client;
         [self.table reloadData];
     }
     
-   
-        
-        
-        
+    
     
 
+    
 }
+
+
+
 
 -(BOOL)isIphone5
 {
@@ -201,6 +383,20 @@
         UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"DetailsCell"];
         UIView *container = cell.contentView.subviews[0];
         
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"clientID = %@", _currentClient.clientID];
+        ClientContactPerson *clientPerson = [ClientContactPerson getSingleObjectByPredicate:predicate];
+        
+        if(clientPerson != nil)
+        {
+            ((UILabel *)[container viewWithTag:206]).text = [_currentClient.city isEqualToString:@""] ? @"" : [NSString stringWithFormat:@"%@ %@", _currentClient.city, _currentClient.stateID];
+            ((UILabel *)[container viewWithTag:207]).text =  [_currentClient.addressLine1 isEqualToString:@""] ? @"" : [NSString stringWithFormat:@"%@, %@", _currentClient.addressLine1, _currentClient.addressLine2];
+            
+            ((UILabel *)[container viewWithTag:209]).text =  [clientPerson.personFullName isEqualToString:@""] ? @"" : clientPerson.personFullName;
+            ((UILabel *)[container viewWithTag:210]).text =  [clientPerson.workPhone isEqualToString:@""] ? @"" : clientPerson.workPhone;
+
+        }
+        
         container.layer.cornerRadius = 3;
         
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
@@ -219,7 +415,6 @@
         
         ((UILabel *)[container viewWithTag:201]).text = _bookingDetail.agencyName;
         ((UILabel *)[container viewWithTag:202]).text = _bookingDetail.bookingTypeName;
-        ((UILabel *)[container viewWithTag:209]).text = _bookingDetail.clientContactName;
         ((UILabel *)[container viewWithTag:212]).text = _bookingDetail.team;
         ((UILabel *)[container viewWithTag:213]).text = _bookingDetail.hair;
         ((UILabel *)[container viewWithTag:214]).text = _bookingDetail.stylist;

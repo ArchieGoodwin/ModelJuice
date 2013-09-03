@@ -73,6 +73,13 @@
 		DCD9C43A17D5AEB600C53EF9 /* arrow_left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD9C43617D5AEB600C53EF9 /* arrow_left@2x.png */; };
 		DCD9C43B17D5AEB600C53EF9 /* arrow_right.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD9C43717D5AEB600C53EF9 /* arrow_right.png */; };
 		DCD9C43C17D5AEB600C53EF9 /* arrow_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD9C43817D5AEB600C53EF9 /* arrow_right@2x.png */; };
+		DCD9C44017D5BECA00C53EF9 /* ClientContactPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD9C43F17D5BECA00C53EF9 /* ClientContactPerson.m */; };
+		DCD9C44317D5BECA00C53EF9 /* Client.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD9C44217D5BECA00C53EF9 /* Client.m */; };
+		DCD9C44617D5E79200C53EF9 /* DKATabBarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD9C44517D5E79200C53EF9 /* DKATabBarVC.m */; };
+		DCD9C44817D5F13700C53EF9 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCD9C44717D5F13700C53EF9 /* MapKit.framework */; };
+		DCD9C44C17D5F20400C53EF9 /* MJ_80.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD9C44917D5F20400C53EF9 /* MJ_80.png */; };
+		DCD9C44D17D5F20400C53EF9 /* MJ_120.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD9C44A17D5F20400C53EF9 /* MJ_120.png */; };
+		DCD9C44E17D5F20400C53EF9 /* MJ_58.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD9C44B17D5F20400C53EF9 /* MJ_58.png */; };
 		DCF51BE117D4909A0099795E /* DKADetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF51BE017D4909A0099795E /* DKADetailsVC.m */; };
 /* End PBXBuildFile section */
 
@@ -186,6 +193,17 @@
 		DCD9C43617D5AEB600C53EF9 /* arrow_left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_left@2x.png"; sourceTree = "<group>"; };
 		DCD9C43717D5AEB600C53EF9 /* arrow_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_right.png; sourceTree = "<group>"; };
 		DCD9C43817D5AEB600C53EF9 /* arrow_right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_right@2x.png"; sourceTree = "<group>"; };
+		DCD9C43D17D5BDBB00C53EF9 /* Model 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Model 5.xcdatamodel"; sourceTree = "<group>"; };
+		DCD9C43E17D5BECA00C53EF9 /* ClientContactPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientContactPerson.h; sourceTree = "<group>"; };
+		DCD9C43F17D5BECA00C53EF9 /* ClientContactPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientContactPerson.m; sourceTree = "<group>"; };
+		DCD9C44117D5BECA00C53EF9 /* Client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Client.h; sourceTree = "<group>"; };
+		DCD9C44217D5BECA00C53EF9 /* Client.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Client.m; sourceTree = "<group>"; };
+		DCD9C44417D5E79200C53EF9 /* DKATabBarVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKATabBarVC.h; sourceTree = "<group>"; };
+		DCD9C44517D5E79200C53EF9 /* DKATabBarVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKATabBarVC.m; sourceTree = "<group>"; };
+		DCD9C44717D5F13700C53EF9 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		DCD9C44917D5F20400C53EF9 /* MJ_80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MJ_80.png; sourceTree = "<group>"; };
+		DCD9C44A17D5F20400C53EF9 /* MJ_120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MJ_120.png; sourceTree = "<group>"; };
+		DCD9C44B17D5F20400C53EF9 /* MJ_58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MJ_58.png; sourceTree = "<group>"; };
 		DCF51BDF17D4909A0099795E /* DKADetailsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKADetailsVC.h; sourceTree = "<group>"; };
 		DCF51BE017D4909A0099795E /* DKADetailsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKADetailsVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -195,6 +213,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCD9C44817D5F13700C53EF9 /* MapKit.framework in Frameworks */,
 				DCD9C3E517D4AE9300C53EF9 /* libz.dylib in Frameworks */,
 				DCD9C3E317D4AE4F00C53EF9 /* AdSupport.framework in Frameworks */,
 				DC5E972017CF9E4A00D820AE /* CoreData.framework in Frameworks */,
@@ -241,6 +260,7 @@
 		DC5E96B017CE262700D820AE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DCD9C44717D5F13700C53EF9 /* MapKit.framework */,
 				DCD9C3E417D4AE9300C53EF9 /* libz.dylib */,
 				DCD9C3E217D4AE4F00C53EF9 /* AdSupport.framework */,
 				DC5E971F17CF9E4A00D820AE /* CoreData.framework */,
@@ -263,6 +283,8 @@
 				DC5E972517D07DB100D820AE /* Schedule */,
 				DC5E972117D074A000D820AE /* Model */,
 				DC5E96F817CF4E0200D820AE /* Helpers */,
+				DCD9C44417D5E79200C53EF9 /* DKATabBarVC.h */,
+				DCD9C44517D5E79200C53EF9 /* DKATabBarVC.m */,
 				DC5E96C017CE262700D820AE /* DKAAppDelegate.h */,
 				DC5E96C117CE262700D820AE /* DKAAppDelegate.m */,
 				DC5E96C317CE262700D820AE /* Main.storyboard */,
@@ -357,6 +379,10 @@
 		DC5E972117D074A000D820AE /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				DCD9C44117D5BECA00C53EF9 /* Client.h */,
+				DCD9C44217D5BECA00C53EF9 /* Client.m */,
+				DCD9C43E17D5BECA00C53EF9 /* ClientContactPerson.h */,
+				DCD9C43F17D5BECA00C53EF9 /* ClientContactPerson.m */,
 				DCD9C42A17D5A7DE00C53EF9 /* Booking.h */,
 				DCD9C42B17D5A7DE00C53EF9 /* Booking.m */,
 				DCD9C42717D5A7DD00C53EF9 /* BookingDetails.h */,
@@ -390,6 +416,9 @@
 		DC5E973717D0C91500D820AE /* images */ = {
 			isa = PBXGroup;
 			children = (
+				DCD9C44917D5F20400C53EF9 /* MJ_80.png */,
+				DCD9C44A17D5F20400C53EF9 /* MJ_120.png */,
+				DCD9C44B17D5F20400C53EF9 /* MJ_58.png */,
 				DCD9C43517D5AEB600C53EF9 /* arrow_left.png */,
 				DCD9C43617D5AEB600C53EF9 /* arrow_left@2x.png */,
 				DCD9C43717D5AEB600C53EF9 /* arrow_right.png */,
@@ -541,6 +570,7 @@
 				DCD9C3E117D4ADBD00C53EF9 /* release_notes.md in Resources */,
 				DCD9C41C17D4B51B00C53EF9 /* money@2x.png in Resources */,
 				DCD9C41D17D4B51B00C53EF9 /* phone.png in Resources */,
+				DCD9C44C17D5F20400C53EF9 /* MJ_80.png in Resources */,
 				DC5E96CD17CE262700D820AE /* Images.xcassets in Resources */,
 				DC5E96BC17CE262700D820AE /* InfoPlist.strings in Resources */,
 				DCD9C42317D4B51B00C53EF9 /* settings@2x.png in Resources */,
@@ -554,12 +584,14 @@
 				DCD9C43417D5AC0000C53EF9 /* CheckBox@2x.png in Resources */,
 				DCD9C41917D4B51B00C53EF9 /* logo.png in Resources */,
 				DCD9C43117D5AC0000C53EF9 /* CheckBox_Checked.png in Resources */,
+				DCD9C44D17D5F20400C53EF9 /* MJ_120.png in Resources */,
 				DC5E96C517CE262700D820AE /* Main.storyboard in Resources */,
 				DCD9C43917D5AEB600C53EF9 /* arrow_left.png in Resources */,
 				DCD9C41617D4B51B00C53EF9 /* calendar@2x.png in Resources */,
 				DCD9C43217D5AC0000C53EF9 /* CheckBox_Checked@2x.png in Resources */,
 				DCD9C43A17D5AEB600C53EF9 /* arrow_left@2x.png in Resources */,
 				DCD9C3E017D4ADBD00C53EF9 /* README.md in Resources */,
+				DCD9C44E17D5F20400C53EF9 /* MJ_58.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -583,6 +615,7 @@
 				DC5E96BE17CE262700D820AE /* main.m in Sources */,
 				DC5E971417CF4E7F00D820AE /* AFXMLRequestOperation.m in Sources */,
 				DC5E96C217CE262700D820AE /* DKAAppDelegate.m in Sources */,
+				DCD9C44317D5BECA00C53EF9 /* Client.m in Sources */,
 				DC5E971517CF4E7F00D820AE /* UIImageView+AFNetworking.m in Sources */,
 				DC5E972417D074B100D820AE /* Person.m in Sources */,
 				DCD9C42C17D5A7DE00C53EF9 /* Booking.m in Sources */,
@@ -590,9 +623,11 @@
 				DC5E971317CF4E7F00D820AE /* AFURLConnectionOperation.m in Sources */,
 				DC5E973617D0C8F500D820AE /* CKCalendarView.m in Sources */,
 				DC5E971117CF4E7F00D820AE /* AFNetworkActivityIndicatorManager.m in Sources */,
+				DCD9C44017D5BECA00C53EF9 /* ClientContactPerson.m in Sources */,
 				DC5E96C817CE262700D820AE /* DKAFirstViewController.m in Sources */,
 				DC5E971017CF4E7F00D820AE /* AFJSONRequestOperation.m in Sources */,
 				DC5E972B17D07E9400D820AE /* DKAScheduleNavigateVC.m in Sources */,
+				DCD9C44617D5E79200C53EF9 /* DKATabBarVC.m in Sources */,
 				DC5E96CB17CE262700D820AE /* DKASecondViewController.m in Sources */,
 				DC5E972817D07DD500D820AE /* DKAScheduleVC.m in Sources */,
 				DCF51BE117D4909A0099795E /* DKADetailsVC.m in Sources */,
@@ -836,12 +871,13 @@
 		DC5E971917CF9D3E00D820AE /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				DCD9C43D17D5BDBB00C53EF9 /* Model 5.xcdatamodel */,
 				DCD9C42617D5A73B00C53EF9 /* Model 4.xcdatamodel */,
 				DC006DDB17D49D9400E028A5 /* Model 3.xcdatamodel */,
 				DC5E972F17D0B34F00D820AE /* Model 2.xcdatamodel */,
 				DC5E971A17CF9D3E00D820AE /* Model.xcdatamodel */,
 			);
-			currentVersion = DCD9C42617D5A73B00C53EF9 /* Model 4.xcdatamodel */;
+			currentVersion = DCD9C43D17D5BDBB00C53EF9 /* Model 5.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

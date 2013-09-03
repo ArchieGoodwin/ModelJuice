@@ -15,6 +15,8 @@
 #import "CKCalendarView.h"
 #import "DKADefines.h"
 #import "DKADetailsVC.h"
+#import "Client.h"
+#import "ClientContactPerson.h"
 #define CELL_HEIGHT 44
 
 
@@ -52,6 +54,27 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    
+    UIButton *btnLense = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btnLense.frame = CGRectMake(0, 3, 16, 17);
+    [btnLense setImage:[UIImage imageNamed:@"search.png"] forState:UIControlStateNormal];
+    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithCustomView:btnLense];
+    
+    
+    UIButton *btnPlus = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btnPlus.frame = CGRectMake(0, 0, 16, 16);
+    [btnPlus setImage:[UIImage imageNamed:@"plus.png"] forState:UIControlStateNormal];
+    UIBarButtonItem *plusButton = [[UIBarButtonItem alloc] initWithCustomView:btnPlus];
+    
+    UIBarButtonItem *flexItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                                                              target:nil
+                                                                              action:nil];
+    flexItem.width = 35;
+    
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:plusButton, flexItem, searchButton, nil];
+    
+    
     
     refreshControl = [[UIRefreshControl alloc]   init];
     refreshControl.tintColor = MAIN_ORANGE;
@@ -193,6 +216,7 @@
     Person *person = [Person getSingleObjectByPredicate:predicate];
     [[DKAHTTPClient sharedManager] setUsername:person.personLogin andPassword:person.personPwd];
     
+    
     [[DKAHTTPClient sharedManager] getPath:@"/Api/Booking/GetBookings" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"success");
         NSLog(@"[getBookingsForPerson responseData]: %@",responseObject);
@@ -200,7 +224,19 @@
         {
             [Booking deleteInContext:book];
         }
-        [Booking saveDefaultContext];
+        for(BookingDetails *book in [BookingDetails getAllRecords])
+        {
+            [BookingDetails deleteInContext:book];
+        }
+        for(Client *book in [Client getAllRecords])
+        {
+            [Client deleteInContext:book];
+        }
+        for(ClientContactPerson *book in [ClientContactPerson getAllRecords])
+        {
+            [ClientContactPerson deleteInContext:book];
+        }
+        
         
         for(NSDictionary *bookingGroup in [[responseObject objectForKey:@"ReturnValue"] objectForKey:@"BookingGroups"])
         {

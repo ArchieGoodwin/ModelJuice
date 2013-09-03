@@ -12,6 +12,8 @@
 #import "Booking.h"
 #import "BookingDetails.h"
 #import "Person.h"
+#import "ClientContactPerson.h"
+#import "Client.h"
 @interface DKASecondViewController ()
 
 @end
@@ -41,7 +43,14 @@
     {
         [Person deleteInContext:book];
     }
-
+    for(Client *book in [Client getAllRecords])
+    {
+        [Client deleteInContext:book];
+    }
+    for(ClientContactPerson *book in [ClientContactPerson getAllRecords])
+    {
+        [ClientContactPerson deleteInContext:book];
+    }
 
     [Booking saveDefaultContext];
     
