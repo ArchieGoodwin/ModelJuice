@@ -82,10 +82,10 @@
 		DCD9C45117D64FFA00C53EF9 /* UILabel+Boldify.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD9C45017D64FFA00C53EF9 /* UILabel+Boldify.m */; };
 		DCD9C45517D7299600C53EF9 /* Client.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD9C45417D7299600C53EF9 /* Client.m */; };
 		DCD9C45C17D7593F00C53EF9 /* NSDate-Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD9C45B17D7593F00C53EF9 /* NSDate-Utilities.m */; };
-		DCD9C46117D761C600C53EF9 /* check-box.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD9C45D17D761C600C53EF9 /* check-box.png */; };
-		DCD9C46217D761C600C53EF9 /* check-box@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD9C45E17D761C600C53EF9 /* check-box@2x.png */; };
-		DCD9C46317D761C600C53EF9 /* checked.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD9C45F17D761C600C53EF9 /* checked.png */; };
-		DCD9C46417D761C600C53EF9 /* checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD9C46017D761C600C53EF9 /* checked@2x.png */; };
+		DCD9C46917D7669700C53EF9 /* check-box.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD9C46517D7669700C53EF9 /* check-box.png */; };
+		DCD9C46A17D7669700C53EF9 /* check-box@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD9C46617D7669700C53EF9 /* check-box@2x.png */; };
+		DCD9C46B17D7669700C53EF9 /* checked.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD9C46717D7669700C53EF9 /* checked.png */; };
+		DCD9C46C17D7669700C53EF9 /* checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD9C46817D7669700C53EF9 /* checked@2x.png */; };
 		DCF51BE117D4909A0099795E /* DKADetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF51BE017D4909A0099795E /* DKADetailsVC.m */; };
 /* End PBXBuildFile section */
 
@@ -215,10 +215,10 @@
 		DCD9C45417D7299600C53EF9 /* Client.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Client.m; sourceTree = "<group>"; };
 		DCD9C45A17D7593F00C53EF9 /* NSDate-Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate-Utilities.h"; sourceTree = "<group>"; };
 		DCD9C45B17D7593F00C53EF9 /* NSDate-Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate-Utilities.m"; sourceTree = "<group>"; };
-		DCD9C45D17D761C600C53EF9 /* check-box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-box.png"; sourceTree = "<group>"; };
-		DCD9C45E17D761C600C53EF9 /* check-box@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-box@2x.png"; sourceTree = "<group>"; };
-		DCD9C45F17D761C600C53EF9 /* checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checked.png; sourceTree = "<group>"; };
-		DCD9C46017D761C600C53EF9 /* checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checked@2x.png"; sourceTree = "<group>"; };
+		DCD9C46517D7669700C53EF9 /* check-box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-box.png"; sourceTree = "<group>"; };
+		DCD9C46617D7669700C53EF9 /* check-box@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-box@2x.png"; sourceTree = "<group>"; };
+		DCD9C46717D7669700C53EF9 /* checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checked.png; sourceTree = "<group>"; };
+		DCD9C46817D7669700C53EF9 /* checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checked@2x.png"; sourceTree = "<group>"; };
 		DCF51BDF17D4909A0099795E /* DKADetailsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKADetailsVC.h; sourceTree = "<group>"; };
 		DCF51BE017D4909A0099795E /* DKADetailsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKADetailsVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -435,10 +435,10 @@
 		DC5E973717D0C91500D820AE /* images */ = {
 			isa = PBXGroup;
 			children = (
-				DCD9C45D17D761C600C53EF9 /* check-box.png */,
-				DCD9C45E17D761C600C53EF9 /* check-box@2x.png */,
-				DCD9C45F17D761C600C53EF9 /* checked.png */,
-				DCD9C46017D761C600C53EF9 /* checked@2x.png */,
+				DCD9C46517D7669700C53EF9 /* check-box.png */,
+				DCD9C46617D7669700C53EF9 /* check-box@2x.png */,
+				DCD9C46717D7669700C53EF9 /* checked.png */,
+				DCD9C46817D7669700C53EF9 /* checked@2x.png */,
 				DCD9C44917D5F20400C53EF9 /* MJ_80.png */,
 				DCD9C44A17D5F20400C53EF9 /* MJ_120.png */,
 				DCD9C44B17D5F20400C53EF9 /* MJ_58.png */,
@@ -585,7 +585,6 @@
 			files = (
 				DCD9C41817D4B51B00C53EF9 /* globe@2x.png in Resources */,
 				DCD9C41A17D4B51B00C53EF9 /* logo@2x.png in Resources */,
-				DCD9C46417D761C600C53EF9 /* checked@2x.png in Resources */,
 				DCD9C43B17D5AEB600C53EF9 /* arrow_right.png in Resources */,
 				DCD9C41E17D4B51B00C53EF9 /* phone@2x.png in Resources */,
 				DCD9C42217D4B51B00C53EF9 /* search@2x.png in Resources */,
@@ -597,10 +596,11 @@
 				DCD9C44C17D5F20400C53EF9 /* MJ_80.png in Resources */,
 				DC5E96CD17CE262700D820AE /* Images.xcassets in Resources */,
 				DC5E96BC17CE262700D820AE /* InfoPlist.strings in Resources */,
-				DCD9C46117D761C600C53EF9 /* check-box.png in Resources */,
 				DCD9C42317D4B51B00C53EF9 /* settings@2x.png in Resources */,
+				DCD9C46B17D7669700C53EF9 /* checked.png in Resources */,
 				DCD9C41717D4B51B00C53EF9 /* globe.png in Resources */,
 				DCD9C41F17D4B51B00C53EF9 /* plus.png in Resources */,
+				DCD9C46C17D7669700C53EF9 /* checked@2x.png in Resources */,
 				DCD9C43C17D5AEB600C53EF9 /* arrow_right@2x.png in Resources */,
 				DCD9C42517D4B52100C53EF9 /* shedule@2x.png in Resources */,
 				DCD9C42017D4B51B00C53EF9 /* plus@2x.png in Resources */,
@@ -609,16 +609,16 @@
 				DCD9C43417D5AC0000C53EF9 /* CheckBox@2x.png in Resources */,
 				DCD9C41917D4B51B00C53EF9 /* logo.png in Resources */,
 				DCD9C43117D5AC0000C53EF9 /* CheckBox_Checked.png in Resources */,
-				DCD9C46317D761C600C53EF9 /* checked.png in Resources */,
 				DCD9C44D17D5F20400C53EF9 /* MJ_120.png in Resources */,
+				DCD9C46917D7669700C53EF9 /* check-box.png in Resources */,
 				DC5E96C517CE262700D820AE /* Main.storyboard in Resources */,
 				DCD9C43917D5AEB600C53EF9 /* arrow_left.png in Resources */,
+				DCD9C46A17D7669700C53EF9 /* check-box@2x.png in Resources */,
 				DCD9C41617D4B51B00C53EF9 /* calendar@2x.png in Resources */,
 				DCD9C43217D5AC0000C53EF9 /* CheckBox_Checked@2x.png in Resources */,
 				DCD9C43A17D5AEB600C53EF9 /* arrow_left@2x.png in Resources */,
 				DCD9C3E017D4ADBD00C53EF9 /* README.md in Resources */,
 				DCD9C44E17D5F20400C53EF9 /* MJ_58.png in Resources */,
-				DCD9C46217D761C600C53EF9 /* check-box@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
