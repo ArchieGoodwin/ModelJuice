@@ -402,9 +402,13 @@
     lblTitle.textColor = TITLE_COLOR;
     
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    //[dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     [dateFormat setDateFormat:@"EEEE, MMM dd"];
+    
+    
     lblTitle.text = [dateFormat stringFromDate:date];
+
+
    
     lblTitle.font = [UIFont boldSystemFontOfSize:13];
     [view addSubview:lblTitle];
@@ -446,9 +450,24 @@
         ((UILabel *)[cell.contentView viewWithTag:103]).textColor = TODAY_IN_LIST_COLOR;
     }
 
+    if([book.startDate isToday])
+    {
+        ((UILabel *)[cell.contentView viewWithTag:103]).text = @"Today";
+    }
+    else
+    {
+        if([book.startDate isTomorrow])
+        {
+            ((UILabel *)[cell.contentView viewWithTag:103]).text = @"Tomorrow";
+            
+        }
+        else
+        {
+            ((UILabel *)[cell.contentView viewWithTag:103]).text = str;
+
+        }
+    }
     
-    
-    ((UILabel *)[cell.contentView viewWithTag:103]).text = str;
     
     [dateFormat setAMSymbol:@"am"];
     [dateFormat setPMSymbol:@"pm"];

@@ -394,46 +394,52 @@
     {
         UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"DetailsCell"];
         UIView *container = cell.contentView.subviews[0];
-        
-        
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"clientID = %@", _currentClient.clientID];
-        ClientContactPerson *clientPerson = [ClientContactPerson getSingleObjectByPredicate:predicate];
-        
-        if(clientPerson != nil)
+
+        if(_bookingDetail && _currentClient)
         {
-            ((UILabel *)[container viewWithTag:206]).text = [_currentClient.city isEqualToString:@""] ? @"" : [NSString stringWithFormat:@"%@, %@", _currentClient.city, _currentClient.stateName];
-            ((UILabel *)[container viewWithTag:207]).text =  [_currentClient.addressLine1 isEqualToString:@""] ? @"" : [NSString stringWithFormat:@"%@, %@", _currentClient.addressLine1, _currentClient.addressLine2];
-            ((UILabel *)[container viewWithTag:203]).text =  [_currentClient.phone isEqualToString:@""] ? @"" : _currentClient.phone;
-
-            ((UILabel *)[container viewWithTag:209]).text =  [clientPerson.personFullName isEqualToString:@""] ? @"" : [clientPerson.personFullName uppercaseString];
-            ((UILabel *)[container viewWithTag:210]).text =  [clientPerson.workPhone isEqualToString:@""] ? @"" : clientPerson.workPhone;
-
+            
+            
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"clientID = %@", _currentClient.clientID];
+            ClientContactPerson *clientPerson = [ClientContactPerson getSingleObjectByPredicate:predicate];
+            
+            if(clientPerson != nil)
+            {
+                ((UILabel *)[container viewWithTag:206]).text = [_currentClient.city isEqualToString:@""] ? @"" : [NSString stringWithFormat:@"%@, %@", _currentClient.city, _currentClient.stateName];
+                ((UILabel *)[container viewWithTag:207]).text =  [_currentClient.addressLine1 isEqualToString:@""] ? @"" : [NSString stringWithFormat:@"%@, %@", _currentClient.addressLine1, _currentClient.addressLine2];
+                ((UILabel *)[container viewWithTag:203]).text =  [_currentClient.phone isEqualToString:@""] ? @"" : _currentClient.phone;
+                
+                ((UILabel *)[container viewWithTag:209]).text =  [clientPerson.personFullName isEqualToString:@""] ? @"" : [clientPerson.personFullName uppercaseString];
+                ((UILabel *)[container viewWithTag:210]).text =  [clientPerson.workPhone isEqualToString:@""] ? @"" : clientPerson.workPhone;
+                
+            }
+            
+            container.layer.cornerRadius = 5;
+            
+            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+            [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+            [dateFormat setDateFormat:@"EEEE, MMM dd, yyyy"];
+            
+            NSString *str = [dateFormat stringFromDate:_bookingDetail.startDateTime];
+            ((UILabel *)[container viewWithTag:204]).text = str;
+            [dateFormat setAMSymbol:@"am"];
+            [dateFormat setPMSymbol:@"pm"];
+            [dateFormat setDateFormat:@"hh:mma"];
+            NSString *strHS = [dateFormat stringFromDate:_bookingDetail.startDateTime];
+            NSString *strHE = [dateFormat stringFromDate:_bookingDetail.endDateTime];
+            
+            ((UILabel *)[container viewWithTag:205]).text = [NSString stringWithFormat:@"from %@ to %@", strHS, strHE];
+            
+            
+            ((UILabel *)[container viewWithTag:201]).text = [_currentClient.companyName uppercaseString];
+            ((UILabel *)[container viewWithTag:202]).text = _bookingDetail.bookingTypeName;
+            ((UILabel *)[container viewWithTag:212]).text = _bookingDetail.team;
+            ((UILabel *)[container viewWithTag:213]).text = _bookingDetail.hair;
+            ((UILabel *)[container viewWithTag:214]).text = _bookingDetail.stylist;
+            ((UILabel *)[container viewWithTag:215]).text = [NSString stringWithFormat:@"Details  $%@/hour", _bookingDetail.hourlyRate];
+            
+            
         }
         
-        container.layer.cornerRadius = 5;
-        
-        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-        [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-        [dateFormat setDateFormat:@"EEEE, MMM dd, yyyy"];
-        
-        NSString *str = [dateFormat stringFromDate:_bookingDetail.startDateTime];
-        ((UILabel *)[container viewWithTag:204]).text = str;
-        [dateFormat setAMSymbol:@"am"];
-        [dateFormat setPMSymbol:@"pm"];
-        [dateFormat setDateFormat:@"hh:mma"];
-        NSString *strHS = [dateFormat stringFromDate:_bookingDetail.startDateTime];
-        NSString *strHE = [dateFormat stringFromDate:_bookingDetail.endDateTime];
-        
-        ((UILabel *)[container viewWithTag:205]).text = [NSString stringWithFormat:@"from %@ to %@", strHS, strHE];
-        
-        
-        ((UILabel *)[container viewWithTag:201]).text = [_currentClient.companyName uppercaseString];
-        ((UILabel *)[container viewWithTag:202]).text = _bookingDetail.bookingTypeName;
-        ((UILabel *)[container viewWithTag:212]).text = _bookingDetail.team;
-        ((UILabel *)[container viewWithTag:213]).text = _bookingDetail.hair;
-        ((UILabel *)[container viewWithTag:214]).text = _bookingDetail.stylist;
-        ((UILabel *)[container viewWithTag:215]).text = [NSString stringWithFormat:@"Details  $%@/hour", _bookingDetail.hourlyRate];
-
         
         ((UIView *)[container viewWithTag:240]).backgroundColor = SEPARATOR_COLOR;
         ((UIView *)[container viewWithTag:241]).backgroundColor = SEPARATOR_COLOR;
