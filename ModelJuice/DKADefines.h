@@ -21,5 +21,6 @@
 #define SEPARATOR_COLOR [UIColor colorWithRed:238.0 / 255 green:217.0 / 255 blue:90.0 / 255 alpha:1]
 #define GRAY_TEXT_COLOR [UIColor colorWithRed:142.0 / 255 green:141.0 / 255 blue:146.0 / 255 alpha:1]
 
+#define GREEN_TEXT_COLOR [UIColor colorWithRed:117.0 / 255 green:148.0 / 255 blue:8.0 / 255 alpha:1]
 
 

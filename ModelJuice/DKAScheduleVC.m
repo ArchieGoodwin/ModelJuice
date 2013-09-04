@@ -18,6 +18,7 @@
 #import "Client.h"
 #import "ClientContactPerson.h"
 #import "UILabel+Boldify.h"
+#import "NSDate-Utilities.h"
 #define CELL_HEIGHT 50
 
 
@@ -28,11 +29,9 @@
     BOOL calendarShown;
     UIRefreshControl *refreshControl;
     
+
     
-    NSMutableArray *prevBookings;
-    NSMutableArray *currentWeek;
-    NSMutableArray *nextWeek;
-    NSMutableArray *nextBookings;
+    NSMutableArray *sections;
 
 }
 
@@ -205,42 +204,49 @@
 }
 
 
+-(BOOL)checkIsBookForThisDateIsInSections:(NSDate *)date2check
+{
+    for(NSDate *date in sections)
+    {
+        if([self.calendar date:date2check isSameDayAsDate:date])
+        {
+            return YES;
+        }
+        
+    }
+    return NO;
+}
+
 -(void)splitBookings
 {
-    prevBookings = [NSMutableArray new];
-    currentWeek = [NSMutableArray new];
-    nextWeek = [NSMutableArray new];
-    nextBookings = [NSMutableArray new];
+
+    sections = [NSMutableArray new];
+    
     for(Booking *book in bookings)
     {
-        
-        NSLog(@"%@", book.startDate);
-        if([self.calendar isDateIsInPrevWeekAndEarlier:book.startDate])
+        if(![self checkIsBookForThisDateIsInSections:book.startDate])
         {
-            [prevBookings addObject:book];
-            continue;
+            [sections addObject:book.startDate];
         }
-        if([self.calendar isDateIsInCurrentWeek:book.startDate])
-        {
-            [currentWeek addObject:book];
-            continue;
-
-        }
-        if([self.calendar isDateIsInNextWeek:book.startDate])
-        {
-            [nextWeek addObject:book];
-            continue;
-
-        }
-        if([self.calendar isDateIsInLaterWeeks:book.startDate])
-        {
-            [nextBookings addObject:book];
-            continue;
-            
-        }
+       
     }
 }
 
+
+-(NSMutableArray *)getBookingsForDate:(NSDate *)date
+{
+    NSMutableArray *temp = [NSMutableArray new];
+    for(Booking *book in bookings)
+    {
+        if([self.calendar date:date isSameDayAsDate:book.startDate])
+        {
+            [temp addObject:book];
+        }
+        
+    }
+    
+    return temp;
+}
 
 -(void)showBookings
 {
@@ -290,10 +296,10 @@
                 NSLog(@"%@", booking);
                 Booking *book = [Booking createEntityInContext];
                 book.bookingId = [[booking objectForKey:@"Booking"] objectForKey:@"BookingID"];
-                book.desc = [[booking objectForKey:@"Booking"] objectForKey:@"Description"];
+                book.desc = [[booking objectForKey:@"Booking"] objectForKey:@"Description"] == [NSNull null] ? @"" :[[booking objectForKey:@"Booking"] objectForKey:@"Description"];
                 
                 NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-                [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+                //[dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
                 [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
                 NSDate *startDate = [dateFormat dateFromString:[[booking objectForKey:@"Booking"] objectForKey:@"StartDateTime"]];
                 
@@ -336,26 +342,13 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 4;
+    return sections.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    switch (section) {
-        case 0:
-            return prevBookings.count;
-        case 1:
-            return currentWeek.count;
-        case 2:
-            return nextWeek.count;
-        case 3:
-            return nextBookings.count;
-
-        default:
-            break;
-    }
-    return bookings.count;
+    
+    return [self getBookingsForDate:((NSDate *)sections[section])].count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -365,37 +358,21 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    switch (section) {
-        case 0:
-            if(prevBookings.count > 0) return 20;
-            break;
-        case 1:
-            if(currentWeek.count > 0) return 20;
-                        break;
-        case 2:
-            if(nextWeek.count > 0) return 20;
-                        break;
-        case 3:
-            if(nextBookings.count > 0) return 20;
-                        break;
-
-        default:
-            break;
-    }
+    if([self getBookingsForDate:((NSDate *)sections[section])].count > 0) return 20;
     
     return 0;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    if(section == 3)
+    if(section == (sections.count - 1))
         return 1;
     return 0;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    if(section == 3)
+    if(section == (sections.count - 1))
     {
         UIView *empty = [[UIView alloc] initWithFrame:CGRectZero];
         return empty;
@@ -413,6 +390,9 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    
+    NSDate *date =  sections[section];
+    
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
     
     view.backgroundColor = MAIN_BACK_COLOR;
@@ -421,74 +401,31 @@
     lblTitle.backgroundColor = [UIColor clearColor];
     lblTitle.textColor = TITLE_COLOR;
     
-    
-    switch (section) {
-        case 0:
-            lblTitle.text = @"Previos bookings";
-            break;
-        case 1:
-            lblTitle.text = @"Current week";
-            break;
-        case 2:
-            lblTitle.text = @"Next week";
-            break;
-        case 3:
-            lblTitle.text = @"Next bookings";
-            break;
-
-        default:
-            break;
-    }
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    [dateFormat setDateFormat:@"EEEE, MMM dd"];
+    lblTitle.text = [dateFormat stringFromDate:date];
+   
     lblTitle.font = [UIFont boldSystemFontOfSize:13];
     [view addSubview:lblTitle];
     
-    switch (section) {
-        case 0:
-            if(prevBookings.count > 0) return view;
-            break;
-        case 1:
-            if(currentWeek.count > 0) return view;
-            break;
-        case 2:
-            if(nextWeek.count > 0) return view;
-            break;
-        case 3:
-            if(nextBookings.count > 0) return view;
-            break;
-        default:
-            break;
-    }
-    
-    return nil;
+    return view;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"BookingCell"];
-    
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    [dateFormat setDateFormat:@"EEEE, MMM dd"];
     Booking *book = nil;
-    switch (indexPath.section) {
-        case 0:
-            book = [prevBookings objectAtIndex:indexPath.row];
-            break;
-        case 1:
-            book = [currentWeek objectAtIndex:indexPath.row];
-            break;
-        case 2:
-            book = [nextWeek objectAtIndex:indexPath.row];
-            break;
-        case 3:
-            book = [nextBookings objectAtIndex:indexPath.row];
-            break;
-        default:
-            break;
-    }
     
+    book = [self getBookingsForDate:((NSDate *)sections[indexPath.section])][indexPath.row];
     
     
     ((UILabel *)[cell.contentView viewWithTag:101]).text = book.clientName;
     
-    NSCharacterSet *delimiterCharacterSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+    /*NSCharacterSet *delimiterCharacterSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
 
     NSArray *firstWords = [book.clientName componentsSeparatedByCharactersInSet:delimiterCharacterSet];
 
@@ -496,13 +433,11 @@
     {
         [((UILabel *)[cell.contentView viewWithTag:101]) boldSubstring: firstWords[1]];
 
-    }
+    }*/
     
     ((UILabel *)[cell.contentView viewWithTag:102]).text = book.bookingTypeName;
     ((UILabel *)[cell.contentView viewWithTag:102]).textColor = GRAY_TEXT_COLOR;
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-    [dateFormat setDateFormat:@"EEEE, MMM dd"];
+    
 
     NSString *str = [dateFormat stringFromDate:book.startDate];
     ((UILabel *)[cell.contentView viewWithTag:103]).textColor = GRAY_TEXT_COLOR;
@@ -511,6 +446,7 @@
         ((UILabel *)[cell.contentView viewWithTag:103]).textColor = TODAY_IN_LIST_COLOR;
     }
 
+    
     
     ((UILabel *)[cell.contentView viewWithTag:103]).text = str;
     
@@ -521,6 +457,12 @@
     NSString *strHE = [dateFormat stringFromDate:book.endDate];
     ((UILabel *)[cell.contentView viewWithTag:104]).textColor = GRAY_TEXT_COLOR;
     ((UILabel *)[cell.contentView viewWithTag:104]).text = [NSString stringWithFormat:@"%@ - %@", strHS, strHE];
+    if([book.startDate isTomorrow])
+    {
+        ((UILabel *)[cell.contentView viewWithTag:103]).textColor = GREEN_TEXT_COLOR;
+        ((UILabel *)[cell.contentView viewWithTag:104]).textColor = GREEN_TEXT_COLOR;
+
+    }
     return cell;
 }
 
@@ -534,22 +476,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Booking *book = nil;
-    switch (indexPath.section) {
-        case 0:
-            book = [prevBookings objectAtIndex:indexPath.row];
-            break;
-        case 1:
-            book = [currentWeek objectAtIndex:indexPath.row];
-            break;
-        case 2:
-            book = [nextWeek objectAtIndex:indexPath.row];
-            break;
-        case 3:
-            book = [nextBookings objectAtIndex:indexPath.row];
-            break;
-        default:
-            break;
-    }
+    book = [self getBookingsForDate:((NSDate *)sections[indexPath.section])][indexPath.row];
 
     [self performSegueWithIdentifier:@"PushDetail" sender:book];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -574,14 +501,15 @@
     
     for(Booking *book in bookings)
     {
-        if([self.calendar date:date isSameDayAsDate:book.startDate])
+        if([date isEqualToDateIgnoringTime:book.startDate])
         {
+            NSLog(@"%@   %@", date, book.startDate);
             dateItem.backgroundColor = MAIN_BACK_COLOR;
             dateItem.textColor = [UIColor darkTextColor];
             int i = 0;
             for(Booking *b in bookings)
             {
-                if([self.calendar date:book.startDate isSameDayAsDate:b.startDate])
+                if([book.startDate isEqualToDateIgnoringTime:b.startDate])
                 {
                     i++;
                 }
@@ -592,6 +520,7 @@
                 dateItem.backgroundColor = CONFLICT_COLOR;
                 dateItem.textColor = [UIColor darkTextColor];
             }
+           
         }
         
     }
@@ -602,6 +531,21 @@
     return YES;
 }
 
+-(NSInteger)getIndexOfDateInSections:(NSDate *)date2check
+{
+    int i = 0;
+    for(NSDate *date in sections)
+    {
+        if([self.calendar date:date2check isSameDayAsDate:date])
+        {
+            return i;
+        }
+        i++;
+    }
+    
+    return 0;
+}
+
 - (void)calendar:(CKCalendarView *)calendar didSelectDate:(NSDate *)date {
     //self.dateLabel.text = [self.dateFormatter stringFromDate:date];
     
@@ -610,14 +554,8 @@
     {
         if([self.calendar date:date isSameDayAsDate:book.startDate])
         {
-            BOOL curWeek = YES;
             
-            if([self.calendar isDateIsInNextWeek:date])
-            {
-                curWeek = NO;
-            }
-            
-            CGPoint offset = CGPointMake(0, CELL_HEIGHT * i + (curWeek ? 0 : 20));
+            CGPoint offset = CGPointMake(0, CELL_HEIGHT * i + [self getIndexOfDateInSections:date] * 20);
             [self.table setContentOffset:offset animated:YES];
             
             return;

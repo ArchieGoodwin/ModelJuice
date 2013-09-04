@@ -103,10 +103,10 @@
                          // Can use MKLaunchOptionsDirectionsModeWalking instead
                          //NSDictionary *launchOptions = @{MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving};
                          
-                         MKMapItem *currentLocationMapItem = [MKMapItem mapItemForCurrentLocation];
+                         //MKMapItem *currentLocationMapItem = [MKMapItem mapItemForCurrentLocation];
                          
 
-                         [MKMapItem openMapsWithItems:@[currentLocationMapItem, mapItem] launchOptions:nil];
+                         [MKMapItem openMapsWithItems:@[ mapItem] launchOptions:nil];
                          
                      }];
     }
@@ -182,9 +182,10 @@
             NSLog(@"%@", [res objectForKey:@"ClientID"]);
             BookingDetails *book = [BookingDetails createEntityInContext];
             book.bookingID = [res objectForKey:@"BookingID"];
-            book.desc = [res objectForKey:@"Description"];
+            book.desc = [res objectForKey:@"Description"] == [NSNull null] ? @"" :[res objectForKey:@"Description"];
+
             NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-            [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+            //[dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
             [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
             NSDate *startDate = [dateFormat dateFromString:[res objectForKey:@"StartDateTime"]];
             book.startDateTime = startDate;

@@ -149,14 +149,14 @@
     if(!rememberMe)
     {
         
-        [btn setImage:[UIImage imageNamed:@"CheckBox_Checked.png"] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateNormal];
         [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"rememberMe"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
     }
     else
     {
-        [btn setImage:[UIImage imageNamed:@"CheckBox.png"] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:@"check-box.png"] forState:UIControlStateNormal];
         [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"rememberMe"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
