@@ -18,7 +18,7 @@
 #import "Client.h"
 #import "ClientContactPerson.h"
 #import "UILabel+Boldify.h"
-#define CELL_HEIGHT 44
+#define CELL_HEIGHT 50
 
 
 @interface DKAScheduleVC () <CKCalendarDelegate>
