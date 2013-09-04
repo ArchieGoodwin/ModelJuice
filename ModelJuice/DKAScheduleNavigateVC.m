@@ -7,7 +7,7 @@
 //
 
 #import "DKAScheduleNavigateVC.h"
-
+#import "DKADefines.h"
 @interface DKAScheduleNavigateVC ()
 
 @end
@@ -32,6 +32,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.navigationBar.barTintColor = MAIN_ORANGE;
+    //self.navigationBar.translucent = YES;
     
     [self preferredStatusBarStyle];
 	// Do any additional setup after loading the view.

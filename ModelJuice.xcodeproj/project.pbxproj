@@ -74,12 +74,13 @@
 		DCD9C43B17D5AEB600C53EF9 /* arrow_right.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD9C43717D5AEB600C53EF9 /* arrow_right.png */; };
 		DCD9C43C17D5AEB600C53EF9 /* arrow_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD9C43817D5AEB600C53EF9 /* arrow_right@2x.png */; };
 		DCD9C44017D5BECA00C53EF9 /* ClientContactPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD9C43F17D5BECA00C53EF9 /* ClientContactPerson.m */; };
-		DCD9C44317D5BECA00C53EF9 /* Client.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD9C44217D5BECA00C53EF9 /* Client.m */; };
 		DCD9C44617D5E79200C53EF9 /* DKATabBarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD9C44517D5E79200C53EF9 /* DKATabBarVC.m */; };
 		DCD9C44817D5F13700C53EF9 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCD9C44717D5F13700C53EF9 /* MapKit.framework */; };
 		DCD9C44C17D5F20400C53EF9 /* MJ_80.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD9C44917D5F20400C53EF9 /* MJ_80.png */; };
 		DCD9C44D17D5F20400C53EF9 /* MJ_120.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD9C44A17D5F20400C53EF9 /* MJ_120.png */; };
 		DCD9C44E17D5F20400C53EF9 /* MJ_58.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD9C44B17D5F20400C53EF9 /* MJ_58.png */; };
+		DCD9C45117D64FFA00C53EF9 /* UILabel+Boldify.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD9C45017D64FFA00C53EF9 /* UILabel+Boldify.m */; };
+		DCD9C45517D7299600C53EF9 /* Client.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD9C45417D7299600C53EF9 /* Client.m */; };
 		DCF51BE117D4909A0099795E /* DKADetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF51BE017D4909A0099795E /* DKADetailsVC.m */; };
 /* End PBXBuildFile section */
 
@@ -193,17 +194,20 @@
 		DCD9C43617D5AEB600C53EF9 /* arrow_left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_left@2x.png"; sourceTree = "<group>"; };
 		DCD9C43717D5AEB600C53EF9 /* arrow_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_right.png; sourceTree = "<group>"; };
 		DCD9C43817D5AEB600C53EF9 /* arrow_right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_right@2x.png"; sourceTree = "<group>"; };
-		DCD9C43D17D5BDBB00C53EF9 /* Model 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Model 5.xcdatamodel"; sourceTree = "<group>"; };
+		DCD9C43D17D5BDBB00C53EF9 /* Model 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 5.xcdatamodel"; sourceTree = "<group>"; };
 		DCD9C43E17D5BECA00C53EF9 /* ClientContactPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientContactPerson.h; sourceTree = "<group>"; };
 		DCD9C43F17D5BECA00C53EF9 /* ClientContactPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientContactPerson.m; sourceTree = "<group>"; };
-		DCD9C44117D5BECA00C53EF9 /* Client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Client.h; sourceTree = "<group>"; };
-		DCD9C44217D5BECA00C53EF9 /* Client.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Client.m; sourceTree = "<group>"; };
 		DCD9C44417D5E79200C53EF9 /* DKATabBarVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKATabBarVC.h; sourceTree = "<group>"; };
 		DCD9C44517D5E79200C53EF9 /* DKATabBarVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKATabBarVC.m; sourceTree = "<group>"; };
 		DCD9C44717D5F13700C53EF9 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		DCD9C44917D5F20400C53EF9 /* MJ_80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MJ_80.png; sourceTree = "<group>"; };
 		DCD9C44A17D5F20400C53EF9 /* MJ_120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MJ_120.png; sourceTree = "<group>"; };
 		DCD9C44B17D5F20400C53EF9 /* MJ_58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MJ_58.png; sourceTree = "<group>"; };
+		DCD9C44F17D64FFA00C53EF9 /* UILabel+Boldify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Boldify.h"; sourceTree = "<group>"; };
+		DCD9C45017D64FFA00C53EF9 /* UILabel+Boldify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Boldify.m"; sourceTree = "<group>"; };
+		DCD9C45217D7295E00C53EF9 /* Model 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Model 6.xcdatamodel"; sourceTree = "<group>"; };
+		DCD9C45317D7299600C53EF9 /* Client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Client.h; sourceTree = "<group>"; };
+		DCD9C45417D7299600C53EF9 /* Client.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Client.m; sourceTree = "<group>"; };
 		DCF51BDF17D4909A0099795E /* DKADetailsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKADetailsVC.h; sourceTree = "<group>"; };
 		DCF51BE017D4909A0099795E /* DKADetailsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKADetailsVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -346,6 +350,8 @@
 				DC5E972C17D0A9FE00D820AE /* DKAHTTPClient.h */,
 				DC5E972D17D0A9FE00D820AE /* DKAHTTPClient.m */,
 				DC5E974017D1B8A100D820AE /* DKADefines.h */,
+				DCD9C44F17D64FFA00C53EF9 /* UILabel+Boldify.h */,
+				DCD9C45017D64FFA00C53EF9 /* UILabel+Boldify.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -379,8 +385,8 @@
 		DC5E972117D074A000D820AE /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				DCD9C44117D5BECA00C53EF9 /* Client.h */,
-				DCD9C44217D5BECA00C53EF9 /* Client.m */,
+				DCD9C45317D7299600C53EF9 /* Client.h */,
+				DCD9C45417D7299600C53EF9 /* Client.m */,
 				DCD9C43E17D5BECA00C53EF9 /* ClientContactPerson.h */,
 				DCD9C43F17D5BECA00C53EF9 /* ClientContactPerson.m */,
 				DCD9C42A17D5A7DE00C53EF9 /* Booking.h */,
@@ -615,7 +621,6 @@
 				DC5E96BE17CE262700D820AE /* main.m in Sources */,
 				DC5E971417CF4E7F00D820AE /* AFXMLRequestOperation.m in Sources */,
 				DC5E96C217CE262700D820AE /* DKAAppDelegate.m in Sources */,
-				DCD9C44317D5BECA00C53EF9 /* Client.m in Sources */,
 				DC5E971517CF4E7F00D820AE /* UIImageView+AFNetworking.m in Sources */,
 				DC5E972417D074B100D820AE /* Person.m in Sources */,
 				DCD9C42C17D5A7DE00C53EF9 /* Booking.m in Sources */,
@@ -631,7 +636,9 @@
 				DC5E96CB17CE262700D820AE /* DKASecondViewController.m in Sources */,
 				DC5E972817D07DD500D820AE /* DKAScheduleVC.m in Sources */,
 				DCF51BE117D4909A0099795E /* DKADetailsVC.m in Sources */,
+				DCD9C45117D64FFA00C53EF9 /* UILabel+Boldify.m in Sources */,
 				DC5E971B17CF9D3E00D820AE /* Model.xcdatamodeld in Sources */,
+				DCD9C45517D7299600C53EF9 /* Client.m in Sources */,
 				DC5E971E17CF9DA000D820AE /* NSManagedObject+NWCoreDataHelper.m in Sources */,
 				DC5E971217CF4E7F00D820AE /* AFPropertyListRequestOperation.m in Sources */,
 				DC5E970D17CF4E7F00D820AE /* AFHTTPClient.m in Sources */,
@@ -770,7 +777,7 @@
 					"/Users/sdikarev/Dropbox/Incoding/Apple\\ coding/ModelJuice/ModelJuice",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "369199C1-ACB7-430D-AC72-6F45C6574635";
+				PROVISIONING_PROFILE = "A058FEE8-A626-4111-B3C0-B41A671D4311";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -790,7 +797,7 @@
 					"/Users/sdikarev/Dropbox/Incoding/Apple\\ coding/ModelJuice/ModelJuice",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "369199C1-ACB7-430D-AC72-6F45C6574635";
+				PROVISIONING_PROFILE = "A058FEE8-A626-4111-B3C0-B41A671D4311";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -871,13 +878,14 @@
 		DC5E971917CF9D3E00D820AE /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				DCD9C45217D7295E00C53EF9 /* Model 6.xcdatamodel */,
 				DCD9C43D17D5BDBB00C53EF9 /* Model 5.xcdatamodel */,
 				DCD9C42617D5A73B00C53EF9 /* Model 4.xcdatamodel */,
 				DC006DDB17D49D9400E028A5 /* Model 3.xcdatamodel */,
 				DC5E972F17D0B34F00D820AE /* Model 2.xcdatamodel */,
 				DC5E971A17CF9D3E00D820AE /* Model.xcdatamodel */,
 			);
-			currentVersion = DCD9C43D17D5BDBB00C53EF9 /* Model 5.xcdatamodel */;
+			currentVersion = DCD9C45217D7295E00C53EF9 /* Model 6.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

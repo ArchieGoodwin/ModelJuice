@@ -17,6 +17,7 @@
 #import "DKADetailsVC.h"
 #import "Client.h"
 #import "ClientContactPerson.h"
+#import "UILabel+Boldify.h"
 #define CELL_HEIGHT 44
 
 
@@ -26,6 +27,12 @@
     CGRect tableFrame;
     BOOL calendarShown;
     UIRefreshControl *refreshControl;
+    
+    
+    NSMutableArray *prevBookings;
+    NSMutableArray *currentWeek;
+    NSMutableArray *nextWeek;
+    NSMutableArray *nextBookings;
 
 }
 
@@ -74,7 +81,7 @@
     
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:plusButton, flexItem, searchButton, nil];
     
-    
+    self.navigationController.navigationBar.backgroundColor = MAIN_ORANGE;
     
     refreshControl = [[UIRefreshControl alloc]   init];
     refreshControl.tintColor = MAIN_ORANGE;
@@ -99,7 +106,7 @@
 
     }
     
-    self.table.separatorColor = MAIN_BACK_COLOR;
+    self.table.separatorColor = SEPARATOR_COLOR;
     
     [self preferredStatusBarStyle];
 	// Do any additional setup after loading the view.
@@ -198,10 +205,48 @@
 }
 
 
+-(void)splitBookings
+{
+    prevBookings = [NSMutableArray new];
+    currentWeek = [NSMutableArray new];
+    nextWeek = [NSMutableArray new];
+    nextBookings = [NSMutableArray new];
+    for(Booking *book in bookings)
+    {
+        
+        NSLog(@"%@", book.startDate);
+        if([self.calendar isDateIsInPrevWeekAndEarlier:book.startDate])
+        {
+            [prevBookings addObject:book];
+            continue;
+        }
+        if([self.calendar isDateIsInCurrentWeek:book.startDate])
+        {
+            [currentWeek addObject:book];
+            continue;
+
+        }
+        if([self.calendar isDateIsInNextWeek:book.startDate])
+        {
+            [nextWeek addObject:book];
+            continue;
+
+        }
+        if([self.calendar isDateIsInLaterWeeks:book.startDate])
+        {
+            [nextBookings addObject:book];
+            continue;
+            
+        }
+    }
+}
+
+
 -(void)showBookings
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"personId = %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"PersonID"]];
-    bookings = [Booking getFilteredRecordsWithSortedPredicate:predicate key:@"startDate" ascending:NO];
+    bookings = [Booking getFilteredRecordsWithSortedPredicate:predicate key:@"startDate" ascending:YES];
+    [self splitBookings];
     
     [self.table reloadData];
     
@@ -291,37 +336,190 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 1;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
+    switch (section) {
+        case 0:
+            return prevBookings.count;
+        case 1:
+            return currentWeek.count;
+        case 2:
+            return nextWeek.count;
+        case 3:
+            return nextBookings.count;
+
+        default:
+            break;
+    }
     return bookings.count;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 50;
+}
 
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    switch (section) {
+        case 0:
+            if(prevBookings.count > 0) return 20;
+            break;
+        case 1:
+            if(currentWeek.count > 0) return 20;
+                        break;
+        case 2:
+            if(nextWeek.count > 0) return 20;
+                        break;
+        case 3:
+            if(nextBookings.count > 0) return 20;
+                        break;
+
+        default:
+            break;
+    }
+    
+    return 0;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    if(section == 3)
+        return 1;
+    return 0;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    if(section == 3)
+    {
+        UIView *empty = [[UIView alloc] initWithFrame:CGRectZero];
+        return empty;
+    }
+    else
+    {
+        UIView *empty = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 0)];
+        return empty;
+        
+    }
+    
+    
+}
+
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
+    
+    view.backgroundColor = MAIN_BACK_COLOR;
+    
+    UILabel *lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 300, 20)];
+    lblTitle.backgroundColor = [UIColor clearColor];
+    lblTitle.textColor = TITLE_COLOR;
+    
+    
+    switch (section) {
+        case 0:
+            lblTitle.text = @"Previos bookings";
+            break;
+        case 1:
+            lblTitle.text = @"Current week";
+            break;
+        case 2:
+            lblTitle.text = @"Next week";
+            break;
+        case 3:
+            lblTitle.text = @"Next bookings";
+            break;
+
+        default:
+            break;
+    }
+    lblTitle.font = [UIFont boldSystemFontOfSize:13];
+    [view addSubview:lblTitle];
+    
+    switch (section) {
+        case 0:
+            if(prevBookings.count > 0) return view;
+            break;
+        case 1:
+            if(currentWeek.count > 0) return view;
+            break;
+        case 2:
+            if(nextWeek.count > 0) return view;
+            break;
+        case 3:
+            if(nextBookings.count > 0) return view;
+            break;
+        default:
+            break;
+    }
+    
+    return nil;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"BookingCell"];
     
-    Booking *book = [bookings objectAtIndex:indexPath.row];
+    Booking *book = nil;
+    switch (indexPath.section) {
+        case 0:
+            book = [prevBookings objectAtIndex:indexPath.row];
+            break;
+        case 1:
+            book = [currentWeek objectAtIndex:indexPath.row];
+            break;
+        case 2:
+            book = [nextWeek objectAtIndex:indexPath.row];
+            break;
+        case 3:
+            book = [nextBookings objectAtIndex:indexPath.row];
+            break;
+        default:
+            break;
+    }
+    
+    
     
     ((UILabel *)[cell.contentView viewWithTag:101]).text = book.clientName;
-    ((UILabel *)[cell.contentView viewWithTag:102]).text = book.bookingTypeName;
+    
+    NSCharacterSet *delimiterCharacterSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
 
+    NSArray *firstWords = [book.clientName componentsSeparatedByCharactersInSet:delimiterCharacterSet];
+
+    if(firstWords.count > 1)
+    {
+        [((UILabel *)[cell.contentView viewWithTag:101]) boldSubstring: firstWords[1]];
+
+    }
+    
+    ((UILabel *)[cell.contentView viewWithTag:102]).text = book.bookingTypeName;
+    ((UILabel *)[cell.contentView viewWithTag:102]).textColor = GRAY_TEXT_COLOR;
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     [dateFormat setDateFormat:@"EEEE, MMM dd"];
 
     NSString *str = [dateFormat stringFromDate:book.startDate];
+    ((UILabel *)[cell.contentView viewWithTag:103]).textColor = GRAY_TEXT_COLOR;
+    if([self.calendar date:[NSDate date] isSameDayAsDate:book.startDate])
+    {
+        ((UILabel *)[cell.contentView viewWithTag:103]).textColor = TODAY_IN_LIST_COLOR;
+    }
+
+    
     ((UILabel *)[cell.contentView viewWithTag:103]).text = str;
     
+    [dateFormat setAMSymbol:@"am"];
+    [dateFormat setPMSymbol:@"pm"];
     [dateFormat setDateFormat:@"hh:mma"];
     NSString *strHS = [dateFormat stringFromDate:book.startDate];
     NSString *strHE = [dateFormat stringFromDate:book.endDate];
-    
+    ((UILabel *)[cell.contentView viewWithTag:104]).textColor = GRAY_TEXT_COLOR;
     ((UILabel *)[cell.contentView viewWithTag:104]).text = [NSString stringWithFormat:@"%@ - %@", strHS, strHE];
     return cell;
 }
@@ -335,7 +533,23 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Booking *book = [bookings objectAtIndex:indexPath.row];
+    Booking *book = nil;
+    switch (indexPath.section) {
+        case 0:
+            book = [prevBookings objectAtIndex:indexPath.row];
+            break;
+        case 1:
+            book = [currentWeek objectAtIndex:indexPath.row];
+            break;
+        case 2:
+            book = [nextWeek objectAtIndex:indexPath.row];
+            break;
+        case 3:
+            book = [nextBookings objectAtIndex:indexPath.row];
+            break;
+        default:
+            break;
+    }
 
     [self performSegueWithIdentifier:@"PushDetail" sender:book];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -351,6 +565,8 @@
     }
 }
 
+
+
 #pragma mark - CKCalendarDelegate
 
 - (void)calendar:(CKCalendarView *)calendar configureDateItem:(CKDateItem *)dateItem forDate:(NSDate *)date {
@@ -362,7 +578,22 @@
         {
             dateItem.backgroundColor = MAIN_BACK_COLOR;
             dateItem.textColor = [UIColor darkTextColor];
+            int i = 0;
+            for(Booking *b in bookings)
+            {
+                if([self.calendar date:book.startDate isSameDayAsDate:b.startDate])
+                {
+                    i++;
+                }
+                
+            }
+            if(i>1)
+            {
+                dateItem.backgroundColor = CONFLICT_COLOR;
+                dateItem.textColor = [UIColor darkTextColor];
+            }
         }
+        
     }
     
 }
@@ -379,8 +610,14 @@
     {
         if([self.calendar date:date isSameDayAsDate:book.startDate])
         {
+            BOOL curWeek = YES;
             
-            CGPoint offset = CGPointMake(0, CELL_HEIGHT * i);
+            if([self.calendar isDateIsInNextWeek:date])
+            {
+                curWeek = NO;
+            }
+            
+            CGPoint offset = CGPointMake(0, CELL_HEIGHT * i + (curWeek ? 0 : 20));
             [self.table setContentOffset:offset animated:YES];
             
             return;

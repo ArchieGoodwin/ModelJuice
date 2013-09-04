@@ -44,6 +44,7 @@
         <attribute name="companyName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="stateID" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="stateName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="zipcode" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="ClientContactPerson" representedClassName="ClientContactPerson" syncable="YES">

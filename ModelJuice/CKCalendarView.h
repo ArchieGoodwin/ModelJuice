@@ -64,7 +64,12 @@ typedef enum {
 // Helper methods for delegates, etc.
 - (BOOL)date:(NSDate *)date1 isSameDayAsDate:(NSDate *)date2;
 - (BOOL)dateIsInCurrentMonth:(NSDate *)date;
-
+-(BOOL)isDateIsInNextWeek:(NSDate *)date;
+-(BOOL)isDateIsInCurrentWeek:(NSDate *)date;
+- (NSComparisonResult)_compareByMonth:(NSDate *)date toDate:(NSDate *)otherDate;
+-(BOOL)isDateIsInPrevWeekAndEarlier:(NSDate *)date;
+-(BOOL)isDateIsInLaterWeeks:(NSDate *)date;
+-(BOOL)isDateIsInNextWeek:(NSDate *)date checkDate:(NSDate *)checkDate;
 @end
 
 @protocol CKCalendarDelegate <NSObject>

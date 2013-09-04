@@ -21,11 +21,11 @@
 #import "CKCalendarView.h"
 #import "DKADefines.h"
 
-#define BUTTON_MARGIN 2
-#define CALENDAR_MARGIN 2
+#define BUTTON_MARGIN 1
+#define CALENDAR_MARGIN 6
 #define TOP_HEIGHT 40
 #define DAYS_HEADER_HEIGHT 22
-#define DEFAULT_CELL_WIDTH 30
+#define DEFAULT_CELL_WIDTH 35
 #define DEFAULT_CELL_HEIGHT 27
 
 #define CELL_BORDER_WIDTH 1
@@ -185,8 +185,8 @@
 
     // THE CALENDAR ITSELF
     UIView *calendarContainer = [[UIView alloc] initWithFrame:CGRectZero];
-    calendarContainer.layer.borderWidth = 1.0f;
-    calendarContainer.layer.borderColor = [UIColor grayColor].CGColor;
+    //calendarContainer.layer.borderWidth = 1.0f;
+    //calendarContainer.layer.borderColor = [UIColor grayColor].CGColor;
     calendarContainer.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     //calendarContainer.layer.cornerRadius = 4.0f;
     calendarContainer.clipsToBounds = YES;
@@ -589,6 +589,231 @@
         return NSOrderedSame;
     }
 }
+
+-(NSInteger)daysBetweenDate:(NSDate*)fromDateTime andDate:(NSDate*)toDateTime
+{
+    NSDate *fromDate;
+    NSDate *toDate;
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    
+    [calendar rangeOfUnit:NSDayCalendarUnit startDate:&fromDate
+                 interval:NULL forDate:fromDateTime];
+    [calendar rangeOfUnit:NSDayCalendarUnit startDate:&toDate
+                 interval:NULL forDate:toDateTime];
+    
+    NSDateComponents *difference = [calendar components:NSDayCalendarUnit
+                                               fromDate:fromDate toDate:toDate options:0];
+    
+    return [difference day];
+}
+
+-(BOOL)isDateIsInCurrentWeek:(NSDate *)date
+{
+    NSDate *today = [NSDate date];
+    NSCalendar *gregorian = [NSCalendar currentCalendar];
+    
+    // Get the weekday component of the current date
+    NSDateComponents *weekdayComponents = [gregorian components:NSWeekdayCalendarUnit fromDate:today];
+    /*
+     Create a date components to represent the number of days to subtract
+     from the current date.
+     The weekday value for Sunday in the Gregorian calendar is 1, so
+     subtract 1 from the number
+     of days to subtract from the date in question.  (If today's Sunday,
+     subtract 0 days.)
+     */
+    NSDateComponents *componentsToSubtract = [[NSDateComponents alloc] init];
+    /* Substract [gregorian firstWeekday] to handle first day of the week being something else than Sunday */
+    [componentsToSubtract setDay: - ([weekdayComponents weekday] - [gregorian firstWeekday])];
+    NSDate *beginningOfWeek = [gregorian dateByAddingComponents:componentsToSubtract toDate:today options:0];
+    
+    /*
+     Optional step:
+     beginningOfWeek now has the same hour, minute, and second as the
+     original date (today).
+     To normalize to midnight, extract the year, month, and day components
+     and create a new date from those components.
+     */
+    NSDateComponents *components = [gregorian components: (NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit)
+                                                fromDate: beginningOfWeek];
+    beginningOfWeek = [gregorian dateFromComponents: components];
+    
+    if([self daysBetweenDate:beginningOfWeek andDate:date] < 7)
+    {
+        return YES;
+    }
+    return NO;
+    
+}
+
+-(BOOL)isDateIsInNextWeek:(NSDate *)date checkDate:(NSDate *)checkDate
+{
+    NSCalendar *gregorian = [NSCalendar currentCalendar];
+    
+    // Get the weekday component of the current date
+    NSDateComponents *weekdayComponents = [gregorian components:NSWeekdayCalendarUnit fromDate:checkDate];
+    /*
+     Create a date components to represent the number of days to subtract
+     from the current date.
+     The weekday value for Sunday in the Gregorian calendar is 1, so
+     subtract 1 from the number
+     of days to subtract from the date in question.  (If today's Sunday,
+     subtract 0 days.)
+     */
+    NSDateComponents *componentsToSubtract = [[NSDateComponents alloc] init];
+    /* Substract [gregorian firstWeekday] to handle first day of the week being something else than Sunday */
+    [componentsToSubtract setDay: - ([weekdayComponents weekday] - [gregorian firstWeekday])];
+    NSDate *beginningOfWeek = [gregorian dateByAddingComponents:componentsToSubtract toDate:checkDate options:0];
+    
+    /*
+     Optional step:
+     beginningOfWeek now has the same hour, minute, and second as the
+     original date (today).
+     To normalize to midnight, extract the year, month, and day components
+     and create a new date from those components.
+     */
+    NSDateComponents *components = [gregorian components: (NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit)
+                                                fromDate: beginningOfWeek];
+    beginningOfWeek = [gregorian dateFromComponents: components];
+    
+    [componentsToSubtract setDay:7];
+    
+    beginningOfWeek = [gregorian dateByAddingComponents:componentsToSubtract toDate:beginningOfWeek options:0];
+    
+    if([self daysBetweenDate:beginningOfWeek andDate:date] < 7)
+    {
+        return YES;
+    }
+    return NO;
+    
+}
+
+
+
+-(BOOL)isDateIsInNextWeek:(NSDate *)date
+{
+    NSDate *today = [NSDate date];
+    NSCalendar *gregorian = [NSCalendar currentCalendar];
+    
+    // Get the weekday component of the current date
+    NSDateComponents *weekdayComponents = [gregorian components:NSWeekdayCalendarUnit fromDate:today];
+    /*
+     Create a date components to represent the number of days to subtract
+     from the current date.
+     The weekday value for Sunday in the Gregorian calendar is 1, so
+     subtract 1 from the number
+     of days to subtract from the date in question.  (If today's Sunday,
+     subtract 0 days.)
+     */
+    NSDateComponents *componentsToSubtract = [[NSDateComponents alloc] init];
+    /* Substract [gregorian firstWeekday] to handle first day of the week being something else than Sunday */
+    [componentsToSubtract setDay: - ([weekdayComponents weekday] - [gregorian firstWeekday])];
+    NSDate *beginningOfWeek = [gregorian dateByAddingComponents:componentsToSubtract toDate:today options:0];
+    
+    /*
+     Optional step:
+     beginningOfWeek now has the same hour, minute, and second as the
+     original date (today).
+     To normalize to midnight, extract the year, month, and day components
+     and create a new date from those components.
+     */
+    NSDateComponents *components = [gregorian components: (NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit)
+                                                fromDate: beginningOfWeek];
+    beginningOfWeek = [gregorian dateFromComponents: components];
+    
+    [componentsToSubtract setDay:7];
+
+    beginningOfWeek = [gregorian dateByAddingComponents:componentsToSubtract toDate:beginningOfWeek options:0];
+
+    if([self daysBetweenDate:beginningOfWeek andDate:date] < 7 && [self daysBetweenDate:beginningOfWeek andDate:date] > 0)
+    {
+        return YES;
+    }
+    return NO;
+    
+}
+
+
+
+-(BOOL)isDateIsInPrevWeekAndEarlier:(NSDate *)date
+{
+    NSDate *today = [NSDate date];
+    NSCalendar *gregorian = [NSCalendar currentCalendar];
+    
+    // Get the weekday component of the current date
+    NSDateComponents *weekdayComponents = [gregorian components:NSWeekdayCalendarUnit fromDate:today];
+    /*
+     Create a date components to represent the number of days to subtract
+     from the current date.
+     The weekday value for Sunday in the Gregorian calendar is 1, so
+     subtract 1 from the number
+     of days to subtract from the date in question.  (If today's Sunday,
+     subtract 0 days.)
+     */
+    NSDateComponents *componentsToSubtract = [[NSDateComponents alloc] init];
+    /* Substract [gregorian firstWeekday] to handle first day of the week being something else than Sunday */
+    [componentsToSubtract setDay: - ([weekdayComponents weekday] - [gregorian firstWeekday])];
+    NSDate *beginningOfWeek = [gregorian dateByAddingComponents:componentsToSubtract toDate:today options:0];
+    
+    /*
+     Optional step:
+     beginningOfWeek now has the same hour, minute, and second as the
+     original date (today).
+     To normalize to midnight, extract the year, month, and day components
+     and create a new date from those components.
+     */
+    NSDateComponents *components = [gregorian components: (NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit)
+                                                fromDate: beginningOfWeek];
+    beginningOfWeek = [gregorian dateFromComponents: components];
+    
+    if([self daysBetweenDate:beginningOfWeek andDate:date] < 0)
+    {
+        return YES;
+    }
+    return NO;
+    
+}
+
+-(BOOL)isDateIsInLaterWeeks:(NSDate *)date
+{
+    NSDate *today = [NSDate date];
+    NSCalendar *gregorian = [NSCalendar currentCalendar];
+    
+    // Get the weekday component of the current date
+    NSDateComponents *weekdayComponents = [gregorian components:NSWeekdayCalendarUnit fromDate:today];
+    /*
+     Create a date components to represent the number of days to subtract
+     from the current date.
+     The weekday value for Sunday in the Gregorian calendar is 1, so
+     subtract 1 from the number
+     of days to subtract from the date in question.  (If today's Sunday,
+     subtract 0 days.)
+     */
+    NSDateComponents *componentsToSubtract = [[NSDateComponents alloc] init];
+    /* Substract [gregorian firstWeekday] to handle first day of the week being something else than Sunday */
+    [componentsToSubtract setDay: - ([weekdayComponents weekday] - [gregorian firstWeekday])];
+    NSDate *beginningOfWeek = [gregorian dateByAddingComponents:componentsToSubtract toDate:today options:0];
+    
+    /*
+     Optional step:
+     beginningOfWeek now has the same hour, minute, and second as the
+     original date (today).
+     To normalize to midnight, extract the year, month, and day components
+     and create a new date from those components.
+     */
+    NSDateComponents *components = [gregorian components: (NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit)
+                                                fromDate: beginningOfWeek];
+    beginningOfWeek = [gregorian dateFromComponents: components];
+    
+    if([self daysBetweenDate:beginningOfWeek andDate:date] > 7)
+    {
+        return YES;
+    }
+    return NO;
+    
+}
+
 
 - (NSInteger)_placeInWeekForDate:(NSDate *)date {
     NSDateComponents *compsFirstDayInMonth = [self.calendar components:NSWeekdayCalendarUnit fromDate:date];

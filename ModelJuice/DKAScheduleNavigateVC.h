@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface DKAScheduleNavigateVC : UINavigationController
+@property (weak, nonatomic) IBOutlet UINavigationBar *bar;
 
 @end

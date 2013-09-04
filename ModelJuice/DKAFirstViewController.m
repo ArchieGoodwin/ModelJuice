@@ -7,7 +7,7 @@
 //
 
 #import "DKAFirstViewController.h"
-
+#import "DKADefines.h"
 @interface DKAFirstViewController ()
 
 @end
@@ -17,6 +17,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.navigationController.navigationBar.barTintColor = MAIN_ORANGE;
+
 	// Do any additional setup after loading the view, typically from a nib.
 }
 

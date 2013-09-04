@@ -15,6 +15,7 @@
 #import "BookingDetails.h"
 #import "Client.h"
 #import "ClientContactPerson.h"
+#import "DKADefines.h"
 @interface DKALoginVC ()
 {
     UITextField *loginTxt;
@@ -39,6 +40,7 @@
     self.navigationController.navigationBarHidden = YES;
     [self preferredStatusBarStyle];
 
+    self.table.backgroundColor = MAIN_BACK_COLOR;
     
     if([[[NSUserDefaults standardUserDefaults] objectForKey:@"rememberMe"] isEqualToString:@"YES"] && [[NSUserDefaults standardUserDefaults] objectForKey:@"PersonID"] != nil)
     {
@@ -181,10 +183,10 @@
 {
     switch (indexPath.row) {
         case 0:
-            return 154;
+            return 155;
         case 1:
         case 2:
-            return 75;
+            return 70;
         case 3:
             return 50;
         case 4:
@@ -204,6 +206,8 @@
     if(indexPath.row == 0)
     {
         UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"LogoLoginCell"];
+        cell.contentView.backgroundColor = MAIN_BACK_COLOR;
+
         return cell;
 
     }
@@ -212,6 +216,8 @@
     {
         UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"LoginUserName"];
         loginTxt = (UITextField *)cell.contentView.subviews[1];
+        cell.contentView.backgroundColor = MAIN_BACK_COLOR;
+
         return cell;
         
     }
@@ -220,6 +226,8 @@
     {
         UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"LoginPassword"];
         pwdTxt = (UITextField *)cell.contentView.subviews[1];
+        cell.contentView.backgroundColor = MAIN_BACK_COLOR;
+
         return cell;
         
     }
@@ -231,7 +239,8 @@
         UIButton *btn = (UIButton *)cell.contentView.subviews[1];
         
         [btn addTarget:self action:@selector(changeState:) forControlEvents:UIControlEventTouchUpInside];
-        
+        cell.contentView.backgroundColor = MAIN_BACK_COLOR;
+
         return cell;
         
     }
@@ -242,12 +251,15 @@
         
         UIButton *btn = cell.contentView.subviews[0];
         btn.layer.cornerRadius = 3;
-        
+        btn.backgroundColor = MAIN_ORANGE;
+        cell.contentView.backgroundColor = MAIN_BACK_COLOR;
+
         
         return cell;
         
     }
     
+    cell.contentView.backgroundColor = MAIN_BACK_COLOR;
     
     
     // Configure the cell...

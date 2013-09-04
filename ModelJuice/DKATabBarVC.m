@@ -7,7 +7,7 @@
 //
 
 #import "DKATabBarVC.h"
-
+#import "DKADefines.h"
 @interface DKATabBarVC ()
 
 @end
@@ -30,6 +30,7 @@
     self.btnTab1.selected = YES;
     
     self.viewButton.frame = CGRectMake(0, self.view.frame.size.height-40, self.view.frame.size.width, 40);
+    self.viewButton.backgroundColor = MAIN_ORANGE;
     [self.tabBar setHidden:YES];
     [self.view addSubview:self.viewButton];
     

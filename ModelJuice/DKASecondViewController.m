@@ -7,13 +7,14 @@
 //
 
 #import "DKASecondViewController.h"
-#import "DKAAppDelegate.h"
 #import "NSManagedObject+NWCoreDataHelper.h"
 #import "Booking.h"
 #import "BookingDetails.h"
 #import "Person.h"
 #import "ClientContactPerson.h"
 #import "Client.h"
+#import "DKAAppDelegate.h"
+#import "DKADefines.h"
 @interface DKASecondViewController ()
 
 @end
@@ -23,6 +24,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.navigationController.navigationBar.barTintColor = MAIN_ORANGE;
+
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -55,7 +59,6 @@
     [Booking saveDefaultContext];
     
     
-    DKAAppDelegate *appDelegate =  (DKAAppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate resetWindowToInitialView];
     
     

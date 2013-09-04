@@ -40,7 +40,7 @@
 {
     [super viewDidLoad];
 
-    UIButton *btnLense = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    /*UIButton *btnLense = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     btnLense.frame = CGRectMake(0, 3, 16, 17);
     [btnLense setImage:[UIImage imageNamed:@"search.png"] forState:UIControlStateNormal];
     UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithCustomView:btnLense];
@@ -56,10 +56,22 @@
                                                                               action:nil];
     flexItem.width = 35;
     
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:plusButton, flexItem, searchButton, nil];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:plusButton, flexItem, searchButton, nil];*/
     
-    
+    self.table.backgroundColor = MAIN_BACK_COLOR;
+    self.view.backgroundColor = MAIN_BACK_COLOR;
     [self getDetails];
+    
+    
+    /* _currentClient.phone = @"1111111";
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"clientID = %@", _currentClient.clientID];
+    ClientContactPerson *clientPerson = [ClientContactPerson getSingleObjectByPredicate:predicate];
+    clientPerson.workPhone = @"33333";
+    _currentClient.city = @"New York";
+    _currentClient.addressLine1 = @"Riverside Drive";
+    _currentClient.addressLine2 = @"1";
+
+    [self.table reloadData];*/
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -68,41 +80,33 @@
 }
 - (IBAction)btnMap:(id)sender {
     
-    _currentClient.city = @"New York";
-    _currentClient.addressLine1 = @"Central Park";
+
     Class mapItemClass = [MKMapItem class];
     if (mapItemClass && [mapItemClass respondsToSelector:@selector(openMapsWithItems:launchOptions:)])
     {
         CLGeocoder *geocoder = [[CLGeocoder alloc] init];
         
-        
-        NSString *address = [NSString stringWithFormat:@"%@ %@ %@", _currentClient.city,  _currentClient.addressLine1,  _currentClient.addressLine2];
-       
+        NSString *address = [NSString stringWithFormat:@"%@ %@ %@ %@", _currentClient.city, _currentClient.stateName,  _currentClient.addressLine1,  _currentClient.addressLine2];
         
         [geocoder geocodeAddressString:address
                      completionHandler:^(NSArray *placemarks, NSError *error) {
                          
-                         // Convert the CLPlacemark to an MKPlacemark
-                         // Note: There's no error checking for a failed geocode
                          CLPlacemark *geocodedPlacemark = [placemarks objectAtIndex:0];
                          MKPlacemark *placemark = [[MKPlacemark alloc]
                                                    initWithCoordinate:geocodedPlacemark.location.coordinate
                                                    addressDictionary:geocodedPlacemark.addressDictionary];
                          
-                         // Create a map item for the geocoded address to pass to Maps app
                          MKMapItem *mapItem = [[MKMapItem alloc] initWithPlacemark:placemark];
                          [mapItem setName:geocodedPlacemark.name];
                          
                          // Set the directions mode to "Driving"
                          // Can use MKLaunchOptionsDirectionsModeWalking instead
-                         NSDictionary *launchOptions = @{MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving};
+                         //NSDictionary *launchOptions = @{MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving};
                          
-                         // Get the "Current User Location" MKMapItem
                          MKMapItem *currentLocationMapItem = [MKMapItem mapItemForCurrentLocation];
                          
-                         // Pass the current location and destination map items to the Maps app
-                         // Set the direction mode in the launchOptions dictionary
-                         [MKMapItem openMapsWithItems:@[currentLocationMapItem, mapItem] launchOptions:launchOptions];
+
+                         [MKMapItem openMapsWithItems:@[currentLocationMapItem, mapItem] launchOptions:nil];
                          
                      }];
     }
@@ -111,7 +115,7 @@
 
 - (IBAction)btnCall:(id)sender {
     UIButton *btn = (UIButton *)sender;
-    _currentClient.phone = @"1111111";
+   
     if(btn.tag == 230 && ![_currentClient.phone isEqualToString:@""])
     {
         callTag = 230;
@@ -121,7 +125,6 @@
     }
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"clientID = %@", _currentClient.clientID];
     ClientContactPerson *clientPerson = [ClientContactPerson getSingleObjectByPredicate:predicate];
-    clientPerson.workPhone = @"33333";
     if(clientPerson != nil)
     {
         if(btn.tag == 231 && ![clientPerson.workPhone isEqualToString:@""])
@@ -208,7 +211,13 @@
             book.notes =  [res objectForKey:@"Notes"] == [NSNull null] ? @"" : [res objectForKey:@"Notes"];
             book.orHours = [res objectForKey:@"ORHours"] == [NSNull null] ? [NSNumber numberWithFloat:0.0] : [res objectForKey:@"ORHours"];
             book.otRate = [res objectForKey:@"OTRate"] == [NSNull null] ? [NSNumber numberWithFloat:0.0] : [res objectForKey:@"OTRate"];
-            NSDate *paidDate = [res objectForKey:@"PaidDateTime"] == [NSNull null] ? [NSDate date] : [res objectForKey:@"PaidDateTime"];
+            NSDate *paidDate = [NSDate date];
+            if([res objectForKey:@"PaidDateTime"] != [NSNull null])
+            {
+                 paidDate = [dateFormat dateFromString:[res objectForKey:@"PaidDateTime"]];
+
+            }
+
             book.paidDateTime = paidDate;
             book.stylist = [res objectForKey:@"Stylist"] == [NSNull null] ? @"" : [res objectForKey:@"Stylist"];
             book.team = [res objectForKey:@"Team"] == [NSNull null] ? @"" : [res objectForKey:@"Team"];
@@ -232,7 +241,7 @@
     else
     {
         _bookingDetail = bd;
-        NSLog(@"%@", _bookingDetail.clientID);
+        NSLog(@"clientID %@", _bookingDetail.clientID);
 
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"clientID = %@", _bookingDetail.clientID];
         _currentClient = [Client getSingleObjectByPredicate:predicate];
@@ -269,6 +278,8 @@
             cli.addressLine2 = [res objectForKey:@"AddressLine2"] == [NSNull null] ? @"" : [res objectForKey:@"AddressLine2"];
             cli.city = [res objectForKey:@"City"] == [NSNull null] || [res objectForKey:@"City"] == nil ? @"11" : [res objectForKey:@"City"];
             cli.stateID = [res objectForKey:@"StateID"] == [NSNull null] ? [NSNumber numberWithInteger:0] : [res objectForKey:@"StateID"];
+            cli.stateName = [res objectForKey:@"StateName"] == [NSNull null] ? @"" : [res objectForKey:@"StateName"];
+
             cli.zipcode = [res objectForKey:@"Zipcode"] == [NSNull null] ? @"" : [res objectForKey:@"Zipcode"];
             NSLog(@"%@", cli.city);
             for(NSDictionary *det in [res objectForKey:@"ClientContacts"])
@@ -363,15 +374,15 @@
     }
     if(indexPath.row == 1)
     {
-        return  40;
+        return  50;
     }
 
-    if(indexPath.row == 0)
+    if(indexPath.row == 2)
     {
-        return 40;
+        return 50;
     }
 
-    return 40;
+    return 50;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -389,15 +400,16 @@
         
         if(clientPerson != nil)
         {
-            ((UILabel *)[container viewWithTag:206]).text = [_currentClient.city isEqualToString:@""] ? @"" : [NSString stringWithFormat:@"%@ %@", _currentClient.city, _currentClient.stateID];
+            ((UILabel *)[container viewWithTag:206]).text = [_currentClient.city isEqualToString:@""] ? @"" : [NSString stringWithFormat:@"%@, %@", _currentClient.city, _currentClient.stateName];
             ((UILabel *)[container viewWithTag:207]).text =  [_currentClient.addressLine1 isEqualToString:@""] ? @"" : [NSString stringWithFormat:@"%@, %@", _currentClient.addressLine1, _currentClient.addressLine2];
-            
-            ((UILabel *)[container viewWithTag:209]).text =  [clientPerson.personFullName isEqualToString:@""] ? @"" : clientPerson.personFullName;
+            ((UILabel *)[container viewWithTag:203]).text =  [_currentClient.phone isEqualToString:@""] ? @"" : _currentClient.phone;
+
+            ((UILabel *)[container viewWithTag:209]).text =  [clientPerson.personFullName isEqualToString:@""] ? @"" : [clientPerson.personFullName uppercaseString];
             ((UILabel *)[container viewWithTag:210]).text =  [clientPerson.workPhone isEqualToString:@""] ? @"" : clientPerson.workPhone;
 
         }
         
-        container.layer.cornerRadius = 3;
+        container.layer.cornerRadius = 5;
         
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
         [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
@@ -405,7 +417,8 @@
         
         NSString *str = [dateFormat stringFromDate:_bookingDetail.startDateTime];
         ((UILabel *)[container viewWithTag:204]).text = str;
-        
+        [dateFormat setAMSymbol:@"am"];
+        [dateFormat setPMSymbol:@"pm"];
         [dateFormat setDateFormat:@"hh:mma"];
         NSString *strHS = [dateFormat stringFromDate:_bookingDetail.startDateTime];
         NSString *strHE = [dateFormat stringFromDate:_bookingDetail.endDateTime];
@@ -413,13 +426,18 @@
         ((UILabel *)[container viewWithTag:205]).text = [NSString stringWithFormat:@"from %@ to %@", strHS, strHE];
         
         
-        ((UILabel *)[container viewWithTag:201]).text = _bookingDetail.agencyName;
+        ((UILabel *)[container viewWithTag:201]).text = [_currentClient.companyName uppercaseString];
         ((UILabel *)[container viewWithTag:202]).text = _bookingDetail.bookingTypeName;
         ((UILabel *)[container viewWithTag:212]).text = _bookingDetail.team;
         ((UILabel *)[container viewWithTag:213]).text = _bookingDetail.hair;
         ((UILabel *)[container viewWithTag:214]).text = _bookingDetail.stylist;
-        ((UILabel *)[container viewWithTag:215]).text = [NSString stringWithFormat:@"$%@ per hour", _bookingDetail.hourlyRate];
+        ((UILabel *)[container viewWithTag:215]).text = [NSString stringWithFormat:@"Details  $%@/hour", _bookingDetail.hourlyRate];
 
+        
+        ((UIView *)[container viewWithTag:240]).backgroundColor = SEPARATOR_COLOR;
+        ((UIView *)[container viewWithTag:241]).backgroundColor = SEPARATOR_COLOR;
+
+        cell.contentView.backgroundColor = MAIN_BACK_COLOR;
         return cell;
         
     }
@@ -428,7 +446,10 @@
     {
         UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"CreateVaucherCell"];
         UIButton *btn = cell.contentView.subviews[0];
-        btn.layer.cornerRadius = 3;
+        btn.layer.cornerRadius = 5;
+        btn.backgroundColor = MAIN_ORANGE;
+        
+        cell.contentView.backgroundColor = MAIN_BACK_COLOR;
         return cell;
         
     }
@@ -437,7 +458,9 @@
     {
         UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"LogOvertimeCell"];
         UIButton *btn = cell.contentView.subviews[0];
-        btn.layer.cornerRadius = 3;
+        btn.layer.cornerRadius = 5;
+        btn.backgroundColor = MAIN_ORANGE;
+        cell.contentView.backgroundColor = MAIN_BACK_COLOR;
         return cell;
         
     }
