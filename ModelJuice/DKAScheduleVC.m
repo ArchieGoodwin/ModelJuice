@@ -60,7 +60,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     
     UIButton *btnLense = [UIButton buttonWithType:UIButtonTypeCustom];
     btnLense.frame = CGRectMake(0, 3, 16, 17);
@@ -106,8 +106,11 @@
     }
     
     self.table.separatorColor = SEPARATOR_COLOR;
-    
-    [self preferredStatusBarStyle];
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
+    {
+        [self preferredStatusBarStyle];
+
+    }
 	// Do any additional setup after loading the view.
 }
 
