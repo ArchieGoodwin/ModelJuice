@@ -62,13 +62,13 @@
     [super viewDidLoad];
     
     
-    UIButton *btnLense = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    UIButton *btnLense = [UIButton buttonWithType:UIButtonTypeCustom];
     btnLense.frame = CGRectMake(0, 3, 16, 17);
     [btnLense setImage:[UIImage imageNamed:@"search.png"] forState:UIControlStateNormal];
     UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithCustomView:btnLense];
     
     
-    UIButton *btnPlus = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    UIButton *btnPlus = [UIButton buttonWithType:UIButtonTypeCustom];
     btnPlus.frame = CGRectMake(0, 0, 16, 16);
     [btnPlus setImage:[UIImage imageNamed:@"plus.png"] forState:UIControlStateNormal];
     UIBarButtonItem *plusButton = [[UIBarButtonItem alloc] initWithCustomView:btnPlus];

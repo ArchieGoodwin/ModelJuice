@@ -18,7 +18,11 @@
 {
     [super viewDidLoad];
     
-    self.navigationController.navigationBar.barTintColor = MAIN_ORANGE;
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
+    {
+        self.navigationController.navigationBar.barTintColor = MAIN_ORANGE;
+
+    }
 
 	// Do any additional setup after loading the view, typically from a nib.
 }

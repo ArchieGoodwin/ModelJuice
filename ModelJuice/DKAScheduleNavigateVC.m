@@ -33,7 +33,11 @@
 {
     [super viewDidLoad];
     
-    self.navigationBar.barTintColor = MAIN_ORANGE;
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
+    {
+        self.navigationBar.barTintColor = MAIN_ORANGE;
+
+    }
     //self.navigationBar.translucent = YES;
     
     [self preferredStatusBarStyle];
