@@ -799,7 +799,7 @@
 					"/Users/sdikarev/Dropbox/Incoding/Apple\\ coding/ModelJuice/ModelJuice",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "F9205C7C-7081-4307-A7F8-E7F2A69896C2";
+				PROVISIONING_PROFILE = "0A8E1405-CD04-46CA-A912-BB92FEDB1247";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -819,7 +819,7 @@
 					"/Users/sdikarev/Dropbox/Incoding/Apple\\ coding/ModelJuice/ModelJuice",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "F9205C7C-7081-4307-A7F8-E7F2A69896C2";
+				PROVISIONING_PROFILE = "0A8E1405-CD04-46CA-A912-BB92FEDB1247";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
