@@ -9,6 +9,7 @@
 #import "DKAHTTPClient.h"
 #import "AFNetworking/AFJSONRequestOperation.h"
 #import "AFNetworking/AFNetworkActivityIndicatorManager.h"
+#import "DKADefines.h"
 @implementation DKAHTTPClient
 
 
@@ -44,7 +45,7 @@
     static dispatch_once_t pred;
     static DKAHTTPClient *_sharedManager = nil;
     
-    dispatch_once(&pred, ^{ _sharedManager = [[self alloc] initWithBaseURL:[NSURL URLWithString:@"http://modeljuice.blueforcedev.com"]]; }); // You should probably make this a constant somewhere
+    dispatch_once(&pred, ^{ _sharedManager = [[self alloc] initWithBaseURL:[NSURL URLWithString:BASE_URL]]; });
     return _sharedManager;
 }
 

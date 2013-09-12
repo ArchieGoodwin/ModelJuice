@@ -203,9 +203,9 @@
             book.clientID = [res objectForKey:@"ClientID"] == [NSNull null] ? [NSNumber numberWithInt:0] : [res objectForKey:@"ClientID"];
             book.clientName = [res objectForKey:@"ClientName"] == [NSNull null] ? @"" : [res objectForKey:@"ClientName"];
 
-            book.hair = [res objectForKey:@"Hair"] == [NSNull null] ? @"" : [res objectForKey:@"Hair"];
+            //book.hair = [res objectForKey:@"Hair"] == [NSNull null] ? @"" : [res objectForKey:@"Hair"];
             book.hourlyRate = [res objectForKey:@"HourlyRate"] == [NSNull null] ? [NSNumber numberWithFloat:0.0] : [res objectForKey:@"HourlyRate"];
-            book.makeup = [res objectForKey:@"Makeup"] == [NSNull null] ? @"" : [res objectForKey:@"Makeup"];
+            //book.makeup = [res objectForKey:@"Makeup"] == [NSNull null] ? @"" : [res objectForKey:@"Makeup"];
             book.modelID = [res objectForKey:@"ModelID"] == [NSNull null] ? [NSNumber numberWithInt:0] : [res objectForKey:@"ModelID"];
             book.modelName = [res objectForKey:@"ModelName"] == [NSNull null] ? @"" : [res objectForKey:@"ModelName"];
 
@@ -220,8 +220,8 @@
             }
 
             book.paidDateTime = paidDate;
-            book.stylist = [res objectForKey:@"Stylist"] == [NSNull null] ? @"" : [res objectForKey:@"Stylist"];
-            book.team = [res objectForKey:@"Team"] == [NSNull null] ? @"" : [res objectForKey:@"Team"];
+            //book.stylist = [res objectForKey:@"Stylist"] == [NSNull null] ? @"" : [res objectForKey:@"Stylist"];
+            //book.team = [res objectForKey:@"Team"] == [NSNull null] ? @"" : [res objectForKey:@"Team"];
 
             NSLog(@"%@", book.clientID);
 
@@ -432,9 +432,10 @@
             
             ((UILabel *)[container viewWithTag:201]).text = [_currentClient.companyName uppercaseString];
             ((UILabel *)[container viewWithTag:202]).text = _bookingDetail.bookingTypeName;
-            ((UILabel *)[container viewWithTag:212]).text = _bookingDetail.team;
-            ((UILabel *)[container viewWithTag:213]).text = _bookingDetail.hair;
-            ((UILabel *)[container viewWithTag:214]).text = _bookingDetail.stylist;
+            //((UILabel *)[container viewWithTag:212]).text = _bookingDetail.team;
+            //((UILabel *)[container viewWithTag:213]).text = _bookingDetail.hair;
+            //((UILabel *)[container viewWithTag:214]).text = _bookingDetail.stylist;
+            ((UILabel *)[container viewWithTag:211]).text = _bookingDetail.notes;
             ((UILabel *)[container viewWithTag:215]).text = [NSString stringWithFormat:@"Details  $%@/hour", _bookingDetail.hourlyRate];
             
             

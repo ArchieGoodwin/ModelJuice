@@ -23,4 +23,5 @@
 
 #define GREEN_TEXT_COLOR [UIColor colorWithRed:117.0 / 255 green:148.0 / 255 blue:8.0 / 255 alpha:1]
 
+#define BASE_URL @"http://modeljuice.azurewebsites.net"
 

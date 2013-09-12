@@ -8,6 +8,7 @@
 
 #import "DKANetworkHelper.h"
 #import "AFNetworking.h"
+#import "DKADefines.h"
 @implementation DKANetworkHelper
 
 
@@ -15,7 +16,7 @@
 
 -(void)loginMe:(NSString *)login pwd:(NSString *)pwd completeBlock:(RCCompleteBlockWithPersonResult)completeBlock
 {
-    NSString *urlString = [NSString stringWithFormat:@"http://modeljuice.blueforcedev.com/Api/Person/ValidateLogon?PersonEmail=%@&PersonPassword=%@",  login, pwd];
+    NSString *urlString = [NSString stringWithFormat:@"%@/Api/Person/ValidateLogon?PersonEmail=%@&PersonPassword=%@",  BASE_URL, login, pwd];
     
     NSLog(@"loginMe url %@", urlString);
     
@@ -64,7 +65,7 @@
 
 -(void)getBookingsForPerson:(Person *)person completeBlock:(RCCompleteBlockWithBoolResult)completeBlock
 {
-    NSString *urlString = [NSString stringWithFormat:@"http://modeljuice.blueforcedev.com/Api/Booking/GetBookings"];
+    NSString *urlString = [NSString stringWithFormat:@"%@/Api/Booking/GetBookings", BASE_URL];
     
     NSLog(@"getBookingsForPerson url %@", urlString);
     
@@ -72,10 +73,7 @@
     
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFJSONRequestOperation *operation = [[AFJSONRequestOperation alloc] initWithRequest:request];
-    
-   
 
-    
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"[getBookingsForPerson responseData]: %@", [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
@@ -83,8 +81,7 @@
         
         if(completeBlock)
         {
-            
-            
+
             completeBlock(YES, nil);
         }
         
