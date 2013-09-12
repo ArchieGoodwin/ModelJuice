@@ -165,7 +165,7 @@
         
         calendarShown = NO;
         
-        [UIView animateWithDuration:0.4 animations:^{
+        [UIView animateWithDuration:0.3 animations:^{
             
             self.table.frame = tableFrame;
 
@@ -574,9 +574,13 @@
         if([self.calendar date:date isSameDayAsDate:book.startDate])
         {
             
+            
+            
+            [self showCalendar:nil];
+            
+            
             CGPoint offset = CGPointMake(0, CELL_HEIGHT * i + [self getIndexOfDateInSections:date] * 20);
             [self.table setContentOffset:offset animated:YES];
-            
             return;
         }
         i++;
