@@ -429,9 +429,9 @@
         UIView *container = cell.contentView.subviews[0];
         float height = [[DKAHelper sharedInstance] getLabelSize:_bookingDetail.notes font:((UILabel *)[container viewWithTag:211]).font width:((UILabel *)[container viewWithTag:211]).frame.size.width];
         
-        if(height > 66)
+        if(height > 48)
         {
-            return (350 + (height - 66));
+            return (350 + (height - 48));
         }
         return 350;
     }
@@ -488,18 +488,20 @@
             [dateFormat setDateFormat:@"EEEE, MMM dd, yyyy"];
             
             NSString *str = [dateFormat stringFromDate:_bookingDetail.startDateTime];
-            ((UILabel *)[container viewWithTag:204]).text = str;
+            ((UILabel *)[container viewWithTag:204]).text = str.uppercaseString;
             [dateFormat setAMSymbol:@"am"];
             [dateFormat setPMSymbol:@"pm"];
             [dateFormat setDateFormat:@"hh:mma"];
             NSString *strHS = [dateFormat stringFromDate:_bookingDetail.startDateTime];
             NSString *strHE = [dateFormat stringFromDate:_bookingDetail.endDateTime];
             
-            ((UILabel *)[container viewWithTag:205]).text = [NSString stringWithFormat:@"from %@ to %@", strHS, strHE];
+            ((UILabel *)[container viewWithTag:205]).text = [NSString stringWithFormat:@"%@ - %@", strHS, strHE].uppercaseString;
             
             
             ((UILabel *)[container viewWithTag:201]).text = [_currentClient.companyName uppercaseString];
             ((UILabel *)[container viewWithTag:202]).text = _bookingDetail.bookingTypeName;
+            ((UILabel *)[container viewWithTag:230]).text = _bookingDetail.desc;
+
             //((UILabel *)[container viewWithTag:212]).text = _bookingDetail.team;
             //((UILabel *)[container viewWithTag:213]).text = _bookingDetail.hair;
             //((UILabel *)[container viewWithTag:214]).text = _bookingDetail.stylist;
@@ -521,7 +523,7 @@
 
             float height = [[DKAHelper sharedInstance] getLabelSize:_bookingDetail.notes font:((UILabel *)[container viewWithTag:211]).font width:((UILabel *)[container viewWithTag:211]).frame.size.width];
             
-            if(height > 66)
+            if(height > 48)
             {
                 CGRect frame =((UILabel *)[container viewWithTag:211]).frame;
                 frame.size.height = height;
@@ -535,7 +537,7 @@
                 [container addSubview:lblTeam];
                 
                 frame =((UILabel *)[container viewWithTag:215]).frame;
-                frame.origin.y = frame.origin.y + (height - 66);
+                frame.origin.y = frame.origin.y + (height - 48);
                 ((UILabel *)[container viewWithTag:215]).frame = frame;
                 ((UILabel *)[container viewWithTag:215]).hidden = YES;
 
@@ -546,7 +548,7 @@
                 
                 
                 frame = cont.frame;
-                frame.size.height = (350 + (height - 66) - 10);
+                frame.size.height = (350 + (height - 48) - 10);
                 cont.frame = frame;
                 
             }
