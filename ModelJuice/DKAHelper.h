@@ -13,9 +13,10 @@ typedef void (^RCCompleteBlockWithPersonResult)  (Person *result, NSError *error
 
 
 
-@interface DKANetworkHelper : NSObject
+@interface DKAHelper : NSObject
 +(id)sharedInstance;
 
 -(void)loginMe:(NSString *)login pwd:(NSString *)pwd completeBlock:(RCCompleteBlockWithPersonResult)completeBlock;
 -(void)getBookingsForPerson:(Person *)person completeBlock:(RCCompleteBlockWithBoolResult)completeBlock;
+-(CGFloat)getLabelSize:(NSString *)text font:(UIFont *)font width:(float)width;
 @end

@@ -18,5 +18,5 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *table;
 
-
+@property (strong, nonatomic) NSString *overtimeString;
 @end

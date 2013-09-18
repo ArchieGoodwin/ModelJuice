@@ -33,7 +33,7 @@
 		DC5E971317CF4E7F00D820AE /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = DC5E970817CF4E7F00D820AE /* AFURLConnectionOperation.m */; };
 		DC5E971417CF4E7F00D820AE /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = DC5E970A17CF4E7F00D820AE /* AFXMLRequestOperation.m */; };
 		DC5E971517CF4E7F00D820AE /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = DC5E970C17CF4E7F00D820AE /* UIImageView+AFNetworking.m */; };
-		DC5E971817CF4EBB00D820AE /* DKANetworkHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = DC5E971717CF4EBB00D820AE /* DKANetworkHelper.m */; };
+		DC5E971817CF4EBB00D820AE /* DKAHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = DC5E971717CF4EBB00D820AE /* DKAHelper.m */; };
 		DC5E971B17CF9D3E00D820AE /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DC5E971917CF9D3E00D820AE /* Model.xcdatamodeld */; };
 		DC5E971E17CF9DA000D820AE /* NSManagedObject+NWCoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = DC5E971D17CF9DA000D820AE /* NSManagedObject+NWCoreDataHelper.m */; };
 		DC5E972017CF9E4A00D820AE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC5E971F17CF9E4A00D820AE /* CoreData.framework */; };
@@ -42,6 +42,10 @@
 		DC5E972B17D07E9400D820AE /* DKAScheduleNavigateVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DC5E972A17D07E9400D820AE /* DKAScheduleNavigateVC.m */; };
 		DC5E972E17D0A9FE00D820AE /* DKAHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = DC5E972D17D0A9FE00D820AE /* DKAHTTPClient.m */; };
 		DC5E973617D0C8F500D820AE /* CKCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC5E973417D0C8F500D820AE /* CKCalendarView.m */; };
+		DCB1465817E70AB100222AF6 /* DKALogOvertimeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DCB1465717E70AB100222AF6 /* DKALogOvertimeVC.m */; };
+		DCB1465C17E71BBE00222AF6 /* DKAVoucherVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DCB1465B17E71BBE00222AF6 /* DKAVoucherVC.m */; };
+		DCB1465F17E71C5600222AF6 /* NISignatureViewQuartzQuadratic.m in Sources */ = {isa = PBXBuildFile; fileRef = DCB1465E17E71C5600222AF6 /* NISignatureViewQuartzQuadratic.m */; };
+		DCB1466617E859FE00222AF6 /* Booking.m in Sources */ = {isa = PBXBuildFile; fileRef = DCB1466517E859FE00222AF6 /* Booking.m */; };
 		DCD9C3DF17D4ADBD00C53EF9 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DCD9C3D917D4ADBD00C53EF9 /* libTestFlight.a */; };
 		DCD9C3E017D4ADBD00C53EF9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DCD9C3DA17D4ADBD00C53EF9 /* README.md */; };
 		DCD9C3E117D4ADBD00C53EF9 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = DCD9C3DB17D4ADBD00C53EF9 /* release_notes.md */; };
@@ -64,7 +68,6 @@
 		DCD9C42317D4B51B00C53EF9 /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD9C41417D4B51B00C53EF9 /* settings@2x.png */; };
 		DCD9C42517D4B52100C53EF9 /* shedule@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD9C42417D4B52100C53EF9 /* shedule@2x.png */; };
 		DCD9C42917D5A7DD00C53EF9 /* BookingDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD9C42817D5A7DD00C53EF9 /* BookingDetails.m */; };
-		DCD9C42C17D5A7DE00C53EF9 /* Booking.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD9C42B17D5A7DE00C53EF9 /* Booking.m */; };
 		DCD9C43117D5AC0000C53EF9 /* CheckBox_Checked.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD9C42D17D5AC0000C53EF9 /* CheckBox_Checked.png */; };
 		DCD9C43217D5AC0000C53EF9 /* CheckBox_Checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD9C42E17D5AC0000C53EF9 /* CheckBox_Checked@2x.png */; };
 		DCD9C43317D5AC0000C53EF9 /* CheckBox.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD9C42F17D5AC0000C53EF9 /* CheckBox.png */; };
@@ -144,8 +147,8 @@
 		DC5E970A17CF4E7F00D820AE /* AFXMLRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFXMLRequestOperation.m; sourceTree = "<group>"; };
 		DC5E970B17CF4E7F00D820AE /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
 		DC5E970C17CF4E7F00D820AE /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
-		DC5E971617CF4EBB00D820AE /* DKANetworkHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKANetworkHelper.h; sourceTree = "<group>"; };
-		DC5E971717CF4EBB00D820AE /* DKANetworkHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKANetworkHelper.m; sourceTree = "<group>"; };
+		DC5E971617CF4EBB00D820AE /* DKAHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKAHelper.h; sourceTree = "<group>"; };
+		DC5E971717CF4EBB00D820AE /* DKAHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKAHelper.m; sourceTree = "<group>"; };
 		DC5E971A17CF9D3E00D820AE /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		DC5E971C17CF9DA000D820AE /* NSManagedObject+NWCoreDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+NWCoreDataHelper.h"; sourceTree = "<group>"; };
 		DC5E971D17CF9DA000D820AE /* NSManagedObject+NWCoreDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+NWCoreDataHelper.m"; sourceTree = "<group>"; };
@@ -162,6 +165,16 @@
 		DC5E973417D0C8F500D820AE /* CKCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCalendarView.m; sourceTree = "<group>"; };
 		DC5E973517D0C8F500D820AE /* CKCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarView.h; sourceTree = "<group>"; };
 		DC5E974017D1B8A100D820AE /* DKADefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKADefines.h; sourceTree = "<group>"; };
+		DCB1465617E70AB100222AF6 /* DKALogOvertimeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKALogOvertimeVC.h; sourceTree = "<group>"; };
+		DCB1465717E70AB100222AF6 /* DKALogOvertimeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKALogOvertimeVC.m; sourceTree = "<group>"; };
+		DCB1465A17E71BBE00222AF6 /* DKAVoucherVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKAVoucherVC.h; sourceTree = "<group>"; };
+		DCB1465B17E71BBE00222AF6 /* DKAVoucherVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKAVoucherVC.m; sourceTree = "<group>"; };
+		DCB1465D17E71C5600222AF6 /* NISignatureViewQuartzQuadratic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NISignatureViewQuartzQuadratic.h; sourceTree = "<group>"; };
+		DCB1465E17E71C5600222AF6 /* NISignatureViewQuartzQuadratic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NISignatureViewQuartzQuadratic.m; sourceTree = "<group>"; };
+		DCB1466017E8594100222AF6 /* Model 7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.xcdatamodel"; sourceTree = "<group>"; };
+		DCB1466417E859FE00222AF6 /* Booking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Booking.h; sourceTree = "<group>"; };
+		DCB1466517E859FE00222AF6 /* Booking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Booking.m; sourceTree = "<group>"; };
+		DCB1466717E85DB000222AF6 /* Model 8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.xcdatamodel"; sourceTree = "<group>"; };
 		DCD9C3D917D4ADBD00C53EF9 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		DCD9C3DA17D4ADBD00C53EF9 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		DCD9C3DB17D4ADBD00C53EF9 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
@@ -189,8 +202,6 @@
 		DCD9C42617D5A73B00C53EF9 /* Model 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 4.xcdatamodel"; sourceTree = "<group>"; };
 		DCD9C42717D5A7DD00C53EF9 /* BookingDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookingDetails.h; sourceTree = "<group>"; };
 		DCD9C42817D5A7DD00C53EF9 /* BookingDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookingDetails.m; sourceTree = "<group>"; };
-		DCD9C42A17D5A7DE00C53EF9 /* Booking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Booking.h; sourceTree = "<group>"; };
-		DCD9C42B17D5A7DE00C53EF9 /* Booking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Booking.m; sourceTree = "<group>"; };
 		DCD9C42D17D5AC0000C53EF9 /* CheckBox_Checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CheckBox_Checked.png; sourceTree = "<group>"; };
 		DCD9C42E17D5AC0000C53EF9 /* CheckBox_Checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CheckBox_Checked@2x.png"; sourceTree = "<group>"; };
 		DCD9C42F17D5AC0000C53EF9 /* CheckBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CheckBox.png; sourceTree = "<group>"; };
@@ -292,6 +303,8 @@
 			isa = PBXGroup;
 			children = (
 				DCD9C3D817D4ADB300C53EF9 /* testflight */,
+				DCB1465917E71B8100222AF6 /* Voucher */,
+				DCB1465517E70A6500222AF6 /* LogOvertime */,
 				DCF51BDE17D490830099795E /* Details */,
 				DCF51BDD17D48DA20099795E /* Settings */,
 				DC5E96F717CF4DDC00D820AE /* Login */,
@@ -358,8 +371,8 @@
 				DC5E971C17CF9DA000D820AE /* NSManagedObject+NWCoreDataHelper.h */,
 				DC5E971D17CF9DA000D820AE /* NSManagedObject+NWCoreDataHelper.m */,
 				DC5E96F917CF4E7F00D820AE /* AFNetworking */,
-				DC5E971617CF4EBB00D820AE /* DKANetworkHelper.h */,
-				DC5E971717CF4EBB00D820AE /* DKANetworkHelper.m */,
+				DC5E971617CF4EBB00D820AE /* DKAHelper.h */,
+				DC5E971717CF4EBB00D820AE /* DKAHelper.m */,
 				DC5E972C17D0A9FE00D820AE /* DKAHTTPClient.h */,
 				DC5E972D17D0A9FE00D820AE /* DKAHTTPClient.m */,
 				DC5E974017D1B8A100D820AE /* DKADefines.h */,
@@ -398,12 +411,12 @@
 		DC5E972117D074A000D820AE /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				DCB1466417E859FE00222AF6 /* Booking.h */,
+				DCB1466517E859FE00222AF6 /* Booking.m */,
 				DCD9C45317D7299600C53EF9 /* Client.h */,
 				DCD9C45417D7299600C53EF9 /* Client.m */,
 				DCD9C43E17D5BECA00C53EF9 /* ClientContactPerson.h */,
 				DCD9C43F17D5BECA00C53EF9 /* ClientContactPerson.m */,
-				DCD9C42A17D5A7DE00C53EF9 /* Booking.h */,
-				DCD9C42B17D5A7DE00C53EF9 /* Booking.m */,
 				DCD9C42717D5A7DD00C53EF9 /* BookingDetails.h */,
 				DCD9C42817D5A7DD00C53EF9 /* BookingDetails.m */,
 				DC5E972217D074B100D820AE /* Person.h */,
@@ -468,6 +481,26 @@
 				DCD9C41417D4B51B00C53EF9 /* settings@2x.png */,
 			);
 			name = images;
+			sourceTree = "<group>";
+		};
+		DCB1465517E70A6500222AF6 /* LogOvertime */ = {
+			isa = PBXGroup;
+			children = (
+				DCB1465617E70AB100222AF6 /* DKALogOvertimeVC.h */,
+				DCB1465717E70AB100222AF6 /* DKALogOvertimeVC.m */,
+			);
+			name = LogOvertime;
+			sourceTree = "<group>";
+		};
+		DCB1465917E71B8100222AF6 /* Voucher */ = {
+			isa = PBXGroup;
+			children = (
+				DCB1465D17E71C5600222AF6 /* NISignatureViewQuartzQuadratic.h */,
+				DCB1465E17E71C5600222AF6 /* NISignatureViewQuartzQuadratic.m */,
+				DCB1465A17E71BBE00222AF6 /* DKAVoucherVC.h */,
+				DCB1465B17E71BBE00222AF6 /* DKAVoucherVC.m */,
+			);
+			name = Voucher;
 			sourceTree = "<group>";
 		};
 		DCD9C3D817D4ADB300C53EF9 /* testflight */ = {
@@ -639,17 +672,20 @@
 			files = (
 				DC5E970F17CF4E7F00D820AE /* AFImageRequestOperation.m in Sources */,
 				DC5E96F417CF29B300D820AE /* DKALoginVC.m in Sources */,
+				DCB1465F17E71C5600222AF6 /* NISignatureViewQuartzQuadratic.m in Sources */,
 				DC5E96BE17CE262700D820AE /* main.m in Sources */,
 				DC5E971417CF4E7F00D820AE /* AFXMLRequestOperation.m in Sources */,
 				DC5E96C217CE262700D820AE /* DKAAppDelegate.m in Sources */,
 				DC5E971517CF4E7F00D820AE /* UIImageView+AFNetworking.m in Sources */,
 				DC5E972417D074B100D820AE /* Person.m in Sources */,
-				DCD9C42C17D5A7DE00C53EF9 /* Booking.m in Sources */,
 				DCD9C42917D5A7DD00C53EF9 /* BookingDetails.m in Sources */,
+				DCB1466617E859FE00222AF6 /* Booking.m in Sources */,
 				DC5E971317CF4E7F00D820AE /* AFURLConnectionOperation.m in Sources */,
+				DCB1465817E70AB100222AF6 /* DKALogOvertimeVC.m in Sources */,
 				DC5E973617D0C8F500D820AE /* CKCalendarView.m in Sources */,
 				DC5E971117CF4E7F00D820AE /* AFNetworkActivityIndicatorManager.m in Sources */,
 				DCD9C44017D5BECA00C53EF9 /* ClientContactPerson.m in Sources */,
+				DCB1465C17E71BBE00222AF6 /* DKAVoucherVC.m in Sources */,
 				DC5E96C817CE262700D820AE /* DKAFirstViewController.m in Sources */,
 				DC5E971017CF4E7F00D820AE /* AFJSONRequestOperation.m in Sources */,
 				DC5E972B17D07E9400D820AE /* DKAScheduleNavigateVC.m in Sources */,
@@ -666,7 +702,7 @@
 				DC5E972E17D0A9FE00D820AE /* DKAHTTPClient.m in Sources */,
 				DCD9C45C17D7593F00C53EF9 /* NSDate-Utilities.m in Sources */,
 				DC5E970E17CF4E7F00D820AE /* AFHTTPRequestOperation.m in Sources */,
-				DC5E971817CF4EBB00D820AE /* DKANetworkHelper.m in Sources */,
+				DC5E971817CF4EBB00D820AE /* DKAHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -900,6 +936,8 @@
 		DC5E971917CF9D3E00D820AE /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				DCB1466017E8594100222AF6 /* Model 7.xcdatamodel */,
+				DCB1466717E85DB000222AF6 /* Model 8.xcdatamodel */,
 				DCD9C45217D7295E00C53EF9 /* Model 6.xcdatamodel */,
 				DCD9C43D17D5BDBB00C53EF9 /* Model 5.xcdatamodel */,
 				DCD9C42617D5A73B00C53EF9 /* Model 4.xcdatamodel */,
@@ -907,7 +945,7 @@
 				DC5E972F17D0B34F00D820AE /* Model 2.xcdatamodel */,
 				DC5E971A17CF9D3E00D820AE /* Model.xcdatamodel */,
 			);
-			currentVersion = DCD9C45217D7295E00C53EF9 /* Model 6.xcdatamodel */;
+			currentVersion = DCB1466717E85DB000222AF6 /* Model 8.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

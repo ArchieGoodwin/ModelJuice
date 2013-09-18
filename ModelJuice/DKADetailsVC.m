@@ -16,6 +16,9 @@
 #import "Client.h"
 #import "ClientContactPerson.h"
 #import <MapKit/MapKit.h>
+#import "DKAHelper.h"
+#import "DKAVoucherVC.h"
+#import "DKALogOvertimeVC.h"
 @interface DKADetailsVC ()
 {
     int callTag;
@@ -33,6 +36,8 @@
     {
        // self.table.frame = CGRectMake(0, 44, 320, 280);
     }
+
+    [self getDetails];
 
 }
 
@@ -60,7 +65,6 @@
     
     self.table.backgroundColor = MAIN_BACK_COLOR;
     self.view.backgroundColor = MAIN_BACK_COLOR;
-    [self getDetails];
     
     
     /* _currentClient.phone = @"1111111";
@@ -78,6 +82,20 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
+
+
+- (IBAction)btnCreateVoucher:(id)sender {
+    
+    [self performSegueWithIdentifier:@"createVoucher" sender:sender];
+}
+
+- (IBAction)btnLogOvertime:(id)sender {
+    
+    [self performSegueWithIdentifier:@"logOvertime" sender:sender];
+
+}
+
+
 - (IBAction)btnMap:(id)sender {
     
 
@@ -111,6 +129,37 @@
                      }];
     }
     
+}
+
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"createVoucher"]) {
+        
+        DKAVoucherVC *controller = segue.destinationViewController;
+        controller.booking = self.booking;
+        controller.details = self.bookingDetail;
+        controller.client = self.currentClient;
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"clientID = %@", _currentClient.clientID];
+        ClientContactPerson *clientPerson = [ClientContactPerson getSingleObjectByPredicate:predicate];
+        
+        controller.clientPerson = clientPerson;
+        
+        controller.overtimeString = self.overtimeString;
+    }
+    if([segue.identifier isEqualToString:@"logOvertime"])
+    {
+        DKALogOvertimeVC *controller = segue.destinationViewController;
+        controller.booking = self.booking;
+        controller.details = self.bookingDetail;
+        controller.client = self.currentClient;
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"clientID = %@", _currentClient.clientID];
+        ClientContactPerson *clientPerson = [ClientContactPerson getSingleObjectByPredicate:predicate];
+        
+        controller.clientPerson = clientPerson;
+        
+    }
 }
 
 - (IBAction)btnCall:(id)sender {
@@ -167,7 +216,8 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"personId = %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"PersonID"]];
     Person *person = [Person getSingleObjectByPredicate:predicate];
     [[DKAHTTPClient sharedManager] setUsername:person.personLogin andPassword:person.personPwd];
-    
+    [[DKAHTTPClient sharedManager] setParameterEncoding:AFJSONParameterEncoding];
+
     predicate = [NSPredicate predicateWithFormat:@"bookingID = %@", _booking.bookingId];
     BookingDetails *bd = [BookingDetails getSingleObjectByPredicate:predicate];
     if(bd == nil)
@@ -263,6 +313,8 @@
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"personId = %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"PersonID"]];
         Person *person = [Person getSingleObjectByPredicate:predicate];
         [[DKAHTTPClient sharedManager] setUsername:person.personLogin andPassword:person.personPwd];
+        [[DKAHTTPClient sharedManager] setParameterEncoding:AFJSONParameterEncoding];
+
         [[DKAHTTPClient sharedManager] getPath:@"/api/Client/GetClientDetails" parameters:@{@"Id": _booking.clientID} success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"success");
             NSLog(@"[getClient responseData]: %@",responseObject);
@@ -298,6 +350,8 @@
             _currentClient = cli;
             
             [self.table reloadData];
+            [self.table reloadData];
+
             
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -371,6 +425,14 @@
 {
     if(indexPath.row == 0)
     {
+        UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"DetailsCell"];
+        UIView *container = cell.contentView.subviews[0];
+        float height = [[DKAHelper sharedInstance] getLabelSize:_bookingDetail.notes font:((UILabel *)[container viewWithTag:211]).font width:((UILabel *)[container viewWithTag:211]).frame.size.width];
+        
+        if(height > 66)
+        {
+            return (350 + (height - 66));
+        }
         return 350;
     }
     if(indexPath.row == 1)
@@ -395,6 +457,12 @@
         UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"DetailsCell"];
         UIView *container = cell.contentView.subviews[0];
 
+        UIView *cont = [[UIView alloc] initWithFrame:container.frame];
+        cont.backgroundColor = [UIColor whiteColor];
+        
+        [cell.contentView addSubview:cont];
+        [cell.contentView sendSubviewToBack:cont];
+        
         if(_bookingDetail && _currentClient)
         {
             
@@ -413,7 +481,7 @@
                 
             }
             
-            container.layer.cornerRadius = 5;
+            cont.layer.cornerRadius = 5;
             
             NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
             [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
@@ -435,8 +503,55 @@
             //((UILabel *)[container viewWithTag:212]).text = _bookingDetail.team;
             //((UILabel *)[container viewWithTag:213]).text = _bookingDetail.hair;
             //((UILabel *)[container viewWithTag:214]).text = _bookingDetail.stylist;
+            
+            NSLog(@"%@", _bookingDetail.notes);
             ((UILabel *)[container viewWithTag:211]).text = _bookingDetail.notes;
-            ((UILabel *)[container viewWithTag:215]).text = [NSString stringWithFormat:@"Details  $%@/hour", _bookingDetail.hourlyRate];
+            
+    
+            if(_bookingDetail.orHours != nil && _bookingDetail.orHours.floatValue > 0)
+            {
+                ((UILabel *)[container viewWithTag:215]).text = [NSString stringWithFormat:@"Details  $%@/hour  (overtime: %.2f$)", _bookingDetail.hourlyRate, _bookingDetail.orHours.floatValue * _bookingDetail.otRate.floatValue];
+
+            }
+            else
+            {
+                ((UILabel *)[container viewWithTag:215]).text = [NSString stringWithFormat:@"Details  $%@/hour", _bookingDetail.hourlyRate];
+
+            }
+
+            float height = [[DKAHelper sharedInstance] getLabelSize:_bookingDetail.notes font:((UILabel *)[container viewWithTag:211]).font width:((UILabel *)[container viewWithTag:211]).frame.size.width];
+            
+            if(height > 66)
+            {
+                CGRect frame =((UILabel *)[container viewWithTag:211]).frame;
+                frame.size.height = height;
+                ((UILabel *)[container viewWithTag:211]).frame = frame;
+                ((UILabel *)[container viewWithTag:211]).hidden = YES;
+                UILabel *lblTeam = [[UILabel alloc] initWithFrame:frame];
+                lblTeam.text = _bookingDetail.notes;
+                lblTeam.font =((UILabel *)[container viewWithTag:211]).font;
+                lblTeam.numberOfLines = 0;
+                lblTeam.lineBreakMode = NSLineBreakByWordWrapping;
+                [container addSubview:lblTeam];
+                
+                frame =((UILabel *)[container viewWithTag:215]).frame;
+                frame.origin.y = frame.origin.y + (height - 66);
+                ((UILabel *)[container viewWithTag:215]).frame = frame;
+                ((UILabel *)[container viewWithTag:215]).hidden = YES;
+
+                UILabel *lblRate = [[UILabel alloc] initWithFrame:frame];
+                lblRate.text = ((UILabel *)[container viewWithTag:215]).text;
+                lblRate.font =((UILabel *)[container viewWithTag:215]).font;
+                [container addSubview:lblRate];
+                
+                
+                frame = cont.frame;
+                frame.size.height = (350 + (height - 66) - 10);
+                cont.frame = frame;
+                
+            }
+            
+            
             
             
         }

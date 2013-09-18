@@ -9,7 +9,7 @@
 #import "DKAScheduleVC.h"
 #import "Person.h"
 #import "NSManagedObject+NWCoreDataHelper.h"
-#import "DKANetworkHelper.h"
+#import "DKAHelper.h"
 #import "DKAHTTPClient.h"
 #import "Booking.h"
 #import "CKCalendarView.h"
@@ -42,6 +42,8 @@
 @end
 
 @implementation DKAScheduleVC
+
+#pragma mark ViewController methods
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -108,6 +110,8 @@
     self.table.separatorColor = SEPARATOR_COLOR;
     
     [self preferredStatusBarStyle];
+    
+    [self scrollBookingsToDate:[NSDate date]];
 	// Do any additional setup after loading the view.
 }
 
@@ -131,6 +135,59 @@
 {
     [super viewWillAppear:animated];
     
+
+}
+
+#pragma mark Logic
+
+
+-(void)scrollBookingsToDate:(NSDate *)date
+{
+    //test date
+    /*NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    [dateFormat setDateFormat:@"dd/MM/yyyy"];
+    date = [dateFormat dateFromString:@"08/09/2013"];
+    */
+    //
+    
+    
+    
+    int dateFound = -1;
+    NSMutableArray *dates = [NSMutableArray new];
+    for(int i = 0; i < bookings.count; i++)
+    {
+        Booking *book = bookings[i];
+        if([date isEqualToDateIgnoringTime:book.startDate])
+        {
+            dateFound = i;
+            break;
+        }
+        if([date isEarlierThanDate:book.startDate])
+        {
+            [dates addObject:book];
+        }
+    }
+
+    if(dateFound != -1)
+    {
+        Booking *book = bookings[dateFound];
+
+        CGPoint offset = CGPointMake(0, CELL_HEIGHT * dateFound + [self getIndexOfDateInSections:book.startDate] * 20);
+        [self.table setContentOffset:offset animated:YES];
+    }
+    else
+    {
+        if(dates.count > 0)
+        {
+            Booking *book = bookings[bookings.count - dates.count];
+
+            CGPoint offset = CGPointMake(0, CELL_HEIGHT * (bookings.count - dates.count) + [self getIndexOfDateInSections:book.startDate] * 20);
+            [self.table setContentOffset:offset animated:YES];
+        }
+        
+        
+    }
 
 }
 
@@ -266,7 +323,8 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"personId = %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"PersonID"]];
     Person *person = [Person getSingleObjectByPredicate:predicate];
     [[DKAHTTPClient sharedManager] setUsername:person.personLogin andPassword:person.personPwd];
-    
+    [[DKAHTTPClient sharedManager] setParameterEncoding:AFJSONParameterEncoding];
+
     
     [[DKAHTTPClient sharedManager] getPath:@"/Api/Booking/GetBookings" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"success");
@@ -322,6 +380,9 @@
         [self showBookings];
         
          [refreshControl endRefreshing];
+        
+        [self scrollBookingsToDate:[NSDate date]];
+        
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error!" message:error.description delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];

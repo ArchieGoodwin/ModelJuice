@@ -6,13 +6,26 @@
 //  Copyright (c) 2013 Sergey Dikarev. All rights reserved.
 //
 
-#import "DKANetworkHelper.h"
+#import "DKAHelper.h"
 #import "AFNetworking.h"
 #import "DKADefines.h"
-@implementation DKANetworkHelper
+#import <UIKit/UIKit.h>
+@implementation DKAHelper
+
+
+#pragma mark Helper methods
+
+-(CGFloat)getLabelSize:(NSString *)text font:(UIFont *)font width:(float)width
+{
+    CGSize constraintSize = CGSizeMake(width, MAXFLOAT);
+    CGSize labelSize = [text sizeWithFont:font constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
+    
+    return labelSize.height;
+}
 
 
 
+#pragma mark Network methods
 
 -(void)loginMe:(NSString *)login pwd:(NSString *)pwd completeBlock:(RCCompleteBlockWithPersonResult)completeBlock
 {
@@ -120,9 +133,9 @@
 +(id)sharedInstance
 {
     static dispatch_once_t pred;
-    static DKANetworkHelper *sharedInstance = nil;
+    static DKAHelper *sharedInstance = nil;
     dispatch_once(&pred, ^{
-        sharedInstance = [[DKANetworkHelper alloc] init];
+        sharedInstance = [[DKAHelper alloc] init];
     });
     return sharedInstance;
 }
