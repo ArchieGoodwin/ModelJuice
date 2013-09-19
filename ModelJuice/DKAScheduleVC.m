@@ -19,6 +19,7 @@
 #import "ClientContactPerson.h"
 #import "UILabel+Boldify.h"
 #import "NSDate-Utilities.h"
+#import "Sequencer.h"
 #define CELL_HEIGHT 50
 
 
@@ -64,7 +65,7 @@
     [super viewDidLoad];
     
     
-    UIButton *btnLense = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    /*UIButton *btnLense = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     btnLense.frame = CGRectMake(0, 3, 16, 17);
     [btnLense setImage:[UIImage imageNamed:@"search.png"] forState:UIControlStateNormal];
     UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithCustomView:btnLense];
@@ -80,7 +81,7 @@
                                                                               action:nil];
     flexItem.width = 35;
     
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:plusButton, flexItem, searchButton, nil];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:plusButton, flexItem, searchButton, nil];*/
     
     self.navigationController.navigationBar.backgroundColor = MAIN_ORANGE;
     
@@ -313,7 +314,9 @@
     
     [self.table reloadData];
     
-   
+    [self getDetailsStepByStep];
+
+
     
 }
 
@@ -396,6 +399,31 @@
     
 }
 
+-(void)getDetailsStepByStep
+{
+    Sequencer *sequencer = [[Sequencer alloc] init];
+    
+    for (Booking *book in bookings) {
+        [sequencer enqueueStep:^(id result, SequencerCompletion completion)
+         {
+                 [[DKAHelper sharedInstance] getDetails:book completeBlock:^(BOOL result, NSError *error) {
+                     if(!error)
+                     {
+                         [Booking saveDefaultContext];
+                         
+                         [[DKAHelper sharedInstance] getClient:book.clientID.integerValue completeBlock:^(BOOL result, NSError *error) {
+                             [Client saveDefaultContext];
+                             NSLog(@"Booking %@ and Client %@ received", book.bookingId, book.clientID);
+                         }];
+                     }
+                    
+                 }];
+                 completion([NSNumber numberWithBool:YES]);
+         }];
+    }
+    [sequencer run];
+   
+}
 
 
 #pragma mark - Table view data source

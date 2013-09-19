@@ -89,6 +89,9 @@
 		DCD9C46A17D7669700C53EF9 /* check-box@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD9C46617D7669700C53EF9 /* check-box@2x.png */; };
 		DCD9C46B17D7669700C53EF9 /* checked.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD9C46717D7669700C53EF9 /* checked.png */; };
 		DCD9C46C17D7669700C53EF9 /* checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD9C46817D7669700C53EF9 /* checked@2x.png */; };
+		DCE3FE9417EAD11A0071109E /* Sequencer.m in Sources */ = {isa = PBXBuildFile; fileRef = DCE3FE9317EAD11A0071109E /* Sequencer.m */; };
+		DCE3FE9B17EB00F30071109E /* DKABillingNavigateVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DCE3FE9A17EB00F30071109E /* DKABillingNavigateVC.m */; };
+		DCE3FE9E17EB02880071109E /* DKABillingsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DCE3FE9D17EB02880071109E /* DKABillingsVC.m */; };
 		DCF51BE117D4909A0099795E /* DKADetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF51BE017D4909A0099795E /* DKADetailsVC.m */; };
 /* End PBXBuildFile section */
 
@@ -230,6 +233,12 @@
 		DCD9C46617D7669700C53EF9 /* check-box@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-box@2x.png"; sourceTree = "<group>"; };
 		DCD9C46717D7669700C53EF9 /* checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checked.png; sourceTree = "<group>"; };
 		DCD9C46817D7669700C53EF9 /* checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checked@2x.png"; sourceTree = "<group>"; };
+		DCE3FE9217EAD11A0071109E /* Sequencer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sequencer.h; sourceTree = "<group>"; };
+		DCE3FE9317EAD11A0071109E /* Sequencer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sequencer.m; sourceTree = "<group>"; };
+		DCE3FE9917EB00F30071109E /* DKABillingNavigateVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKABillingNavigateVC.h; sourceTree = "<group>"; };
+		DCE3FE9A17EB00F30071109E /* DKABillingNavigateVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKABillingNavigateVC.m; sourceTree = "<group>"; };
+		DCE3FE9C17EB02880071109E /* DKABillingsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKABillingsVC.h; sourceTree = "<group>"; };
+		DCE3FE9D17EB02880071109E /* DKABillingsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKABillingsVC.m; sourceTree = "<group>"; };
 		DCF51BDF17D4909A0099795E /* DKADetailsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKADetailsVC.h; sourceTree = "<group>"; };
 		DCF51BE017D4909A0099795E /* DKADetailsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKADetailsVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -303,6 +312,7 @@
 			isa = PBXGroup;
 			children = (
 				DCD9C3D817D4ADB300C53EF9 /* testflight */,
+				DCE3FE9517EB00770071109E /* Billings */,
 				DCB1465917E71B8100222AF6 /* Voucher */,
 				DCB1465517E70A6500222AF6 /* LogOvertime */,
 				DCF51BDE17D490830099795E /* Details */,
@@ -365,6 +375,8 @@
 		DC5E96F817CF4E0200D820AE /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				DCE3FE9217EAD11A0071109E /* Sequencer.h */,
+				DCE3FE9317EAD11A0071109E /* Sequencer.m */,
 				DCD9C45A17D7593F00C53EF9 /* NSDate-Utilities.h */,
 				DCD9C45B17D7593F00C53EF9 /* NSDate-Utilities.m */,
 				DC5E973317D0C8E800D820AE /* Calendar */,
@@ -514,6 +526,17 @@
 				DCD9C3DE17D4ADBD00C53EF9 /* TestFlight+ManualSessions.h */,
 			);
 			name = testflight;
+			sourceTree = "<group>";
+		};
+		DCE3FE9517EB00770071109E /* Billings */ = {
+			isa = PBXGroup;
+			children = (
+				DCE3FE9917EB00F30071109E /* DKABillingNavigateVC.h */,
+				DCE3FE9A17EB00F30071109E /* DKABillingNavigateVC.m */,
+				DCE3FE9C17EB02880071109E /* DKABillingsVC.h */,
+				DCE3FE9D17EB02880071109E /* DKABillingsVC.m */,
+			);
+			name = Billings;
 			sourceTree = "<group>";
 		};
 		DCF51BDD17D48DA20099795E /* Settings */ = {
@@ -678,9 +701,11 @@
 				DC5E96C217CE262700D820AE /* DKAAppDelegate.m in Sources */,
 				DC5E971517CF4E7F00D820AE /* UIImageView+AFNetworking.m in Sources */,
 				DC5E972417D074B100D820AE /* Person.m in Sources */,
+				DCE3FE9B17EB00F30071109E /* DKABillingNavigateVC.m in Sources */,
 				DCD9C42917D5A7DD00C53EF9 /* BookingDetails.m in Sources */,
 				DCB1466617E859FE00222AF6 /* Booking.m in Sources */,
 				DC5E971317CF4E7F00D820AE /* AFURLConnectionOperation.m in Sources */,
+				DCE3FE9417EAD11A0071109E /* Sequencer.m in Sources */,
 				DCB1465817E70AB100222AF6 /* DKALogOvertimeVC.m in Sources */,
 				DC5E973617D0C8F500D820AE /* CKCalendarView.m in Sources */,
 				DC5E971117CF4E7F00D820AE /* AFNetworkActivityIndicatorManager.m in Sources */,
@@ -695,6 +720,7 @@
 				DCF51BE117D4909A0099795E /* DKADetailsVC.m in Sources */,
 				DCD9C45117D64FFA00C53EF9 /* UILabel+Boldify.m in Sources */,
 				DC5E971B17CF9D3E00D820AE /* Model.xcdatamodeld in Sources */,
+				DCE3FE9E17EB02880071109E /* DKABillingsVC.m in Sources */,
 				DCD9C45517D7299600C53EF9 /* Client.m in Sources */,
 				DC5E971E17CF9DA000D820AE /* NSManagedObject+NWCoreDataHelper.m in Sources */,
 				DC5E971217CF4E7F00D820AE /* AFPropertyListRequestOperation.m in Sources */,
