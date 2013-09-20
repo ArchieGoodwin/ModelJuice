@@ -14,6 +14,7 @@
 #import "ClientContactPerson.h"
 #import "NSDate-Utilities.h"
 #import "DKADefines.h"
+#import <QuartzCore/QuartzCore.h>
 @interface DKABillingsVC ()
 {
     NSMutableArray *bookings;
@@ -34,13 +35,29 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadAgain) name:@"loading" object:nil];
+
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"personId = %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"PersonID"]];
     bookings = [Booking getFilteredRecordsWithSortedPredicate:predicate key:@"startDate" ascending:YES];
 
     _btnFlag.hidden = YES;
     _lblMessage.hidden = YES;
+    
+    
+    _btnFlag.layer.cornerRadius = 3;
+    _btnFlag.backgroundColor = MAIN_ORANGE;
+    [_btnFlag setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
 	// Do any additional setup after loading the view.
+}
+
+-(void)loadAgain
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"personId = %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"PersonID"]];
+    bookings = [Booking getFilteredRecordsWithSortedPredicate:predicate key:@"startDate" ascending:YES];
+    
+    [self.table reloadData];
 }
 
 -(float)getTotalSum
@@ -102,48 +119,54 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"bookingID = %@", booking.bookingId];
     BookingDetails *bd = [BookingDetails getSingleObjectByPredicate:predicate];
     
-    
-    //schedule
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-    [dateFormat setDateFormat:@"EEEE, MMM dd"];
-    
-    NSString *str = [dateFormat stringFromDate:bd.startDateTime];
-    ((UILabel *)[cell.contentView viewWithTag:103]).text = str;
-    [dateFormat setAMSymbol:@"am"];
-    [dateFormat setPMSymbol:@"pm"];
-    [dateFormat setDateFormat:@"hh:mma"];
-    NSString *strHS = [dateFormat stringFromDate:bd.startDateTime];
-    NSString *strHE = [dateFormat stringFromDate:bd.endDateTime];
-    
-    ((UILabel *)[cell.contentView viewWithTag:104]).text = [NSString stringWithFormat:@"%@ - %@", strHS, strHE].uppercaseString;
-    
-    //name
     predicate = [NSPredicate predicateWithFormat:@"clientID = %@", bd.clientID];
     Client *client = [Client getSingleObjectByPredicate:predicate];
     
-    ((UILabel *)[cell.contentView viewWithTag:101]).text = [client.companyName uppercaseString];
-    ((UILabel *)[cell.contentView viewWithTag:102]).text = bd.bookingTypeName;
-    
-    
-    int minutes = [bd.startDateTime minutesBeforeDate:bd.endDateTime];
-    
-    float total = minutes / 60.0;
-    
-    ((UILabel *)[cell.contentView viewWithTag:105]).text = [NSString stringWithFormat:@"$%.2f", (total * bd.hourlyRate.floatValue + bd.orHours.floatValue * bd.otRate.floatValue)];
-    
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    if([[self.table indexPathsForSelectedRows] containsObject:indexPath])
+    if(bd != nil && client != nil)
     {
-        cell.contentView.backgroundColor = MAIN_BACK_COLOR;
-
+        //schedule
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+        [dateFormat setDateFormat:@"EEEE, MMM dd"];
+        
+        NSString *str = [dateFormat stringFromDate:bd.startDateTime];
+        ((UILabel *)[cell.contentView viewWithTag:103]).text = str;
+        [dateFormat setAMSymbol:@"am"];
+        [dateFormat setPMSymbol:@"pm"];
+        [dateFormat setDateFormat:@"hh:mma"];
+        NSString *strHS = [dateFormat stringFromDate:bd.startDateTime];
+        NSString *strHE = [dateFormat stringFromDate:bd.endDateTime];
+        
+        ((UILabel *)[cell.contentView viewWithTag:104]).text = bd.startDateTime == nil ? @"" : [NSString stringWithFormat:@"%@ - %@", strHS, strHE].uppercaseString;
+        
+        //name
+        
+        
+        ((UILabel *)[cell.contentView viewWithTag:101]).text = [client.companyName uppercaseString];
+        ((UILabel *)[cell.contentView viewWithTag:102]).text = bd.bookingTypeName;
+        
+        
+        int minutes = [bd.startDateTime minutesBeforeDate:bd.endDateTime];
+        
+        float total = minutes / 60.0;
+        
+        ((UILabel *)[cell.contentView viewWithTag:105]).text = [NSString stringWithFormat:@"$%.2f", (total * bd.hourlyRate.floatValue + bd.orHours.floatValue * bd.otRate.floatValue)];
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        if([[self.table indexPathsForSelectedRows] containsObject:indexPath])
+        {
+            cell.contentView.backgroundColor = MAIN_BACK_COLOR;
+            
+        }
+        else
+        {
+            cell.contentView.backgroundColor = [UIColor whiteColor];
+            
+        }
     }
-    else
-    {
-        cell.contentView.backgroundColor = [UIColor whiteColor];
-
-    }
+    
+   
     
     return cell;
 }

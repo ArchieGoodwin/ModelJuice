@@ -41,6 +41,9 @@
 {
     [super viewDidLoad];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getDetails) name:@"loading" object:nil];
+
+    
     /*UIButton *btnLense = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     btnLense.frame = CGRectMake(0, 3, 16, 17);
     [btnLense setImage:[UIImage imageNamed:@"search.png"] forState:UIControlStateNormal];

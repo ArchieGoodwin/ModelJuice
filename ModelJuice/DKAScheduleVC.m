@@ -402,7 +402,7 @@
 -(void)getDetailsStepByStep
 {
     Sequencer *sequencer = [[Sequencer alloc] init];
-    
+    int __block count = 0;
     for (Booking *book in bookings) {
         [sequencer enqueueStep:^(id result, SequencerCompletion completion)
          {
@@ -414,6 +414,12 @@
                          [[DKAHelper sharedInstance] getClient:book.clientID.integerValue completeBlock:^(BOOL result, NSError *error) {
                              [Client saveDefaultContext];
                              NSLog(@"Booking %@ and Client %@ received", book.bookingId, book.clientID);
+                             count++;
+                             if(count == bookings.count)
+                             {
+                                 [[NSNotificationCenter defaultCenter] postNotificationName:@"loading" object:nil userInfo:nil];
+
+                             }
                          }];
                      }
                     

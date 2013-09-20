@@ -12,5 +12,6 @@
 @property (strong, nonatomic) IBOutlet UITableView *table;
 @property (strong, nonatomic) IBOutlet UILabel *lblMessage;
 @property (strong, nonatomic) IBOutlet UIButton *btnFlag;
+@property (strong, nonatomic) IBOutlet UIView *container;
 
 @end
