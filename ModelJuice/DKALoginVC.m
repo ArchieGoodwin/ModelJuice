@@ -16,6 +16,7 @@
 #import "Client.h"
 #import "ClientContactPerson.h"
 #import "DKADefines.h"
+#import "MBProgressHUD.h"
 @interface DKALoginVC ()
 {
     UITextField *loginTxt;
@@ -95,6 +96,8 @@
     {
         if(loginTxt.text.length > 0 && pwdTxt.text.length > 0)
         {
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+
             
             [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"PersonID"];
             
@@ -122,6 +125,9 @@
             [Booking saveDefaultContext];
             
             [[DKAHelper sharedInstance] loginMe:loginTxt.text pwd:pwdTxt.text completeBlock:^(Person *result, NSError *error) {
+                
+                [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+
                 if(!error)
                 {
                     NSLog(@"success login");
@@ -176,7 +182,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 5;
+    return 6;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -190,7 +196,9 @@
         case 3:
             return 50;
         case 4:
-            return 133;
+            return 50;
+        case 5:
+            return 50;
             
         default:
             break;
@@ -258,6 +266,21 @@
         return cell;
         
     }
+    if(indexPath.row == 5)
+    {
+        UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"cellRegister"];
+        
+        UIButton *btn = cell.contentView.subviews[0];
+        btn.layer.cornerRadius = 3;
+        btn.backgroundColor = MAIN_ORANGE;
+        cell.contentView.backgroundColor = MAIN_BACK_COLOR;
+        
+        
+        return cell;
+        
+    }
+    
+    
     
     cell.contentView.backgroundColor = MAIN_BACK_COLOR;
     

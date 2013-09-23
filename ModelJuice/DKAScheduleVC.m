@@ -30,6 +30,7 @@
     BOOL calendarShown;
     UIRefreshControl *refreshControl;
     
+    NSDate *selectedDate;
 
     
     NSMutableArray *sections;
@@ -108,11 +109,13 @@
 
     }
     
+    selectedDate = [NSDate date];
+    
     self.table.separatorColor = SEPARATOR_COLOR;
     
     [self preferredStatusBarStyle];
     
-    [self scrollBookingsToDate:[NSDate date]];
+    
 	// Do any additional setup after loading the view.
 }
 
@@ -136,7 +139,7 @@
 {
     [super viewWillAppear:animated];
     
-
+    [self scrollBookingsToDate:selectedDate];
 }
 
 #pragma mark Logic
@@ -664,6 +667,8 @@
     //self.dateLabel.text = [self.dateFormatter stringFromDate:date];
     
     int i = 0;
+    selectedDate = date;
+    
     for(Booking *book in bookings)
     {
         if([self.calendar date:date isSameDayAsDate:book.startDate])

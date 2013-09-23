@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DC0067D617F05B8B0048A93E /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = DC0067D517F05B8B0048A93E /* MBProgressHUD.m */; };
 		DC5E96B217CE262700D820AE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC5E96B117CE262700D820AE /* Foundation.framework */; };
 		DC5E96B417CE262700D820AE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC5E96B317CE262700D820AE /* CoreGraphics.framework */; };
 		DC5E96B617CE262700D820AE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC5E96B517CE262700D820AE /* UIKit.framework */; };
@@ -106,6 +107,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DC0067D417F05B8B0048A93E /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		DC0067D517F05B8B0048A93E /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		DC006DDB17D49D9400E028A5 /* Model 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 3.xcdatamodel"; sourceTree = "<group>"; };
 		DC5E96AE17CE262700D820AE /* ModelJuice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ModelJuice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC5E96B117CE262700D820AE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -375,6 +378,8 @@
 		DC5E96F817CF4E0200D820AE /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				DC0067D417F05B8B0048A93E /* MBProgressHUD.h */,
+				DC0067D517F05B8B0048A93E /* MBProgressHUD.m */,
 				DCE3FE9217EAD11A0071109E /* Sequencer.h */,
 				DCE3FE9317EAD11A0071109E /* Sequencer.m */,
 				DCD9C45A17D7593F00C53EF9 /* NSDate-Utilities.h */,
@@ -715,6 +720,7 @@
 				DC5E971017CF4E7F00D820AE /* AFJSONRequestOperation.m in Sources */,
 				DC5E972B17D07E9400D820AE /* DKAScheduleNavigateVC.m in Sources */,
 				DCD9C44617D5E79200C53EF9 /* DKATabBarVC.m in Sources */,
+				DC0067D617F05B8B0048A93E /* MBProgressHUD.m in Sources */,
 				DC5E96CB17CE262700D820AE /* DKASecondViewController.m in Sources */,
 				DC5E972817D07DD500D820AE /* DKAScheduleVC.m in Sources */,
 				DCF51BE117D4909A0099795E /* DKADetailsVC.m in Sources */,
@@ -861,7 +867,7 @@
 					"/Users/sdikarev/Dropbox/Incoding/Apple\\ coding/ModelJuice/ModelJuice",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0A8E1405-CD04-46CA-A912-BB92FEDB1247";
+				PROVISIONING_PROFILE = "6E3230A5-2969-4C95-8AE2-AEF946CD9D21";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -881,7 +887,7 @@
 					"/Users/sdikarev/Dropbox/Incoding/Apple\\ coding/ModelJuice/ModelJuice",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0A8E1405-CD04-46CA-A912-BB92FEDB1247";
+				PROVISIONING_PROFILE = "6E3230A5-2969-4C95-8AE2-AEF946CD9D21";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
