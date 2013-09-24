@@ -2,7 +2,7 @@
 //  Booking.h
 //  ModelJuice
 //
-//  Created by Nero Wolfe on 9/17/13.
+//  Created by Nero Wolfe on 9/24/13.
 //  Copyright (c) 2013 Sergey Dikarev. All rights reserved.
 //
 
@@ -19,11 +19,12 @@
 @property (nonatomic, retain) NSString * clientName;
 @property (nonatomic, retain) NSString * desc;
 @property (nonatomic, retain) NSDate * endDate;
-@property (nonatomic, retain) NSNumber * personId;
-@property (nonatomic, retain) NSDate * startDate;
 @property (nonatomic, retain) NSNumber * overtimeHours;
 @property (nonatomic, retain) NSNumber * overtimeMinutes;
 @property (nonatomic, retain) NSNumber * overtimeRate;
+@property (nonatomic, retain) NSNumber * personId;
 @property (nonatomic, retain) NSData * singing;
+@property (nonatomic, retain) NSDate * startDate;
+@property (nonatomic, retain) NSDate * paiDateTime;
 
 @end

@@ -30,7 +30,7 @@
 + (void)saveDataInBackgroundWithContext:(void(^)(NSManagedObjectContext *context))saveBlock completion:(void(^)(void))completion;
 + (void)mergeChangesFromNotification:(NSNotification *)notification;
 +(void)saveDefaultContext;
-
++(void)resetDefaultContext;
 +(void)deleteInContext:(NSManagedObject *)object localContext:(NSManagedObjectContext *)localContext;
 +(void)deleteInContext:(NSManagedObject *)object;
 

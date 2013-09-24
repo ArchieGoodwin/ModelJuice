@@ -134,7 +134,7 @@
     {
         [[DKAHTTPClient sharedManager] getPath:@"/Api/Booking/GetBookingDetails" parameters:@{@"Id": booking.bookingId} success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"success");
-            //NSLog(@"[getDetails responseData]: %@",responseObject);
+            NSLog(@"[getDetails responseData]: %@",responseObject);
             
             NSDictionary *res = [[responseObject objectForKey:@"ReturnValue"] objectForKey:@"BookingDetails"];
             
@@ -173,13 +173,14 @@
             book.orHours = [res objectForKey:@"ORHours"] == [NSNull null] ? [NSNumber numberWithFloat:0.0] : [res objectForKey:@"ORHours"];
             book.otRate = [res objectForKey:@"OTRate"] == [NSNull null] ? [NSNumber numberWithFloat:0.0] : [res objectForKey:@"OTRate"];
             NSDate *paidDate = [NSDate date];
+           // NSLog(@"%@", [res objectForKey:@"PaidDateTime"]);
             if([res objectForKey:@"PaidDateTime"] != [NSNull null])
             {
                 paidDate = [dateFormat dateFromString:[res objectForKey:@"PaidDateTime"]];
-                
+                book.paidDateTime = paidDate;
+
             }
             
-            book.paidDateTime = paidDate;
             //book.stylist = [res objectForKey:@"Stylist"] == [NSNull null] ? @"" : [res objectForKey:@"Stylist"];
             //book.team = [res objectForKey:@"Team"] == [NSNull null] ? @"" : [res objectForKey:@"Team"];
             

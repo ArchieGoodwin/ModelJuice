@@ -377,6 +377,12 @@
                 book.clientName = [[booking objectForKey:@"Booking"] objectForKey:@"ClientName"] == [NSNull null] ? @"" :[[booking objectForKey:@"Booking"] objectForKey:@"ClientName"];
 
 
+                if([[booking objectForKey:@"Booking"] objectForKey:@"PaidDateTime"] != [NSNull null])
+                {
+                    NSDate *paidDate = [dateFormat dateFromString:[[booking objectForKey:@"Booking"] objectForKey:@"PaidDateTime"]];
+                    
+                    book.paiDateTime = paidDate;
+                }
 
 
             }

@@ -2,7 +2,7 @@
 //  Booking.m
 //  ModelJuice
 //
-//  Created by Nero Wolfe on 9/17/13.
+//  Created by Nero Wolfe on 9/24/13.
 //  Copyright (c) 2013 Sergey Dikarev. All rights reserved.
 //
 
@@ -18,11 +18,12 @@
 @dynamic clientName;
 @dynamic desc;
 @dynamic endDate;
-@dynamic personId;
-@dynamic startDate;
 @dynamic overtimeHours;
 @dynamic overtimeMinutes;
 @dynamic overtimeRate;
+@dynamic personId;
 @dynamic singing;
+@dynamic startDate;
+@dynamic paiDateTime;
 
 @end

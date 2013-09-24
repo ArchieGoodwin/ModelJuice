@@ -216,6 +216,18 @@
     
 }
 
++(void)resetDefaultContext
+{
+    
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        [appDelegate.managedObjectContext reset];
+        
+    }];
+    
+    
+    
+}
+
 + (void)saveDataInBackgroundWithContext:(void(^)(NSManagedObjectContext *context))saveBlock completion:(void(^)(void))completion
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
