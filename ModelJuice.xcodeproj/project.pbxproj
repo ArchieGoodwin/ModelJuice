@@ -885,7 +885,8 @@
 				INFOPLIST_FILE = "ModelJuice/ModelJuice-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/sdikarev/Dropbox/Incoding/Apple\\ coding/ModelJuice/ModelJuice",
+					"\"$(SRCROOT)/ModelJuice\"",
+					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "6E3230A5-2969-4C95-8AE2-AEF946CD9D21";
@@ -905,7 +906,8 @@
 				INFOPLIST_FILE = "ModelJuice/ModelJuice-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/sdikarev/Dropbox/Incoding/Apple\\ coding/ModelJuice/ModelJuice",
+					"\"$(SRCROOT)/ModelJuice\"",
+					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "6E3230A5-2969-4C95-8AE2-AEF946CD9D21";
