@@ -50,6 +50,7 @@
 		DCB72D7C17F1947600B136E8 /* UIView+GetConstrain.m in Sources */ = {isa = PBXBuildFile; fileRef = DCB72D7B17F1947600B136E8 /* UIView+GetConstrain.m */; };
 		DCB72D7F17F19BDA00B136E8 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = DCB72D7D17F19BDA00B136E8 /* 2.png */; };
 		DCB72D8017F19BDA00B136E8 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = DCB72D7E17F19BDA00B136E8 /* 1.png */; };
+		DCB72D8317F2F00C00B136E8 /* DKARegisterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DCB72D8217F2F00C00B136E8 /* DKARegisterVC.m */; };
 		DCD9C3DF17D4ADBD00C53EF9 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DCD9C3D917D4ADBD00C53EF9 /* libTestFlight.a */; };
 		DCD9C3E017D4ADBD00C53EF9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DCD9C3DA17D4ADBD00C53EF9 /* README.md */; };
 		DCD9C3E117D4ADBD00C53EF9 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = DCD9C3DB17D4ADBD00C53EF9 /* release_notes.md */; };
@@ -182,13 +183,15 @@
 		DCB1465E17E71C5600222AF6 /* NISignatureViewQuartzQuadratic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NISignatureViewQuartzQuadratic.m; sourceTree = "<group>"; };
 		DCB1466017E8594100222AF6 /* Model 7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.xcdatamodel"; sourceTree = "<group>"; };
 		DCB1466717E85DB000222AF6 /* Model 8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.xcdatamodel"; sourceTree = "<group>"; };
-		DCB72D7617F18AC100B136E8 /* Model 9.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Model 9.xcdatamodel"; sourceTree = "<group>"; };
+		DCB72D7617F18AC100B136E8 /* Model 9.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 9.xcdatamodel"; sourceTree = "<group>"; };
 		DCB72D7717F18AE900B136E8 /* Booking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Booking.h; sourceTree = "<group>"; };
 		DCB72D7817F18AE900B136E8 /* Booking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Booking.m; sourceTree = "<group>"; };
 		DCB72D7A17F1947600B136E8 /* UIView+GetConstrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+GetConstrain.h"; sourceTree = "<group>"; };
 		DCB72D7B17F1947600B136E8 /* UIView+GetConstrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+GetConstrain.m"; sourceTree = "<group>"; };
 		DCB72D7D17F19BDA00B136E8 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
 		DCB72D7E17F19BDA00B136E8 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
+		DCB72D8117F2F00C00B136E8 /* DKARegisterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKARegisterVC.h; sourceTree = "<group>"; };
+		DCB72D8217F2F00C00B136E8 /* DKARegisterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKARegisterVC.m; sourceTree = "<group>"; };
 		DCD9C3D917D4ADBD00C53EF9 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		DCD9C3DA17D4ADBD00C53EF9 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		DCD9C3DB17D4ADBD00C53EF9 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
@@ -379,6 +382,8 @@
 			children = (
 				DC5E96F217CF29B300D820AE /* DKALoginVC.h */,
 				DC5E96F317CF29B300D820AE /* DKALoginVC.m */,
+				DCB72D8117F2F00C00B136E8 /* DKARegisterVC.h */,
+				DCB72D8217F2F00C00B136E8 /* DKARegisterVC.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -738,6 +743,7 @@
 				DC5E96CB17CE262700D820AE /* DKASecondViewController.m in Sources */,
 				DC5E972817D07DD500D820AE /* DKAScheduleVC.m in Sources */,
 				DCF51BE117D4909A0099795E /* DKADetailsVC.m in Sources */,
+				DCB72D8317F2F00C00B136E8 /* DKARegisterVC.m in Sources */,
 				DCD9C45117D64FFA00C53EF9 /* UILabel+Boldify.m in Sources */,
 				DC5E971B17CF9D3E00D820AE /* Model.xcdatamodeld in Sources */,
 				DCE3FE9E17EB02880071109E /* DKABillingsVC.m in Sources */,
