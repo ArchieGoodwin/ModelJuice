@@ -23,4 +23,5 @@ typedef void (^RCCompleteBlockWithPersonResult)  (Person *result, NSError *error
 -(void)getDetails:(Booking *)booking completeBlock:(RCCompleteBlockWithBoolResult)completeBlock;
 -(void)getClient:(NSInteger)clientId completeBlock:(RCCompleteBlockWithBoolResult)completeBlock;
 -(BOOL)isIphone5;
+-(NSDictionary*)splitQuery:(NSString*)query;
 @end

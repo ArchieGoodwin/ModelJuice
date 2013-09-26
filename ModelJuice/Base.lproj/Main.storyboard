@@ -812,7 +812,7 @@
                                                     <color key="textColor" red="0.71764707569999997" green="0.45490199329999997" blue="0.15686275059999999" alpha="1" colorSpace="deviceRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="model@example.com" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dig-oP-TdB">
+                                                <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dig-oP-TdB">
                                                     <rect key="frame" x="47" y="36" width="226" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -839,7 +839,7 @@
                                                     <color key="textColor" red="0.71764707569999997" green="0.45490199329999997" blue="0.15686275059999999" alpha="1" colorSpace="deviceRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1111111" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="raP-dR-UmE">
+                                                <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="raP-dR-UmE">
                                                     <rect key="frame" x="45" y="30" width="230" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -976,9 +976,12 @@
                     <navigationItem key="navigationItem" id="u5O-9f-Xzf"/>
                     <connections>
                         <outlet property="webView" destination="udN-a9-1yO" id="zoK-Jb-npY"/>
+                        <segue destination="8YX-ce-x5E" kind="push" identifier="startMe" id="LKb-VS-9Sn"/>
+                        <segue destination="k0m-qM-Fy6" kind="unwind" identifier="backToLogin" unwindAction="done:" id="dpe-bj-CXa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hd4-AL-Ozc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="k0m-qM-Fy6" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="132" y="-887"/>
         </scene>
@@ -1085,4 +1088,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="LKb-VS-9Sn"/>
+    </inferredMetricsTieBreakers>
 </document>

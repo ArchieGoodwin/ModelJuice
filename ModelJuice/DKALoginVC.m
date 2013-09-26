@@ -17,6 +17,7 @@
 #import "ClientContactPerson.h"
 #import "DKADefines.h"
 #import "MBProgressHUD.h"
+#import "DKARegisterVC.h"
 @interface DKALoginVC ()
 {
     UITextField *loginTxt;
@@ -43,6 +44,9 @@
 
     self.table.backgroundColor = MAIN_BACK_COLOR;
     
+    _login = nil;
+    _pwd = nil;
+    
     if([[[NSUserDefaults standardUserDefaults] objectForKey:@"rememberMe"] isEqualToString:@"YES"] && [[NSUserDefaults standardUserDefaults] objectForKey:@"PersonID"] != nil)
     {
 
@@ -61,6 +65,10 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
+
+
+
+
 - (IBAction)btnRegister:(id)sender {
     
     [self performSegueWithIdentifier:@"registerUser" sender:self];
@@ -94,53 +102,91 @@
     [self.table setContentOffset:offset animated:YES];
 }
 
+-(void)clearAll
+{
+    
+    
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"PersonID"];
+    
+    for(Booking *book in [Booking getAllRecords])
+    {
+        [Booking deleteInContext:book];
+    }
+    for(BookingDetails *book in [BookingDetails getAllRecords])
+    {
+        [BookingDetails deleteInContext:book];
+    }
+    for(Person *book in [Person getAllRecords])
+    {
+        [Person deleteInContext:book];
+    }
+    for(Client *book in [Client getAllRecords])
+    {
+        [Client deleteInContext:book];
+    }
+    for(ClientContactPerson *book in [ClientContactPerson getAllRecords])
+    {
+        [ClientContactPerson deleteInContext:book];
+    }
+    
+    [Booking saveDefaultContext];
+}
+
+
+
+- (IBAction)done:(UIStoryboardSegue *)segue {
+    
+    DKARegisterVC *vc = segue.sourceViewController;
+    
+    _login = vc.login;
+    _pwd = vc.pwd;
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+
+    [self clearAll];
+    [[DKAHelper sharedInstance] loginMe:_login pwd:_pwd completeBlock:^(Person *result, NSError *error) {
+        
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+
+        if(!error)
+        {
+            NSLog(@"success login");
+            [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"rememberMe"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [self performSegueWithIdentifier:@"startMe" sender:nil];
+        }
+        else
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error!" message:error.description delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alert show];
+        }
+    }];
+    
+}
+
 - (IBAction)registerMe:(id)sender {
     
+   
     if(loginTxt && pwdTxt)
     {
         if(loginTxt.text.length > 0 && pwdTxt.text.length > 0)
         {
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 
-            
-            [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"PersonID"];
-            
-            for(Booking *book in [Booking getAllRecords])
-            {
-                [Booking deleteInContext:book];
-            }
-            for(BookingDetails *book in [BookingDetails getAllRecords])
-            {
-                [BookingDetails deleteInContext:book];
-            }
-            for(Person *book in [Person getAllRecords])
-            {
-                [Person deleteInContext:book];
-            }
-            for(Client *book in [Client getAllRecords])
-            {
-                [Client deleteInContext:book];
-            }
-            for(ClientContactPerson *book in [ClientContactPerson getAllRecords])
-            {
-                [ClientContactPerson deleteInContext:book];
-            }
-            
-            [Booking saveDefaultContext];
-            
+            [self clearAll];
             [[DKAHelper sharedInstance] loginMe:loginTxt.text pwd:pwdTxt.text completeBlock:^(Person *result, NSError *error) {
                 
                 [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-
+                
                 if(!error)
                 {
                     NSLog(@"success login");
-
+                    
                     [self performSegueWithIdentifier:@"startMe" sender:nil];
                 }
                 else
                 {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error!" message:error.description delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error!" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
                     [alert show];
                 }
             }];
@@ -150,6 +196,8 @@
     }
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning!" message:@"You should enter username and password to continue" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alert show];
+    
+    
 }
 
 -(IBAction)changeState:(id)sender

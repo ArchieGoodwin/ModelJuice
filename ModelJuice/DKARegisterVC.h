@@ -11,4 +11,6 @@
 @interface DKARegisterVC : UIViewController <UIWebViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIWebView *webView;
+@property (nonatomic, strong) NSString *login;
+@property (nonatomic, strong) NSString *pwd;
 @end

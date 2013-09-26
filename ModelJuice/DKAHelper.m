@@ -42,7 +42,7 @@
     
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-  
+    
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"[loginMe responseData]: %@", [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
         NSDictionary *answer = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:nil];
@@ -68,11 +68,30 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"loginMe error %@", error.description);
-        if(completeBlock)
-        {
-            completeBlock(nil, error);
+        NSDictionary *answer = [NSJSONSerialization JSONObjectWithData:operation.responseData options:kNilOptions error:nil];
 
+        NSLog(@"loginMe error NSDictionary %@", answer);
+
+        if([answer respondsToSelector:@selector(objectForKey:)])
+        {
+            NSMutableDictionary* details = [NSMutableDictionary dictionary];
+            [details setValue:[answer objectForKey:@"ErrorMessage"]forKey:NSLocalizedDescriptionKey];
+            NSError *err = [NSError errorWithDomain:@"world" code:500 userInfo:details];
+            if(completeBlock)
+            {
+                completeBlock(nil, err);
+                
+            }
         }
+        else
+        {
+            if(completeBlock)
+            {
+                completeBlock(nil, error);
+                
+            }
+        }
+        
             
     }];
     
@@ -259,7 +278,17 @@
 }
 
 
-
+-(NSDictionary*)splitQuery:(NSString*)query {
+    if(!query||[query length]==0) return nil;
+    NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
+    for(NSString* parameter in [query componentsSeparatedByString:@"&"]) {
+        NSRange range = [parameter rangeOfString:@"="];
+        if(range.location!=NSNotFound)
+            [parameters setValue:[[parameter substringFromIndex:range.location+range.length] stringByReplacingPercentEscapesUsingEncoding:NSASCIIStringEncoding] forKey:[[parameter substringToIndex:range.location] stringByReplacingPercentEscapesUsingEncoding:NSASCIIStringEncoding]];
+        else [parameters setValue:[[NSString alloc] init] forKey:[parameter stringByReplacingPercentEscapesUsingEncoding:NSASCIIStringEncoding]];
+    }
+    return parameters;
+}
 
 
 

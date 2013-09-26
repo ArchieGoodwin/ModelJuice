@@ -13,4 +13,8 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (strong, nonatomic) IBOutlet UIButton *btnRegister;
+@property (nonatomic, strong) NSString *login;
+@property (nonatomic, strong) NSString *pwd;
+
+- (IBAction)registerMe:(id)sender;
 @end

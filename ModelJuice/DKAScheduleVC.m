@@ -331,6 +331,7 @@
     [[DKAHTTPClient sharedManager] setUsername:person.personLogin andPassword:person.personPwd];
     [[DKAHTTPClient sharedManager] setParameterEncoding:AFJSONParameterEncoding];
 
+    NSLog(@"%@ %@  %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"PersonID"],person.personLogin, person.personPwd );
     
     [[DKAHTTPClient sharedManager] getPath:@"/Api/Booking/GetBookings" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"success");
