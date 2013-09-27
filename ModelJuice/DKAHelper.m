@@ -153,7 +153,7 @@
     {
         [[DKAHTTPClient sharedManager] getPath:@"/Api/Booking/GetBookingDetails" parameters:@{@"Id": booking.bookingId} success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"success");
-            NSLog(@"[getDetails responseData]: %@",responseObject);
+            NSLog(@"[getDetails responseData] getDetails: %@",responseObject);
             
             NSDictionary *res = [[responseObject objectForKey:@"ReturnValue"] objectForKey:@"BookingDetails"];
             
