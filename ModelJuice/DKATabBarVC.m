@@ -27,10 +27,15 @@
 {
     [super viewDidLoad];
     
-    self.btnTab1.selected = YES;
+    //self.btnTab1.selected = YES;
     
     self.viewButton.frame = CGRectMake(0, self.view.frame.size.height-40, self.view.frame.size.width, 40);
     self.viewButton.backgroundColor = MAIN_ORANGE;
+    
+    self.btnTab1.tintColor = [UIColor whiteColor];
+    self.btnTab2.tintColor = GRAY_TEXT_COLOR;
+    self.btnTab3.tintColor = GRAY_TEXT_COLOR;
+    
     [self.tabBar setHidden:YES];
     [self.view addSubview:self.viewButton];
     
@@ -47,10 +52,19 @@
     self.btnTab1.selected = NO;
     self.btnTab2.selected = NO;
     self.btnTab3.selected = NO;
+    self.btnTab1.tintColor = GRAY_TEXT_COLOR;
+    self.btnTab2.tintColor = GRAY_TEXT_COLOR;
+    self.btnTab3.tintColor = GRAY_TEXT_COLOR;
+
     
-    btn.selected = YES;
+    //btn.selected = YES;
+    btn.tintColor = [UIColor whiteColor];
     [self setSelectedIndex:btn.tag-1000];
  
+    if(btn.tag-1000 == 0 || btn.tag-1000 == 1)
+    {
+        [((UINavigationController *)self.selectedViewController) popToRootViewControllerAnimated:YES];
+    }
     
 }
 

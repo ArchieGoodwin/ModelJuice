@@ -20,6 +20,7 @@
 #import "UILabel+Boldify.h"
 #import "NSDate-Utilities.h"
 #import "Sequencer.h"
+#import "MBProgressHUD.h"
 #define CELL_HEIGHT 50
 
 
@@ -326,6 +327,9 @@
 -(void)refreshSchedule
 {
     
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+
+    
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"personId = %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"PersonID"]];
     Person *person = [Person getSingleObjectByPredicate:predicate];
     [[DKAHTTPClient sharedManager] setUsername:person.personLogin andPassword:person.personPwd];
@@ -400,7 +404,8 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error!" message:error.description delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alert show];
-        
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+
          [refreshControl endRefreshing];
     }];
     
@@ -428,9 +433,20 @@
                              if(count == bookings.count)
                              {
                                  [[NSNotificationCenter defaultCenter] postNotificationName:@"loading" object:nil userInfo:nil];
+                                 [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+
 
                              }
                          }];
+                     }
+                     else
+                     {
+                         if(count == bookings.count)
+                         {
+                             [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                             
+                             
+                         }
                      }
                     
                  }];

@@ -15,6 +15,7 @@
 #import "DKAHTTPClient.h"
 #import "AFNetworking.h"
 #import "NSDate-Utilities.h"
+#import "MBProgressHUD.h"
 @interface DKAVoucherVC ()
 {
     NISignatureViewQuartzQuadratic *sign;
@@ -102,6 +103,9 @@
 
 -(void)sendVoucher
 {
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+
     [[DKAHTTPClient sharedManager] setParameterEncoding:AFFormURLParameterEncoding];
     
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
@@ -118,10 +122,13 @@
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString *response = [operation responseString];
         NSLog(@"response sendVoucher :  [%@]",response);
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 
         NSLog(@"sendVoucher error: %@", [operation error]);
-        
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+
     }];
     
     [operation start];

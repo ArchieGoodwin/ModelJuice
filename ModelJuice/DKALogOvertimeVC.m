@@ -13,6 +13,7 @@
 #import "AFNetworking.h"
 #import "Booking.h"
 #import "BookingDetails.h"
+#import "MBProgressHUD.h"
 @interface DKALogOvertimeVC ()
 {
     UITextField *txtRate;
@@ -111,20 +112,21 @@
 
 -(void)sendOvertimeLog
 {
-    [[DKAHTTPClient sharedManager] setParameterEncoding:AFFormURLParameterEncoding];
-    //[client setDefaultHeader:@"Content-Type" value:@"application/x-www-form-urlencoded; charset=UTF-8"];
-    NSLog(@"%@", [NSDictionary dictionaryWithObjectsAndKeys:_booking.bookingId, @"BookingId", [NSString stringWithFormat:@"%f", [self getTotalTime]], @"OvertimeTime", txtRate.text, @"OvertimeRate", nil] );
-    //[client setDefaultHeader:@"Content-Length" value:[NSString stringWithFormat:@"%d", [[facebookHelper sharedInstance] stringUserCheckins].length]];
-    /*NSMutableURLRequest *request = [[DKAHTTPClient sharedManager] multipartFormRequestWithMethod:@"POST" path:@"/api/Booking/SetBookingOvertimeTimeAndRate" parameters:[NSDictionary dictionaryWithObjectsAndKeys:_booking.bookingId, @"BookingId", [NSNumber numberWithFloat:[self getTotalTime]], @"OvertimeTime", txtRate.text, @"OvertimeRate", nil] constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        //[formData appendPartWithFileData:image name:jp.Title fileName:[NSString stringWithFormat:@"%@.jpg", dateString] mimeType:@"image/jpeg"];
-        
-    }];*/
     
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+
+    [[DKAHTTPClient sharedManager] setParameterEncoding:AFFormURLParameterEncoding];
+    NSLog(@"%@", [NSDictionary dictionaryWithObjectsAndKeys:_booking.bookingId, @"BookingId", [NSString stringWithFormat:@"%f", [self getTotalTime]], @"OvertimeTime", txtRate.text, @"OvertimeRate", nil] );
+
     
     [[DKAHTTPClient sharedManager] postPath:@"/api/Booking/SetBookingOvertimeTimeAndRate" parameters:[NSDictionary dictionaryWithObjectsAndKeys:_booking.bookingId, @"BookingId", [NSNumber numberWithFloat:[self getTotalTime]], @"OvertimeTime", txtRate.text, @"OvertimeRate", nil] success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString *response = [operation responseString];
         NSLog(@"response sendOvertimeLog :  [%@]",response);
         [BookingDetails saveDefaultContext];
+
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+            
+
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         _details.orHours = [NSNumber numberWithFloat:0];
         _details.otRate = [NSNumber numberWithFloat:0];
@@ -132,28 +134,10 @@
         
         //[BookingDetails resetDefaultContext];
         NSLog(@"error: %@", [operation error]);
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+
     }];
     
-    /*AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString *response = [operation responseString];
-        NSLog(@"response sendOvertimeLog :  [%@]",response);
-        [BookingDetails saveDefaultContext];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if([operation.response statusCode] == 403){
-            NSLog(@"sendOvertimeLog Failed");
-            return;
-        }
-        _details.orHours = [NSNumber numberWithFloat:0];
-        _details.otRate = [NSNumber numberWithFloat:0];
-        [BookingDetails saveDefaultContext];
-
-        //[BookingDetails resetDefaultContext];
-        NSLog(@"error: %@", [operation error]);
-        
-    }];*/
-    
-    //[operation start];
 
 
 }
